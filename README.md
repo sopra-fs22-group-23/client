@@ -1,4 +1,6 @@
 # Getting Started with Create React App 2
+![Deployment](https://github.com/sopra-fs22-group-23/client/actions/workflows/deploy.yml/badge.svg)
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
