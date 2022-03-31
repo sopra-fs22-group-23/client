@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
+import "./../../styles/ui/FormField.scss";
 
 export const FormField = props => {
     return (
@@ -9,7 +10,7 @@ export const FormField = props => {
             </label>
             <input
                 className="login input"
-                placeholder="enter here.."
+                placeholder="enter username"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
             />
