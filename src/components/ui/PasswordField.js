@@ -10,7 +10,7 @@ export const PasswordField = props => {
             <input
                 type={"password"}
                 className="login input"
-                placeholder="enter here.."
+                placeholder="enter password"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
             />

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "../ui/Button";
+import { MyButton } from "../ui/MyButton";
 
 const Dashboard = (props) => {
   const openUser = () => {
@@ -9,9 +9,9 @@ const Dashboard = (props) => {
   return (
     <div>
       <h1>DASHBOARD!</h1>
-      <Button width="100%" onClick={() => openUser()}>
+      <MyButton width="100%" onClick={() => openUser()}>
         Click on me
-      </Button>
+      </MyButton>
     </div>
   );
 };

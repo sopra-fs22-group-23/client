@@ -1,10 +1,11 @@
 import React from "react";
+import "../../styles/ui/MyButton.scss"
 
-export const Button = props => (
+export const MyButton = props => (
     <button
       {...props}
       style={{width: props.width, ...props.style}}
-      className={`primary-button ${props.className}`}>
+      className={`MyButton ${props.className}`}>
       {props.children}
     </button>
   );
