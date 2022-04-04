@@ -4,7 +4,7 @@ import "../../styles/ui/Footer.scss";
 const Footer = () => {
   return (
     <div className="rectangle">
-      <div className="infos">
+      <div className="infos-event">
         <div className="date">
           <div className="date-title">Date</div>
           <div className="date-real">29 March 2022</div>

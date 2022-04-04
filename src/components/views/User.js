@@ -1,9 +1,10 @@
 import React from "react";
-import Footer from "../ui/Footer";
+import Header from "./Header";
 
 const User = () => {
   return (
     <dev>
+      <Header />
       user
     </dev>
   );

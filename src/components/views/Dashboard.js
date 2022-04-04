@@ -7,10 +7,12 @@ import ProfileOverview from "../ui/ProfileOverview";
 import DashboardButtons from "../ui/DashboardButtons";
 import EventItemSquare from "../ui/EventItemSquare";
 import "../../styles/_theme.scss";
+import Header from "./Header";
 
 const Dashboard = (props) => {
   return (
     <div>
+      <Header />
       <div class="row">
         <div class="col-5">
           <div class="container">
@@ -26,11 +28,18 @@ const Dashboard = (props) => {
             </div>
           </div>
         </div>
-        <VerticalLineDashboard />
+        {/* <VerticalLineDashboard /> */}
         <div class="col-7">
           <ProfileOverview />
           <DashboardButtons />
-          <EventItemSquare />
+          <div className="row">
+            <div className="col-6">
+              <EventItemSquare />
+            </div>
+            <div className="col-6">
+              <EventItemSquare />
+            </div>
+          </div>
         </div>
       </div>
     </div>
