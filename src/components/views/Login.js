@@ -3,13 +3,16 @@ import {PasswordField} from "../ui/PasswordField";
 import {useState} from "react";
 import "./../../styles/views/Login.scss"
 import {MyButton} from "../ui/MyButton";
+import {useNavigate} from "react-router";
 
 const Login = props => {
     const [password, setPassword] = useState(null);
     const [username, setUsername] = useState(null);
+    const navigate = useNavigate();
 
     const doLogin = async () => {
         console.log("Loggin in!")
+        navigate("/home");
     };
     const doRegister = async () => {
         console.log("Registering!")
