@@ -1,0 +1,52 @@
+.event {
+  .event-title {
+    margin: 27px 0 0 64px;
+    font-size: 43px;
+    color: rgb(41, 99, 124);
+    font-weight: 800;
+  }
+
+  .event-description {
+    margin: 10px 0 0 64px;
+    font-size: 18px;
+    font-weight: 250;
+  }
+
+  .event-organizer {
+    display: flex;
+    flex-direction: row;
+    margin: 100px 0 0 64px;
+  }
+
+  .event-picture {
+    height: 10px;
+    width: 20px;
+  }
+
+  .event-name {
+    font-size: 18px;
+    color: rgb(41, 99, 124);
+  }
+
+  .event-time {
+    font-size: 18px;
+    color: rgb(193, 193, 193);
+    font-weight: 900;
+  }
+
+  .event-information {
+    margin: 27px 0 0 64px;
+    .event-information-title {
+      font-size: 22px;
+      color: rgb(41, 99, 124);
+    }
+
+    .event-information-row {
+      display: flex;
+      flex-direction: row;
+      .event-information-element {
+        font-size: 16px;
+      }
+    }
+  }
+}
