@@ -5,7 +5,6 @@ const User = () => {
   return (
     <dev>
       <Header />
-      user
     </dev>
   );
 };
