@@ -1,0 +1,27 @@
+.buttons {
+  display: flex;
+  flex-direction: row;
+  margin: 50px 0 0 40px;
+}
+.newEvent-button {
+  border-radius: 13px;
+  height: 69px;
+  width: 231px;
+  background-color: #29627c;
+}
+
+.newEvent-label {
+  text-align: left;
+  vertical-align: top;
+  font-size: 22px;
+  line-height: auto;
+  color: #ffffff;
+}
+
+.edit {
+  color: #29627c;
+  position: absolute;
+  margin: 50px 78px 0 0;
+  right: 0;
+  font-size: 18px;
+}

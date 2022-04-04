@@ -1,5 +1,12 @@
+import React from "react";
+import Footer from "../ui/Footer";
+
 const User = () => {
-  return <h1>USER!</h1>;
+  return (
+    <dev>
+      user
+    </dev>
+  );
 };
 
 export default User;
