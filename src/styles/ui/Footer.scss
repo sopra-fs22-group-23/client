@@ -1,0 +1,56 @@
+.rectangle {
+  display: inline-block;
+  border-radius: 40px 40px 0px 0px;
+  height: 120px;
+  width: 100%;
+  background-color: #ffffff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  filter: drop-shadow(0mm -9mm 18mm rgb(41, 99, 124));
+
+  .infos-event {
+    display: flex;
+    flex-direction: row;
+
+    .date {
+      margin: 40px 0 0 60px;
+      .date-title {
+        font-size: 18px;
+        color: rgb(41, 99, 124);
+      }
+      .date-real {
+        font-size: 20px;
+        color: rgb(0, 0, 0);
+        font-weight: 500;
+      }
+    }
+
+    .time {
+      margin: 40px 0 0 110px;
+      .time-title {
+        font-size: 18px;
+        color: rgb(41, 99, 124);
+      }
+      .time-real {
+        font-size: 20px;
+        color: rgb(0, 0, 0);
+        font-weight: 500;
+      }
+    }
+
+    .location {
+      margin: 40px 0 0 110px;
+      .location-title {
+        font-size: 18px;
+        color: rgb(41, 99, 124);
+      }
+      .location-real {
+        font-size: 20px;
+        color: rgb(0, 0, 0);
+        font-weight: 500;
+      }
+    }
+  }
+}
