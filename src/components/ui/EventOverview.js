@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/ui/EventOverview.scss";
-import pic from "../pictures/profilePic.png";
+// import pic from "../pictures/profilePic.png";
 
 const EventOverview = () => {
   return (
@@ -10,7 +10,7 @@ const EventOverview = () => {
         Let’s just cook some pizza together, it’s gonna be fun!
       </div>
       <div className="event-organizer">
-        <img classname="event-picture" src={pic} />
+        {/* <img classname="event-picture" src={pic} /> */}
         <div classname="event-name"> Maya </div>
         <div classname="event-time"> created 30 seconds ago </div>
       </div>
