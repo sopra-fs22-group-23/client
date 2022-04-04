@@ -1,58 +1,18 @@
-import {useDrag, useDrop} from "react-dnd";
 
 
-const MovableItem = ({cardID, name, setItems}) => {
-
-    const changeItemColumn = (currentItem, columnID)=>{
-        setItems((prevState) => {
-            return prevState.map(e =>{
-                console.log(e)
-                console.log(currentItem)
-                return {...e, columnID : e.cardID === currentItem.cardID ? columnID : e.columnID}
-                //when name is the same as of the element
-            })
-        })
-    }
-
-    const [{ isDragging }, drag] = useDrag({
-        item: { cardID: cardID},//important, this name must be uniwue
-        type: 'Card',
-        // collect: (monitor) => ({
-        //     isOver: monitor.isOver(),
-        //     canDrop: monitor.canDrop(),
-        // }),
-        end: (item, monitor) =>{
-            const dropResult = monitor.getDropResult();
-            // console.log(dropResult);
-            if(dropResult){
-                changeItemColumn(item, dropResult.id)
-            }
-        },
-
-    });
-
-    const opacity = isDragging ? 0.4 : 1;
-
+const MovableItem = () => {
     return (
-        <div ref={drag} className='movable-item' style={{  opacity }}>
-            {name}
+        <div className='movable-item'>
+            We will move this item
         </div>
     )
 }
 
-const Column = ({children, title, id}) => {
-    const [, drop] = useDrop({
-        accept: 'Card',
-        drop: () => ({id: id}),
-    });
-
-
+const Column = () => {
     return (
-        <div className='column' ref={drop}>
-            <div>{title}</div>
-            {children}
+        <div className='column first-column'>
+            Column 1
+            <MovableItem/>
         </div>
     )
 }
-
-export {Column, MovableItem}
