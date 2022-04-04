@@ -1,3 +1,4 @@
+
 import {useDrag, useDrop} from "react-dnd";
 
 
@@ -37,8 +38,10 @@ const MovableItem = ({cardID, name, setItems}) => {
         <div ref={drag} className='movable-item' style={{  opacity }}>
             {name}
         </div>
-    )
-}
+        )
+    }
+
+
 
 const Column = ({children, title, id}) => {
     const [, drop] = useDrop({
