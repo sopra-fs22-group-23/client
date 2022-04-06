@@ -4,6 +4,7 @@ import NotFound from "../../views/NotFound";
 import Login from "../../views/Login";
 import User from "../../views/User";
 import Event from "../../views/Event";
+import TaskSession from "../../views/TaskSession";
 import Register from "../../views/Register";
 import ProtectedRoute from "../protectors/ProtectedRoute";
 
@@ -27,6 +28,7 @@ const MainRouter = () => {
         </Route>
         <Route path="/event/:id" element={<Event />} />
         <Route path="*" element={<NotFound />} />
+          <Route path="/taskSession" element={<TaskSession />} />
       </Routes>
     </BrowserRouter>
   );
