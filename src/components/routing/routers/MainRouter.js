@@ -28,7 +28,7 @@ const MainRouter = () => {
         </Route>
         <Route path="/event/:id" element={<Event />} />
         <Route path="*" element={<NotFound />} />
-          <Route path="/taskSession" element={<TaskSession />} />
+        <Route path="/taskSession/:eventID" element={<TaskSession />} />
       </Routes>
     </BrowserRouter>
   );
