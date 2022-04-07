@@ -3,11 +3,18 @@ import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import "./../../styles/taskSession/taskSession.scss"
 import {useState} from "react";
+import {useParams} from "react-router";
 
 const TaskSession = () =>{
 
-    // const [isF_col, setF_Col] = useState(true);
-    // const Item = <MovableItem setF_Col={setF_Col}/>
+    const { eventID } = useParams();
+
+    //TODO get all users for specific event
+
+   //GET all users auf dem Event, die ADMIN oder COLLAB SIND
+    //GET all TASKS from the endpoint
+
+    //CREATE ENDPOINT where I can PATCH a task for userID - or send message to websocket server, that
 
     const [items, setItems] = useState([
         {cardID: 1, name: "item 1", columnID: "col1"},
@@ -22,6 +29,8 @@ const TaskSession = () =>{
             .filter((item)=>item.columnID === columnID)
             .map((item)=> <MovableItem key={item.cardID} cardID={item.cardID} name={item.name} setItems={setItems} />)
     }
+
+
     console.log(MovableItemsForColumn("col1"));
 
     return (
