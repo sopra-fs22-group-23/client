@@ -2,7 +2,7 @@ import "../../styles/ui/ProfileOverview.scss";
 import React from "react";
 import pic from "../pictures/profilePic.png";
 
-const ProfileOverview = () => {
+const ProfileOverview = props => {
   return (
     <div className="profile">
       <p className="hello">Hi Maya!</p>

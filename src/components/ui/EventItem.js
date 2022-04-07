@@ -2,7 +2,7 @@ import React from "react";
 import "../../styles/ui/EventItem.scss";
 import pic from "../pictures/pizza.jpeg";
 
-const EventItem = () => {
+const EventItem = props => {
   return (
     <div className="event-item">
       <img src={pic} className="img" />
