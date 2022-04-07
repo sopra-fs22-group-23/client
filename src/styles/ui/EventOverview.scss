@@ -15,38 +15,44 @@
   .event-organizer {
     display: flex;
     flex-direction: row;
-    margin: 100px 0 0 64px;
-  }
+    margin: 28px 0 0 64px;
 
-  .event-picture {
-    height: 10px;
-    width: 20px;
-  }
-
-  .event-name {
-    font-size: 18px;
-    color: rgb(41, 99, 124);
-  }
-
-  .event-time {
-    font-size: 18px;
-    color: rgb(193, 193, 193);
-    font-weight: 900;
+    .small-profile-pic {
+      height: 46px;
+      width: 46px;
+    }
+    .organizer-name {
+      font-size: 18px;
+      color: rgb(41, 99, 124);
+      text-align: left;
+      line-height: auto;
+      margin-left: 22px;
+      margin-top: 8px;
+    }
+    .creation-time {
+      font-size: 16px;
+      color: rgb(193, 193, 193);
+      font-weight: 400;
+      margin-left: 100px;
+      margin-top: 10px;
+      text-align: left;
+      line-height: auto;
+    }
   }
 
   .event-information {
-    margin: 27px 0 0 64px;
+    margin: 45px 0 0 64px;
+
     .event-information-title {
-      font-size: 22px;
+      font-size: 18px;
+      padding-bottom: 20px;
       color: rgb(41, 99, 124);
     }
 
-    .event-information-row {
+    .event-information-element {
+      font-size: 16px;
+      padding-bottom: 15px;
       display: flex;
-      flex-direction: row;
-      .event-information-element {
-        font-size: 16px;
-      }
     }
   }
 }

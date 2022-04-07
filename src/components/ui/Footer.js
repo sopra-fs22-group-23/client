@@ -1,7 +1,7 @@
 import React from "react";
 import "../../styles/ui/Footer.scss";
 
-const Footer = () => {
+const Footer = props => {
   return (
     <div className="rectangle">
       <div className="infos-event">
