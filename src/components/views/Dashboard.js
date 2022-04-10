@@ -1,22 +1,53 @@
-import { React } from "react";
-import EventList from "./EventList";
+import React from "react";
+import EventItem from "../ui/EventItem";
+import { SearchBar } from "../ui/SearchBar";
+import { useNavigate } from "react-router";
+import FilterButton from "../ui/FilterButton";
 import ProfileOverview from "../ui/ProfileOverview";
 import DashboardButtons from "../ui/DashboardButtons";
 import EventItemSquare from "../ui/EventItemSquare";
 import "../../styles/_theme.scss";
 import Header from "./Header";
-import "../../styles/views/Dashboard.scss";
+import {MyButton} from "../ui/MyButton";
+import {apiLoggedIn, handleError} from "../../helpers/api";
 
 const Dashboard = (props) => {
+
+  const navigate = useNavigate();
+  let userId = localStorage.getItem('userId');
+
+  const logout = async () => {
+    try {
+      await apiLoggedIn().put(`/logout/${userId}`);
+      // Remove the token from the local storage.
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      navigate('/');
+
+    } catch (error) {
+      alert(`Something went wrong during logout: \n${handleError(error)}`);
+    }
+  };
+
   return (
-    <>
+    <div>
       <Header />
       <div class="row">
         <div class="col-5">
           <div class="container">
-            <EventList />
+            <FilterButton />
+            <SearchBar />
+            <div>
+              <ul class="list-group">
+                <EventItem class="list-group-item"></EventItem>
+                <EventItem class="list-group-item">Event 2</EventItem>
+                <EventItem class="list-group-item">Event 3</EventItem>
+                <EventItem class="list-group-item">Event 4</EventItem>
+              </ul>
+            </div>
           </div>
         </div>
+        {/* <VerticalLineDashboard /> */}
         <div class="col-7">
           <ProfileOverview />
           <DashboardButtons />
@@ -30,7 +61,8 @@ const Dashboard = (props) => {
           </div>
         </div>
       </div>
-    </>
+      <MyButton onClick={() => logout()}>Logout</MyButton>
+    </div>
   );
 };
 

@@ -4,12 +4,13 @@ import NotFound from "../../views/NotFound";
 import Login from "../../views/Login";
 import User from "../../views/User";
 import Event from "../../views/Event";
+import Register from "../../views/Register";
 
 const MainRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route exact path="/" element={<><Login/><Register/></>}/>
         <Route path="/home" element={<Dashboard />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/user" element={<User />} />
