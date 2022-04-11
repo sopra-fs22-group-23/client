@@ -4,7 +4,7 @@ import { useState } from "react";
 import "./../../styles/views/Login.scss";
 import { MyButton } from "../ui/MyButton";
 import { useNavigate } from "react-router";
-import {api, handleError} from '../../helpers/api';
+import {api, apiLoggedIn, handleError} from '../../helpers/api';
 
 const Login = (props) => {
   const [username, setUsername] = useState(null);
@@ -15,7 +15,7 @@ const Login = (props) => {
   const doLogin = async () => {
     try {
       const requestBody = JSON.stringify({username, password});
-      const response = await api.post('/login', requestBody);
+      const response = await apiLoggedIn().post('/login', requestBody);
       //response is user returned from server
 
       // Store the token into the local storage.
