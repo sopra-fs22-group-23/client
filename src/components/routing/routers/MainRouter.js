@@ -14,7 +14,7 @@ const MainRouter = () => {
         <Route path="/home" element={<Dashboard />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/user" element={<User />} />
-        <Route path="/event" element={<Event />} />
+        <Route path="/event/:id" element={<Event event />} />
       </Routes>
     </BrowserRouter>
   );
