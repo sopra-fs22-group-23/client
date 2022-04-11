@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useNavigate} from "react-router";
-import {api, handleError} from "../../helpers/api";
+import {api, apiLoggedIn, handleError} from "../../helpers/api";
 import {FormField} from "../ui/FormField";
 import {PasswordField} from "../ui/PasswordField";
 import {MyButton} from "../ui/MyButton";
@@ -13,7 +13,7 @@ const Register = (props) => {
     const doRegister = async () => {
         try {
             const requestBody = JSON.stringify({username, password});
-            const response = await api.post('/users', requestBody);
+            const response = await apiLoggedIn().post('/users', requestBody);
 
             // Store the token into the local storage.
             localStorage.setItem('token', response.headers.token);
