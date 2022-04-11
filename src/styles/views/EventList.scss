@@ -36,3 +36,12 @@
   right: 0;
   bottom: 0;
 }
+.container-list {
+  position: fixed;
+  height: 100%;
+}
+
+.scrollable-list {
+  height: 100%;
+  overflow-y: scroll;
+}
