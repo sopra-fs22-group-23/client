@@ -3,8 +3,9 @@ import { PasswordField } from "../ui/PasswordField";
 import { useState } from "react";
 import "./../../styles/views/Login.scss";
 import { MyButton } from "../ui/MyButton";
+import "../../styles/ui/MyButton.scss"
 import { useNavigate } from "react-router";
-import {api, apiLoggedIn, handleError} from '../../helpers/api';
+import {apiLoggedIn, handleError} from '../../helpers/api';
 
 const Login = (props) => {
   const [username, setUsername] = useState(null);

@@ -1,9 +1,10 @@
 import {useState} from "react";
 import {useNavigate} from "react-router";
-import {api, apiLoggedIn, handleError} from "../../helpers/api";
+import {apiLoggedIn, handleError} from "../../helpers/api";
 import {FormField} from "../ui/FormField";
 import {PasswordField} from "../ui/PasswordField";
 import {MyButton} from "../ui/MyButton";
+import "../../styles/ui/MyButton.scss"
 
 const Register = (props) => {
     const [username, setUsername] = useState(null);
