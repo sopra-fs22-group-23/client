@@ -5,6 +5,7 @@ import DashboardButtons from "../ui/DashboardButtons";
 import EventItemSquare from "../ui/EventItemSquare";
 import "../../styles/_theme.scss";
 import Header from "./Header";
+import "../../styles/views/Dashboard.scss";
 
 const Dashboard = (props) => {
   return (
