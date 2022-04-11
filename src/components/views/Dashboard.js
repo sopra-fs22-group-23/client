@@ -8,6 +8,7 @@ import Header from "./Header";
 import "../../styles/views/Dashboard.scss";
 import {MyButton} from "../ui/MyButton";
 import {apiLoggedIn, handleError} from "../../helpers/api";
+import {useNavigate} from "react-router";
 
 const Dashboard = (props) => {
 
@@ -50,7 +51,7 @@ const Dashboard = (props) => {
         </div>
       </div>
       <MyButton onClick={() => logout()}>Logout</MyButton>
-    </div>
+      </>
   );
 };
 
