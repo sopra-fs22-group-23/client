@@ -6,13 +6,11 @@ export const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-export const apiLoggedIn = axios.create({
+export const apiLoggedIn = () => {return axios.create({
   baseURL: getDomain(),
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + localStorage.getItem("token"),
-  },
-});
+  headers: { 'Content-Type': 'application/json',
+    'Authorization':'Bearer ' + localStorage.getItem('token')}
+});};
 
 export const handleError = (error) => {
   const response = error.response;
