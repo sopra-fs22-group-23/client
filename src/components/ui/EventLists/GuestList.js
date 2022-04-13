@@ -28,8 +28,7 @@ const GuestList = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await apiLoggedIn.get("/events");
-
+        const response = await apiLoggedIn().get("/events");
         setEvents(response.data);
       } catch (error) {
         console.error(
