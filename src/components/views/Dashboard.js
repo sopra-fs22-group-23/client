@@ -16,7 +16,7 @@ const Dashboard = (props) => {
 
   const logout = async () => {
     try {
-      await apiLoggedIn.put(`/logout/${userId}`);
+      await apiLoggedIn().put(`/logout/${userId}`);
       // Remove the token from the local storage.
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
