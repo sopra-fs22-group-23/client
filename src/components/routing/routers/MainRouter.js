@@ -11,13 +11,22 @@ const MainRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-          <Route exact path="/" element={<><Login/><Register/></>}/>
-          <Route element={<ProtectedRoute/>}>
-              <Route path="/home" element={<Dashboard />} />
-              <Route path="/user" element={<User />} />
-          </Route>
-          <Route path="/event/:id" element={<Event event />} />
-          <Route path="*" element={<NotFound />} />
+        <Route
+          exact
+          path="/"
+          element={
+            <>
+              <Login />
+              <Register />
+            </>
+          }
+        />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/home" element={<Dashboard />} />
+          <Route path="/user" element={<User />} />
+        </Route>
+        <Route path="/event/:id" element={<Event />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

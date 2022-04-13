@@ -8,12 +8,11 @@ const Footer = (props) => {
   const [event, setEvent] = useState(null);
   let { id } = useParams();
   let content = <div></div>;
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await apiLoggedIn.get(`/events/${id}`);
+        const response = await apiLoggedIn().get(`/events/${id}`);
 
         setEvent(response.data);
       } catch (error) {
