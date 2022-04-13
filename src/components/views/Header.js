@@ -1,14 +1,16 @@
 import React from "react";
 import { Navbar } from "react-bootstrap";
+import { useNavigate } from "react-router";
 import "../../styles/views/Header.scss";
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <Navbar className="color-nav">
       <div class="container-fluid">
-        <a class="navbar-brand" href="home">
+        <span class="navbar-brand" onClick={navigate("/home")}>
           WeVent
-        </a>
+        </span>
       </div>
     </Navbar>
   );
