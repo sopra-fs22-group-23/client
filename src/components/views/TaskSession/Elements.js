@@ -4,6 +4,7 @@ import {useDrag, useDrop} from "react-dnd";
 
 const MovableItem = ({cardID, name, setItems}) => {
 
+    //is called on drop
     const changeItemColumn = (currentItem, columnID)=>{
         setItems((prevState) => {
             return prevState.map(e =>{
@@ -16,17 +17,19 @@ const MovableItem = ({cardID, name, setItems}) => {
     }
 
     const [{ isDragging }, drag] = useDrag({
-        item: { cardID: cardID},//important, this name must be uniwue
+        item: { cardID: cardID},//important, this name must be unique
         type: 'Card',
         // collect: (monitor) => ({
         //     isOver: monitor.isOver(),
         //     canDrop: monitor.canDrop(),
         // }),
+        //TODO on drag strat send message
         end: (item, monitor) =>{
             const dropResult = monitor.getDropResult();
             // console.log(dropResult);
             if(dropResult){
                 changeItemColumn(item, dropResult.id)
+                //TODO trigger PATCH message to endpoint
             }
         },
 
