@@ -1,8 +1,12 @@
 
 import {useDrag, useDrop} from "react-dnd";
+import {apiLoggedIn} from "../../../helpers/api";
+import {useParams} from "react-router";
 
 
 const MovableItem = ({cardID, name, setItems}) => {
+
+    const { eventID } = useParams();
 
     //is called on drop
     const changeItemColumn = (currentItem, columnID)=>{
@@ -16,6 +20,18 @@ const MovableItem = ({cardID, name, setItems}) => {
         })
     }
 
+    const changeItemOnBackend = (currentItem, newColumn)=>{
+        try{
+            console.log(newColumn);
+            const requestBody = JSON.stringify({userID: newColumn});
+            console.log(requestBody);
+            apiLoggedIn().put("/events/"+eventID+"/tasks/"+currentItem.cardID, requestBody)
+        }
+        catch (error) {
+            alert(`Something went wrong during the db update`);
+        }
+    }
+
     const [{ isDragging }, drag] = useDrag({
         item: { cardID: cardID},//important, this name must be unique
         type: 'Card',
@@ -26,10 +42,10 @@ const MovableItem = ({cardID, name, setItems}) => {
         //TODO on drag strat send message
         end: (item, monitor) =>{
             const dropResult = monitor.getDropResult();
-            // console.log(dropResult);
+            console.log(dropResult);
             if(dropResult){
                 changeItemColumn(item, dropResult.id)
-                //TODO trigger PATCH message to endpoint
+                changeItemOnBackend(item, dropResult.id)//put method for the endpoint
             }
         },
 

@@ -4,6 +4,7 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import "./../../styles/taskSession/taskSession.scss"
 import {useEffect, useState} from "react";
 import {useParams} from "react-router";
+import {apiLoggedIn} from "../../helpers/api";
 
 const TaskSession = () =>{
 
@@ -24,18 +25,39 @@ const TaskSession = () =>{
     ]);
 
     useEffect(()=>{
-        async function fetchData() {
+        async function fetchUsers() {
             try {
-                const response = await apiLogged.get('/users');
+                const response = await apiLoggedIn().get('/events/'+eventID+"/users");
+                const admins = response.data.filter(r => r.eventUserRole !== "GUEST")
+                setUsers(admins)
+                console.log(admins)
             } catch (error) {
-                console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+                console.error(`Something went wrong while fetching the users}`);
                 console.error("Details:", error);
-                alert("Something went wrong while fetching the users! See the console for details.");
+                // alert("Something went wrong while fetching the users! See the console for details.");
             }
-        //call endpoint to get users
+        }
 
-        //call endpoints to get all tasks
-    }, [])
+        async function fetchTasks() {
+            try {
+                const response = await apiLoggedIn().get('/events/'+eventID+"/tasks");
+                const transformed = response.data.map(({id, userID, description}) => ({
+                        cardID:id, columnID: (userID ? userID :0), name:description,
+                        }));
+                //0 since 0 is coded value for not assigned
+                setItems(transformed)
+                console.log(transformed)
+            } catch (error) {
+                console.error(`Something went wrong while fetching the users}`);
+                console.error("Details:", error);
+                // alert("Something went wrong while fetching the users! See the console for details.");
+            }
+        }
+
+        fetchUsers()
+        fetchTasks()
+
+    }, [eventID])
 
     const [items, setItems] = useState([
         {cardID: 1, name: "item 1", columnID: 0},
@@ -76,6 +98,10 @@ const TaskSession = () =>{
       <div className={"taskContainer"}>
           <DndProvider backend={HTML5Backend}>
               {content}
+
+              <Column title="Not asigned" id={0}>
+                  {MovableItemsForColumn(0)}
+              </Column>
 
             {/*<Column title="Adam" id="col1">*/}
             {/*    {MovableItemsForColumn("col1")}*/}
