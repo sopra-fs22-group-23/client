@@ -39,7 +39,7 @@ const MovableItem = ({cardID, name, setItems}) => {
         //     isOver: monitor.isOver(),
         //     canDrop: monitor.canDrop(),
         // }),
-        //TODO on drag strat send message
+        //TODO on drag strat send message to websocket
         end: (item, monitor) =>{
             const dropResult = monitor.getDropResult();
             console.log(dropResult);
