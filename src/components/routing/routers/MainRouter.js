@@ -25,10 +25,10 @@ const MainRouter = () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/home" element={<Dashboard />} />
           <Route path="/user" element={<User />} />
+          <Route path="/taskSession/:eventID" element={<TaskSession />} />
         </Route>
         <Route path="/event/:id" element={<Event />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/taskSession/:eventID" element={<TaskSession />} />
       </Routes>
     </BrowserRouter>
   );
