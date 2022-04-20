@@ -5,7 +5,7 @@ const User = () => {
   return (
     <dev>
       <Header />
-      Hola
+      user
     </dev>
   );
 };
