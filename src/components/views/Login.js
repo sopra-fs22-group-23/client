@@ -3,9 +3,9 @@ import { PasswordField } from "../ui/PasswordField";
 import { useState } from "react";
 import "./../../styles/views/Login.scss";
 import { MyButton } from "../ui/MyButton";
+import "../../styles/ui/MyButton.scss"
 import { useNavigate } from "react-router";
-import {apiLoggedIn, handleError } from "../../helpers/api";
-
+import {apiLoggedIn, handleError} from '../../helpers/api';
 
 const Login = (props) => {
   const [username, setUsername] = useState(null);
@@ -29,21 +29,24 @@ const Login = (props) => {
   };
 
   return (
-    <div className={"marginClass mx-auto w-25"}>
-      <div className={"col-12 text-center login-text py-1 mb-3"}>
-        Login to access your Account.
+      <div className={"marginClass mx-auto w-25"}>
+        <div className={"col-12 text-center login-text py-1 mb-3"}>
+          Login to access your Account.
+        </div>
+        <div className={"col-12 text-center py-1"}>
+          <FormField
+              placeholder={"enter username"}
+              onChange={(un) => setUsername(un)} />
+        </div>
+        <div className={"col-12 text-center py-1"}>
+          <PasswordField
+              onChange={(pw) => setPassword(pw)} />
+        </div>
+        <div className={"col-12 text-center pt-1 pb-3 mt-3"}>
+          <MyButton onClick={() => doLogin()}>Login</MyButton>
+        </div>
+        <hr className={"mx-5"} />
       </div>
-      <div className={"col-12 text-center py-1"}>
-        <FormField onChange={(un) => setUsername(un)} />
-      </div>
-      <div className={"col-12 text-center py-1"}>
-        <PasswordField onChange={(pw) => setPassword(pw)} />
-      </div>
-      <div className={"col-12 text-center pt-1 pb-3 mt-3"}>
-        <MyButton onClick={() => doLogin()}>Login</MyButton>
-      </div>
-      <hr className={"mx-5"} />
-    </div>
   );
 };
 

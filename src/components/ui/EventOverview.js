@@ -1,72 +1,69 @@
-import { React, useEffect, useState } from "react";
+import {React, useEffect, useState} from "react";
 import "../../styles/ui/EventOverview.scss";
 import pic from "../pictures/profilePic.png";
-import { apiLoggedIn, handleError } from "../../helpers/api";
-import { useParams } from "react-router-dom";
-import moment from "moment";
+import {apiLoggedIn} from "../../helpers/api";
+import PropTypes from "prop-types";
+
+const GuestList = ({ user }) => (
+    <div>
+        {user.username}
+    </div>
+);
+
+GuestList.propTypes = {
+    user: PropTypes.object,
+};
 
 const EventOverview = (props) => {
-  const [event, setEvent] = useState(null);
-  let { id } = useParams();
-  let content = <div></div>;
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await apiLoggedIn().get(`/events/${id}`);
+    const [eventUsers, setEventUsers] = useState(null);
+    useEffect(() => {
+        async function loadEventUsers(){
+            const response = await apiLoggedIn().get(`/events/${props.event.id}/users`);
+            setEventUsers(response.data);
+        } loadEventUsers();
+    }, []);
 
-        setEvent(response.data);
-      } catch (error) {
-        console.error(
-          `Something went wrong while fetching the users: \n${handleError(
-            error
-          )}`
+    let content = "";
+
+    if(eventUsers){
+        content = (
+            <div className="event">
+                <div className="event-title">{props.event.title}</div>
+                <div className="event-description">{props.event.description}</div>
+                <div className="event-organizer">
+                    <img src={pic} className="small-profile-pic"/>
+                    <div className="organizer-name"> Maya</div>
+                    <div className="creation-time">
+                      happening {moment(event.eventDate).fromNow()}
+                    </div>
+                </div>
+                <div className="event-information">
+                    <div className="event-information-title"> This event includes</div>
+                    <div className="row">
+                        <div className="col event-information-element">
+                            👍🏻 Collaborators:&nbsp;
+                            {eventUsers.map((user) => (
+                                <GuestList user={user} key={user.id} />
+                            ))}
+                        </div>
+                        <div className="col event-information-element">🖥 {String(props.event.eventLocation)}</div>
+                        <div className="w-100"></div>
+                        <div className="col event-information-element">
+                            🎥 3 friends invited
+                        </div>
+                        <div className="col event-information-element">⌛️ {String(props.event.eventDate)}</div>
+                    </div>
+                </div>
+            </div>
         );
-        console.error("Details:", error);
-        alert(
-          "Something went wrong while fetching the users! See the console for detailss."
-        );
-      }
     }
 
-    fetchData();
-  }, []);
-
-  if (event) {
-    content = (
-      <div className="event">
-        <div className="event-title">{event.title}</div>
-        <div className="event-description">{event.description}</div>
-        <div className="event-organizer">
-          <img src={pic} className="small-profile-pic" />
-          <div className="organizer-name"> Maya </div>
-          <div className="creation-time">
-            happening {moment(event.eventDate).fromNow()}
-          </div>
-        </div>
-        <div className="event-information">
-          <div className="event-information-title"> This event includes </div>
-          <div class="row">
-            <div className="col event-information-element">
-              👍🏻 Collaborators: Luka, Vinz, Leo
-            </div>
-            <div className="col event-information-element">
-              🖥 {event.locationName}
-            </div>
-            <div class="w-100"></div>
-            <div className="col event-information-element">
-              🎥 3 friends invited
-            </div>
-            <div className="col event-information-element">
-              ⌛️ {event.eventDate}
-            </div>
-          </div>
-        </div>
+  return (
+      <div>
+          {content}
       </div>
-    );
-  }
-
-  return <>{content}</>;
+  );
 };
 
 export default EventOverview;

@@ -7,6 +7,7 @@ import Event from "../../views/Event";
 import TaskSession from "../../views/TaskSession";
 import Register from "../../views/Register";
 import ProtectedRoute from "../protectors/ProtectedRoute";
+import EventEdit from "../../views/EventEdit";
 
 const MainRouter = () => {
   return (
@@ -27,7 +28,8 @@ const MainRouter = () => {
           <Route path="/user" element={<User />} />
           <Route path="/taskSession/:eventID" element={<TaskSession />} />
         </Route>
-        <Route path="/event/:id" element={<Event />} />
+        <Route path="/event/:eventId" element={<Event event />} />
+        <Route path="/event/:eventId/edit" element={<EventEdit edit />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
