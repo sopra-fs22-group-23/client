@@ -3,6 +3,7 @@ import { apiLoggedIn, handleError } from "../../helpers/api";
 import PropTypes from "prop-types";
 import "reactjs-popup/dist/index.css";
 import "../../styles/ui/AddInvitees.scss";
+import {useParams} from "react-router-dom";
 
 const User = ({ user }) => {
   let [style, setStyle] = useState("user-item-unclicked");
@@ -30,12 +31,26 @@ User.propTypes = {
 };
 
 const AddInvitees = (props) => {
+  let {eventId} = useParams();
   const [users, setUsers] = useState(null);
   const [invitees, setInvitees] = useState([]);
   let allUsers = <div></div>;
   let inviteesToInvite = (
     <p className="inviteesToInvite-none">No one selected yet</p>
   );
+
+  //TODO: Send userList as in Post Request
+  const postInvitees = async () => {
+    try {
+        const requestBody = JSON.stringify();
+        const response = await apiLoggedIn().post(`/events/${eventId}/users`, requestBody);
+        console.log(response.data);
+    } catch (error) {
+      alert(
+          `Something went wrong during saving invitees: \n${handleError(error)}`
+      );
+    }
+  }
 
   //add or remove user from invitees list by clicking on the name
   const addInvitee = (user) => {
@@ -120,7 +135,7 @@ const AddInvitees = (props) => {
       </div>
       <p className="inviteesToInvite-title">Select the users to invite:</p>
       <div className="popup-inner">{allUsers}</div>
-      <button className="invite-btn" onClick>
+      <button className="invite-btn" onClick={() => postInvitees()}>
         <p className="invite-label">Invite!</p>
       </button>
     </div>

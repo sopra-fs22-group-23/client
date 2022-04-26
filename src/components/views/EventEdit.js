@@ -5,6 +5,7 @@ import { apiLoggedIn, handleError } from "../../helpers/api";
 import { MyButton } from "../ui/MyButton";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
+import NewEvent from "./NewEvent";
 import "../../styles/views/EditEvent.scss";
 
 const EventEdit = (props) => {
@@ -44,24 +45,34 @@ const EventEdit = (props) => {
         <FormField
           label={"Title"}
           placeholder={"..."}
+
           onChange={(ti) => setTitle(ti)}
         />
+
         <FormField
           label={"Description"}
           placeholder={"..."}
+
+
           onChange={(dis) => setDescription(dis)}
         />
+
         <FormField
           label={"Location"}
           placeholder={"..."}
+
           onChange={(loc) => setLocation(loc)}
         />
+
         <FormField
           label={"Date"}
           placeholder={"..."}
+
           onChange={(date) => setDate(date)}
         />
+
         <MyButton onClick={() => updateEvent()}>Save</MyButton>
+        <NewEvent></NewEvent>
       </div>
     </div>
   );
