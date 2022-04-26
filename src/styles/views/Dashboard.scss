@@ -1,0 +1,32 @@
+.profile {
+  width: 700px;
+  margin: 65px 0 0 40px;
+
+  .profilePic {
+    height: 120px;
+    margin-left: 5px;
+    width: 120px;
+  }
+
+  .hello {
+    text-align: left;
+    vertical-align: top;
+    font-size: 48px;
+    color: #1c4a5f;
+    font-weight: 600;
+  }
+
+  .profile-description {
+    text-align: left;
+    vertical-align: top;
+    font-size: 16px;
+    line-height: 156.52272701263428%;
+    color: #000000;
+    margin: 28px 0 0 40px;
+  }
+
+  .pic-description {
+    display: flex;
+    flex-direction: row;
+  }
+}

@@ -1,0 +1,78 @@
+// width: 600px;
+// padding: 20px;
+// border-radius: 8px;
+
+.user-item-unclicked {
+  border-radius: 8px;
+  vertical-align: middle;
+  align-items: center;
+  padding: 4px 4px;
+  border: 1px solid #e2f0f6;
+  background-color: white;
+}
+
+.user-item-clicked {
+  border-radius: 8px;
+  vertical-align: middle;
+  align-items: center;
+  padding: 4px 4px;
+  background-color: #e2f1f6;
+  border: 0.2px solid rgb(41, 99, 124);
+}
+
+.user-username {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 100%;
+  color: #000000;
+}
+
+.inviteesToInvite {
+  margin-bottom: 30px;
+  .inviteesToInvite-label {
+    align-content: left;
+    font-size: 22px;
+    color: rgb(41, 99, 124);
+    font-weight: 800;
+  }
+  .inviteesToInvite-names {
+    align-content: left;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .inviteesToInvite-none {
+    color: rgb(99, 99, 99);
+    align-content: left;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+.inviteesToInvite-title {
+  align-content: left;
+  font-size: 22px;
+  color: rgb(41, 99, 124);
+  font-weight: 800;
+}
+.invite-btn {
+  margin-top: 30px;
+  border-radius: 13px;
+  height: 69px;
+  width: 231px;
+  background-color: #29627c;
+  .invite-label {
+    font-size: 22px;
+    text-align: center;
+    margin-top: 10px;
+    color: #ffffff;
+  }
+}
+.container-list {
+  position: fixed;
+  height: 100%;
+}
+
+.scrollable-list {
+  height: 100%;
+  overflow-y: scroll;
+}
