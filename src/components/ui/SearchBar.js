@@ -11,7 +11,7 @@ export const SearchBar = () => {
         placeholder="Search"
       />
       <button type="button" class="searchButton">
-        <label class="searchButton-label">Search</label>
+        <p class="searchButton-label">Search</p>
       </button>
     </div>
   );

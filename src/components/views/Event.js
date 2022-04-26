@@ -2,8 +2,23 @@ import React from "react";
 import Footer from "../ui/Footer";
 import EventOverview from "../ui/EventOverview";
 import Header from "./Header";
-import SmallProfileOverview from "../ui/SmallProfileOverview";
 import "../../styles/views/Event.scss";
+import pic from "../pictures/profilePic.png";
+
+const SmallProfileOverview = (props) => {
+  return (
+    <div className="profile-container">
+      <div className="profile-info">
+        <img src={pic} className="profile-pic" />
+        <p className="profile-name">Maya</p>
+      </div>
+      <div className="profile-description">
+        My name is Maya and I’m a student at UZH. I love organizing lasagne
+        parties and coding. Let’s meet!
+      </div>
+    </div>
+  );
+};
 
 const Event = (props) => {
   return (
@@ -17,10 +32,10 @@ const Event = (props) => {
           <SmallProfileOverview />
           <div className="event-buttons">
             <button className="event-button-left">
-              <label className="event-label">Edit</label>
+              <p className="event-label">Add Invitees</p>
             </button>
             <button className="event-button">
-              <label className="event-label"> Tasks</label>
+              <p className="event-label"> Tasks</p>
             </button>
           </div>
         </div>
