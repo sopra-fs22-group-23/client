@@ -1,12 +1,12 @@
 import Header from "./Header";
 import React, { useState } from "react";
-import Footer from "../ui/Footer";
 import { FormField } from "../ui/FormField";
 import { apiLoggedIn, handleError } from "../../helpers/api";
 import { MyButton } from "../ui/MyButton";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
 import NewEvent from "./NewEvent";
+import "../../styles/views/EditEvent.scss";
 
 const EventEdit = (props) => {
   let { eventId } = useParams();
@@ -16,7 +16,6 @@ const EventEdit = (props) => {
   const [description, setDescription] = useState(null);
   const [location, setLocation] = useState(null);
   const [date, setDate] = useState(null);
-  const [status, setStatus] = useState(null);
 
   const updateEvent = async () => {
     try {
@@ -25,7 +24,6 @@ const EventEdit = (props) => {
         description,
         location,
         date,
-        status,
       });
       const response = await apiLoggedIn().put(
         `/events/${eventId}`,
@@ -42,36 +40,40 @@ const EventEdit = (props) => {
   return (
     <div>
       <Header />
-      <div>
+      <div className="edit-container">
+        <p className="edit-title">Edit your event:</p>
         <FormField
-          label={"title"}
+          label={"Title"}
           placeholder={"..."}
-          onChange={(ti) => setTitle(ti)}>
-        </FormField>
+
+          onChange={(ti) => setTitle(ti)}
+        />
+
         <FormField
-          label={"description"}
+          label={"Description"}
           placeholder={"..."}
-          onChange={(dis) => setDescription(dis)}>
-        </FormField>
+
+
+          onChange={(dis) => setDescription(dis)}
+        />
+
         <FormField
-          label={"location"}
+          label={"Location"}
           placeholder={"..."}
-          onChange={(loc) => setLocation(loc)}>
-        </FormField>
+
+          onChange={(loc) => setLocation(loc)}
+        />
+
         <FormField
-          label={"date"}
+          label={"Date"}
           placeholder={"..."}
-          onChange={(date) => setDate(date)}>
-        </FormField>
-        <FormField
-          label={"status"}
-          placeholder={"..."}
-          onChange={(stat) => setStatus(stat)}>
-        </FormField>
+
+          onChange={(date) => setDate(date)}
+        />
+
         <MyButton onClick={() => updateEvent()}>Save</MyButton>
         <NewEvent></NewEvent>
       </div>
-      <Footer />
     </div>
   );
 };
