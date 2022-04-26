@@ -6,6 +6,7 @@ export const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
+
 export const apiLoggedIn = () => {return axios.create({
   baseURL: getDomain(),
   headers: { 'Content-Type': 'application/json',
