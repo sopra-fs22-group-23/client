@@ -45,7 +45,7 @@ const NextEvents = () => {
         );
         console.error("Details:", error);
         alert(
-          "Something went wrong while fetching the users! See the console for detailss."
+          "nipqbncqo bvcwoqbuov2buv2Something went wrong while fetching the events! See the console for detailss."
         );
       }
     }

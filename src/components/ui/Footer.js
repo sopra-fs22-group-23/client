@@ -6,24 +6,24 @@ import { useParams } from "react-router-dom";
 
 const Footer = (props) => {
   const [event, setEvent] = useState(null);
-  let { id } = useParams();
+  let { eventId } = useParams();
   let content = <div></div>;
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await apiLoggedIn().get(`/events/${id}`);
+        const response = await apiLoggedIn().get(`/events/${eventId}`);
 
         setEvent(response.data);
       } catch (error) {
         console.error(
-          `Something went wrong while fetching the users: \n${handleError(
+          `Something went wrong while fetching the event: \n${handleError(
             error
           )}`
         );
         console.error("Details:", error);
         alert(
-          "Something went wrong while fetching the users! See the console for detailss."
+          "Something went wrong while fetching the event! See the console for details."
         );
       }
     }
