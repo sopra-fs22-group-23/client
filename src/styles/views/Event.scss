@@ -24,3 +24,37 @@
     color: #ffffff;
   }
 }
+
+.profile-container {
+  border-radius: 24px;
+  background-color: #ffffff;
+  filter: drop-shadow(0.1mm 0.1mm 1mm rgb(210, 210, 210));
+  margin-top: 50px;
+  width: 426px;
+  margin-left: 30px;
+
+  .profile-info {
+    display: flex;
+    padding-left: 27px;
+    padding-top: 25px;
+    .profile-pic {
+      height: 88px;
+      width: 88px;
+    }
+    .profile-name {
+      padding-left: 30px;
+      padding-top: 30px;
+      font-weight: 800;
+      font-size: 18;
+    }
+  }
+  .profile-description {
+    font-weight: 300;
+    font-size: 16;
+    vertical-align: top;
+    line-height: auto;
+    padding-bottom: 25px;
+    margin-left: 30px;
+    margin-top: 20px;
+  }
+}

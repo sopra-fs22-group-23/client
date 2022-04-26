@@ -23,6 +23,7 @@ EventItem.propTypes = {
 const CollaboratorList = () => {
   const [events, setEvents] = useState(null);
   let content = <div></div>;
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     async function fetchData() {
@@ -46,7 +47,7 @@ const CollaboratorList = () => {
     fetchData();
   }, []);
 
-  if (events) {
+  if (events && token) {
     content = (
       <ul class="list-group">
         {events.map((event) => (

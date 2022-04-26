@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar } from "react-bootstrap";
+import { useNavigate } from "react-router";
 import "../../styles/views/Header.scss";
 import {useNavigate} from "react-router";
 import {apiLoggedIn, handleError} from "../../helpers/api";
@@ -26,13 +27,13 @@ const Header = () => {
   return (
     <Navbar className="color-nav">
       <div class="container-fluid">
-        <a class="navbar-brand" href="home">
+        <span class="navbar-brand" onClick={navigate("/home")}>
           WeVent
-        </a>
-          <div className={"mr-2 w-25"}>
-              <MyButton
-                  onClick={() => logout()}>Logout
-              </MyButton>
+        </span>
+        <div className={"mr-2 w-25"}>
+            <MyButton
+                onClick={() => logout()}>Logout
+            </MyButton>
           </div>
       </div>
     </Navbar>

@@ -2,12 +2,26 @@ import React, {useEffect, useState} from "react";
 import Footer from "../ui/Footer";
 import EventOverview from "../ui/EventOverview";
 import Header from "./Header";
-import SmallProfileOverview from "../ui/SmallProfileOverview";
 import "../../styles/views/Event.scss";
 import {useParams} from "react-router-dom";
 import {apiLoggedIn} from "../../helpers/api";
 import pic from "../pictures/profilePic.png";
 import {useNavigate} from "react-router";
+
+const SmallProfileOverview = (props) => {
+  return (
+    <div className="profile-container">
+      <div className="profile-info">
+        <img src={pic} className="profile-pic" />
+        <p className="profile-name">Maya</p>
+      </div>
+      <div className="profile-description">
+        My name is Maya and I’m a student at UZH. I love organizing lasagne
+        parties and coding. Let’s meet!
+      </div>
+    </div>
+  );
+};
 
 const Event = () => {
 

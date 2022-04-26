@@ -15,15 +15,14 @@ const Login = (props) => {
 
   const doLogin = async () => {
     try {
-      const requestBody = JSON.stringify({username, password});
-      const response = await apiLoggedIn().post('/login', requestBody);
+      const requestBody = JSON.stringify({ username, password });
+      const response = await apiLoggedIn().post("/login", requestBody);
       //response is user returned from server
 
       // Store the token into the local storage.
-      localStorage.setItem('token', response.headers.token);
-      localStorage.setItem('userId', response.data.id);
-      navigate('/home')
-
+      localStorage.setItem("token", response.headers.token);
+      localStorage.setItem("userId", response.data.id);
+      navigate("/home");
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }

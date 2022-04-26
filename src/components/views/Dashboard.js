@@ -1,13 +1,27 @@
 import { React } from "react";
 import EventList from "./EventList";
-import ProfileOverview from "../ui/ProfileOverview";
 import DashboardButtons from "../ui/DashboardButtons";
-import EventItemSquare from "../ui/EventItemSquare";
+import NextEvents from "../ui/NextEvents";
 import "../../styles/_theme.scss";
 import Header from "./Header";
 import "../../styles/views/Dashboard.scss";
+import pic from "../pictures/profilePic.png";
 
-const Dashboard = (props) => {
+const ProfileOverview = (props) => {
+  return (
+    <div className="profile">
+      <p className="hello">Hi Maya!</p>
+      <div className="pic-description">
+        <img src={pic} className="profilePic" />
+        <p className="profile-description">
+          Heyo! My name is Maya and I’m a student at UZH. I love organizing
+          lasagne parties and coding. Let’s meet!
+        </p>
+      </div>
+    </div>
+  );
+};
+
 
   return (
     <>
@@ -21,14 +35,7 @@ const Dashboard = (props) => {
         <div class="col-7">
           <ProfileOverview />
           <DashboardButtons />
-          <div className="row">
-            <div className="col-6">
-              <EventItemSquare />
-            </div>
-            <div className="col-6">
-              <EventItemSquare />
-            </div>
-          </div>
+          <NextEvents />
         </div>
       </div>
       </>

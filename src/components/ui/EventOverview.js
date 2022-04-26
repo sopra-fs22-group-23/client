@@ -34,7 +34,9 @@ const EventOverview = (props) => {
                 <div className="event-organizer">
                     <img src={pic} className="small-profile-pic"/>
                     <div className="organizer-name"> Maya</div>
-                    <div className="creation-time">{String(props.event.eventDate)}</div>
+                    <div className="creation-time">
+                      happening {moment(event.eventDate).fromNow()}
+                    </div>
                 </div>
                 <div className="event-information">
                     <div className="event-information-title"> This event includes</div>
