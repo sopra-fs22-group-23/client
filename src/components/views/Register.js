@@ -7,13 +7,15 @@ import {MyButton} from "../ui/MyButton";
 import "../../styles/ui/MyButton.scss"
 
 const Register = (props) => {
+    const [name, setName] = useState(null);
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
+    const [email, setEmail] = useState(null);
     const navigate = useNavigate();
 
     const doRegister = async () => {
         try {
-            const requestBody = JSON.stringify({username, password});
+            const requestBody = JSON.stringify({name, username, email, password});
             const response = await apiLoggedIn().post('/users', requestBody);
 
             // Store the token into the local storage.
@@ -32,7 +34,19 @@ const Register = (props) => {
                 Register with a few steps.
             </div>
             <div className={"col-12 text-center py-1"}>
-                <FormField onChange={(un) => setUsername(un)} />
+                <FormField
+                    placeholder={"enter name"}
+                    onChange={(na) => setName(na)} />
+            </div>
+            <div className={"col-12 text-center py-1"}>
+                <FormField
+                    placeholder={"enter username"}
+                    onChange={(un) => setUsername(un)} />
+            </div>
+            <div className={"col-12 text-center py-1"}>
+                <FormField
+                    placeholder={"enter email"}
+                    onChange={(em) => setEmail(em)} />
             </div>
             <div className={"col-12 text-center py-1"}>
                 <PasswordField onChange={(pw) => setPassword(pw)} />

@@ -6,6 +6,7 @@ import User from "../../views/User";
 import Event from "../../views/Event";
 import Register from "../../views/Register";
 import ProtectedRoute from "../protectors/ProtectedRoute";
+import EventEdit from "../../views/EventEdit";
 
 const MainRouter = () => {
   return (
@@ -16,7 +17,8 @@ const MainRouter = () => {
               <Route path="/home" element={<Dashboard />} />
               <Route path="/user" element={<User />} />
           </Route>
-          <Route path="/event/:id" element={<Event event />} />
+          <Route path="/event/:eventId" element={<Event event />} />
+          <Route path="/event/:eventId/edit" element={<EventEdit edit />} />
           <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

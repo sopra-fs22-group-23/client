@@ -35,10 +35,13 @@ const Login = (props) => {
           Login to access your Account.
         </div>
         <div className={"col-12 text-center py-1"}>
-          <FormField onChange={(un) => setUsername(un)} />
+          <FormField
+              placeholder={"enter username"}
+              onChange={(un) => setUsername(un)} />
         </div>
         <div className={"col-12 text-center py-1"}>
-          <PasswordField onChange={(pw) => setPassword(pw)} />
+          <PasswordField
+              onChange={(pw) => setPassword(pw)} />
         </div>
         <div className={"col-12 text-center pt-1 pb-3 mt-3"}>
           <MyButton onClick={() => doLogin()}>Login</MyButton>

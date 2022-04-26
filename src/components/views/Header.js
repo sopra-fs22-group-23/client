@@ -29,9 +29,11 @@ const Header = () => {
         <a class="navbar-brand" href="home">
           WeVent
         </a>
-        <MyButton
-            onClick={() => logout()}>Logout
-        </MyButton>
+          <div className={"mr-2 w-25"}>
+              <MyButton
+                  onClick={() => logout()}>Logout
+              </MyButton>
+          </div>
       </div>
     </Navbar>
   );
