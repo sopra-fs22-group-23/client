@@ -2,3 +2,24 @@
   width: 80%;
   font-family: Calibri;
 }
+
+.form-input {
+  &__label {
+    height: 24px;
+    width: 150px;
+    color: #000;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    margin-right: 50px;
+  }
+  &__input {
+    box-sizing: border-box;
+    height: 39px;
+    padding-left: 15px;
+    margin-bottom: 5px;
+    min-width: 300px;
+    border: 0.3px solid rgb(41, 99, 124);
+    border-radius: 12px;
+  }
+}

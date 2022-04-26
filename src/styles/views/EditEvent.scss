@@ -1,0 +1,18 @@
+.edit-container {
+  width: fit-content;
+  margin: auto;
+  margin-top: 40px;
+  justify-content: center;
+  padding: 30px;
+  padding-top: 15px;
+  background-color: #ffffff;
+  filter: drop-shadow(0.1mm 0.1mm 1mm rgb(210, 210, 210));
+  border-radius: 24px;
+
+  .edit-title {
+    margin-bottom: 30px;
+    font-size: 35px;
+    color: rgb(41, 99, 124);
+    font-weight: 800;
+  }
+}
