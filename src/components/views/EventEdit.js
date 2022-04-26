@@ -6,6 +6,7 @@ import { apiLoggedIn, handleError } from "../../helpers/api";
 import { MyButton } from "../ui/MyButton";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
+import NewEvent from "./NewEvent";
 
 const EventEdit = (props) => {
   let { eventId } = useParams();
@@ -18,7 +19,6 @@ const EventEdit = (props) => {
   const [status, setStatus] = useState(null);
 
   const updateEvent = async () => {
-    console.log("Ciao cacao");
     try {
       const requestBody = JSON.stringify({
         title,
@@ -46,29 +46,30 @@ const EventEdit = (props) => {
         <FormField
           label={"title"}
           placeholder={"..."}
-          onChange={(ti) => setTitle(ti)}
-        ></FormField>
+          onChange={(ti) => setTitle(ti)}>
+        </FormField>
         <FormField
           label={"description"}
           placeholder={"..."}
-          onChange={(dis) => setDescription(dis)}
-        ></FormField>
+          onChange={(dis) => setDescription(dis)}>
+        </FormField>
         <FormField
           label={"location"}
           placeholder={"..."}
-          onChange={(loc) => setLocation(loc)}
-        ></FormField>
+          onChange={(loc) => setLocation(loc)}>
+        </FormField>
         <FormField
           label={"date"}
           placeholder={"..."}
-          onChange={(date) => setDate(date)}
-        ></FormField>
+          onChange={(date) => setDate(date)}>
+        </FormField>
         <FormField
           label={"status"}
           placeholder={"..."}
-          onChange={(stat) => setStatus(stat)}
-        ></FormField>
+          onChange={(stat) => setStatus(stat)}>
+        </FormField>
         <MyButton onClick={() => updateEvent()}>Save</MyButton>
+        <NewEvent></NewEvent>
       </div>
       <Footer />
     </div>

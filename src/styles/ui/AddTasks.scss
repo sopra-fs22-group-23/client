@@ -1,0 +1,63 @@
+.task-item {
+  border-radius: 8px;
+  vertical-align: middle;
+  align-items: center;
+  padding: 15px 4px;
+  border: 1px solid #e2f0f6;
+  background-color: white;
+  font-size: 12pt;
+}
+
+.task {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 100%;
+  color: #000000;
+}
+
+.task-list {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 100%;
+  color: #000000;
+}
+
+.task-title {
+  align-content: start;
+  font-size: 22px;
+  color: rgb(41, 99, 124);
+  font-weight: 800;
+}
+
+.task-title {
+  align-content: start;
+  font-size: 22px;
+  color: rgb(41, 99, 124);
+  font-weight: 800;
+}
+
+.invite-btn {
+  margin-top: 30px;
+  border-radius: 13px;
+  height: 69px;
+  width: 231px;
+  background-color: #29627c;
+  .invite-label {
+    font-size: 22px;
+    text-align: center;
+    margin-top: 10px;
+    color: #ffffff;
+  }
+}
+
+.task-input {
+  border-radius: 8px;
+  vertical-align: middle;
+  align-items: center;
+  padding: 15px 4px;
+  border: 1px solid #e2f0f6;
+  background-color: black;
+  font-size: 12pt;
+}
