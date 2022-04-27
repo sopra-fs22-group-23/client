@@ -7,3 +7,11 @@ export const getDomain = () => {
 
     return isProduction() ? prodUrl : devUrl;
 };
+
+export const getDomainWS = () => {
+
+    const prodUrl = 'ws://sopra-fs22-group-23-server.herokuapp.com/websockets';
+    const devUrl = 'ws://localhost:8080/websockets';
+
+    return isProduction() ? prodUrl : devUrl;
+};

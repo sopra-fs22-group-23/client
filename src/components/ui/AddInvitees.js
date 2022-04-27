@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { apiLoggedIn, handleError } from "../../helpers/api";
 import PropTypes from "prop-types";
-import "reactjs-popup/dist/index.css";
+// import "reactjs-popup/dist/index.css";
 import "../../styles/ui/AddInvitees.scss";
 import {useParams} from "react-router-dom";
 
