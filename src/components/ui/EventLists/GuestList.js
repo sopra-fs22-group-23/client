@@ -28,7 +28,7 @@ const GuestList = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await apiLoggedIn().get("/events");
+        const response = await apiLoggedIn().get("/events?role=GUEST");
         setEvents(response.data);
       } catch (error) {
         console.error(
@@ -38,7 +38,7 @@ const GuestList = () => {
         );
         console.error("Details:", error);
         alert(
-          "Something went wrong while fetching the users! See the console for detailss."
+          "Something went wrong while fetching the users! See the console for details."
         );
       }
     }
