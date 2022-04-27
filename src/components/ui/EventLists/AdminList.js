@@ -27,7 +27,7 @@ const AdminList = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await apiLoggedIn().get("/events");
+        const response = await apiLoggedIn().get("/events?role=ADMIN");
 
         setEvents(response.data);
       } catch (error) {

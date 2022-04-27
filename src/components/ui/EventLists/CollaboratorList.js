@@ -28,7 +28,7 @@ const CollaboratorList = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await apiLoggedIn().get("/events");
+        const response = await apiLoggedIn().get("/events?role=COLLABORATOR");
 
         setEvents(response.data);
       } catch (error) {
