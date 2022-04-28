@@ -27,7 +27,9 @@ const Event = () => {
 
   let {eventId} = useParams();
   const [event, setEvent] = useState(null);
+  const [myRole, setMyRole] = useState("GUEST");
   const navigate = useNavigate();
+  const myId = localStorage.getItem("userId");
 
   function toEdit(){
     if(event){
@@ -35,10 +37,20 @@ const Event = () => {
     }
   }
 
+  function findMe(eventUsers){
+    for (let i in eventUsers) {
+      if(String(eventUsers[i].id) === String(myId)){
+        setMyRole(eventUsers[i].eventUserRole)
+      }
+    }
+  }
+
   useEffect(() => {
     async function loadEvent(){
       const response = await apiLoggedIn().get(`/events/${eventId}`);
+      const allEventUsers = await apiLoggedIn().get(`events/${eventId}/users`)
       setEvent(response.data);
+      findMe(allEventUsers.data);
     } loadEvent();
   }, []);
 
@@ -65,7 +77,7 @@ const Event = () => {
               </div>
             </div>
           </div>
-          <Footer />
+          <Footer role={myRole} event={event}/>
         </div>
     );
   }

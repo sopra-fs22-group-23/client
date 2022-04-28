@@ -17,16 +17,16 @@ const CreateEvent = (props) => {
 
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
-  const [location, setLocation] = useState(null);
-  const [date, setDate] = useState(null);
+  const [locationName, setLocation] = useState(null);
+  const [eventDate, setDate] = useState(null);
 
   const updateInfos = async () => {
     try {
       const requestBody = JSON.stringify({
         title,
         description,
-        location,
-        date,
+        locationName,
+        eventDate,
       });
       const response = await apiLoggedIn().post(
         `/events`,
@@ -70,8 +70,8 @@ const CreateEvent = (props) => {
         disabled={
           title === null ||
           description === null ||
-          location === null ||
-          date === null
+          locationName === null ||
+          eventDate === null
         }
       >
         Save

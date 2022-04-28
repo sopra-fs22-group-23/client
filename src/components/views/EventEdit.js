@@ -10,7 +10,6 @@ import {Button, Modal, ModalBody} from "react-bootstrap";
 import AddInvitees from "../ui/AddInvitees";
 import AddTasks from "../ui/AddTasks";
 import "../../styles/views/NewEvent.scss";
-import axios from "axios";
 
 const InvitePopup = ({}) => {
   const [show, popup] = useState(false);
