@@ -51,7 +51,7 @@ const EventOverview = (props) => {
             </div>
             <div className="w-100"></div>
             <div className="col event-information-element">
-              🎥 3 friends invited
+              🎥 {String(props.event.eventUsers)}
             </div>
             <div className="col event-information-element">
               ⌛️ {String(props.event.eventDate)}

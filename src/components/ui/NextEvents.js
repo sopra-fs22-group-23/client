@@ -4,24 +4,33 @@ import { apiLoggedIn, handleError } from "../../helpers/api";
 import "../../styles/ui/NextEvents.scss";
 import PropTypes from "prop-types";
 import pic from "../pictures/badic.png";
+import { useNavigate } from "react-router";
 
-const EventItemSquare = ({ event }) => (
-  <div className="event-square">
-    <img src={pic} className="upper" />
-    <div className="lower">
-      <div className="time-box">
-        <p className="month">MAR</p>
-        <p className="date">28</p>
-      </div>
-      <div>
-        <p className="event-name">{event.title}</p>
-        <p className="infos">
-          {event.eventDate} · {event.locationName}
-        </p>
+const EventItemSquare = ({ event }) => {
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `/event/${event.id}`;
+    navigate(path);
+  };
+
+  return (
+    <div className="event-square" onClick={routeChange}>
+      <img src={pic} className="upper" />
+      <div className="lower">
+        <div className="time-box">
+          <p className="month">MAR</p>
+          <p className="date">28</p>
+        </div>
+        <div>
+          <p className="event-name">{event.title}</p>
+          <p className="infos">
+            {event.eventDate} · {event.locationName}
+          </p>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 EventItemSquare.propTypes = {
   event: PropTypes.object,

@@ -1,8 +1,16 @@
 .MyButton {
-  background-color: #29637c;
-  color: white;
-  width: 80%;
-  height: 30px;
-  border-radius: 3px;
+  border-radius: 10px;
+  height: 40px;
+  width: 60%;
+  background-color: #29627c;
   font-size: 10pt;
+  color: white;
+  font-weight: 500;
+}
+
+.MyButton:disabled,
+.MyButton[disabled] {
+  border: 1px solid #29627c;
+  background-color: #7093a0;
+  color: #ffffff;
 }
