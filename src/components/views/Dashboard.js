@@ -36,7 +36,7 @@ const DashboardButtons = () => {
       const requestBody = JSON.stringify({ title, type, status });
       const response = await apiLoggedIn().post("/events", requestBody);
       eventId = response.data.id;
-      navigate(`/event/${eventId}`);
+      navigate(`/event/${eventId}/create`);
     } catch (error) {
       alert(
         `Something went wrong during event creation: \n${handleError(error)}`
@@ -56,6 +56,7 @@ const DashboardButtons = () => {
   );
 };
 
+//TODO: fix NextEvents
 const Dashboard = (props) => {
   return (
     <>

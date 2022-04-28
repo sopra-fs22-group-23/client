@@ -45,29 +45,24 @@ const EventEdit = (props) => {
         <FormField
           label={"Title"}
           placeholder={"..."}
-
           onChange={(ti) => setTitle(ti)}
         />
 
         <FormField
           label={"Description"}
           placeholder={"..."}
-
-
           onChange={(dis) => setDescription(dis)}
         />
 
         <FormField
           label={"Location"}
           placeholder={"..."}
-
           onChange={(loc) => setLocation(loc)}
         />
 
         <FormField
           label={"Date"}
           placeholder={"..."}
-
           onChange={(date) => setDate(date)}
         />
 

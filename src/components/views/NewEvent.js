@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Button, Modal, ModalBody } from "react-bootstrap";
-import AddInvitees from "../ui/AddInvitees";
+import SelectInviteesCollaboratorsTasks from "../ui/SelectGuestsCollaborators";
 import AddTasks from "../ui/AddTasks";
 import "../../styles/views/NewEvent.scss";
+import { MyButton } from "../ui/MyButton";
 
 const NewEvent = ({}) => {
   const [show, popup] = useState(false);
@@ -15,23 +16,21 @@ const NewEvent = ({}) => {
 
   return (
     <div>
-      <Button variant="success" onClick={modalOpen}>
-        Select invitees
-      </Button>
+      <MyButton onClick={modalOpen}>Select invitees</MyButton>
       <Modal show={show} onHide={modalClose}>
         <ModalBody>
-          <AddInvitees />
+          <SelectInviteesCollaboratorsTasks />
         </ModalBody>
       </Modal>
 
-        <Button variant="success" onClick={modalOpenTask}>
-            Select Tasks
-        </Button>
-        <Modal show={showTask} onHide={modalCloseTask}>
-            <ModalBody>
-                <AddTasks />
-            </ModalBody>
-        </Modal>
+      <Button variant="success" onClick={modalOpenTask}>
+        Select Tasks
+      </Button>
+      <Modal show={showTask} onHide={modalCloseTask}>
+        <ModalBody>
+          <AddTasks />
+        </ModalBody>
+      </Modal>
     </div>
   );
 };
