@@ -39,9 +39,11 @@
 .container-list {
   position: fixed;
   height: 100%;
+  padding-bottom: 280px;
 }
 
 .scrollable-list {
+  padding-right: 10px;
   height: 100%;
   overflow-y: scroll;
 }

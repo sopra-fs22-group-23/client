@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import "../../../styles/ui/EventItem.scss";
 import pic from "../../pictures/pizza.jpeg";
 import { useNavigate } from "react-router";
+import moment from "moment";
 
 const EventItem = ({ event }) => {
   let navigate = useNavigate();
@@ -18,7 +19,7 @@ const EventItem = ({ event }) => {
       <div className="info">
         <p className="event-name">{event.title}</p>
         <p className="event-information">
-          {event.eventDate} · {event.locationName}
+          {moment(event.eventDate).format("Do MMM")} · {event.locationName}
         </p>
       </div>
     </div>
