@@ -4,13 +4,13 @@ import {apiLoggedIn} from "../../../helpers/api";
 import {useParams} from "react-router";
 
 
-const MovableItem = ({cardID, name, setItems}) => {
+const MovableItem = (props) => {
 
     const { eventID } = useParams();
 
     //is called on drop
     const changeItemColumn = (currentItem, columnID)=>{
-        setItems((prevState) => {
+        props.setItems((prevState) => {
             return prevState.map(e =>{
                 console.log(e)
                 console.log(currentItem)
@@ -22,9 +22,7 @@ const MovableItem = ({cardID, name, setItems}) => {
 
     const changeItemOnBackend = (currentItem, newColumn)=>{
         try{
-            console.log(newColumn);
             const requestBody = JSON.stringify({userID: newColumn});
-            console.log(requestBody);
             apiLoggedIn().put("/events/"+eventID+"/tasks/"+currentItem.cardID, requestBody)
         }
         catch (error) {
@@ -33,7 +31,7 @@ const MovableItem = ({cardID, name, setItems}) => {
     }
 
     const [{ isDragging }, drag] = useDrag({
-        item: { cardID: cardID},//important, this name must be unique
+        item: { cardID: props.cardID},//important, this name must be unique
         type: 'Card',
         // collect: (monitor) => ({
         //     isOver: monitor.isOver(),
@@ -44,18 +42,32 @@ const MovableItem = ({cardID, name, setItems}) => {
             const dropResult = monitor.getDropResult();
             console.log(dropResult);
             if(dropResult){
-                changeItemColumn(item, dropResult.id)
+                changeItemColumn(item, dropResult.id)//changes the UI
                 changeItemOnBackend(item, dropResult.id)//put method for the endpoint
+                // props.StompClient();
+                sendWebsocketMessageDown(dropResult.id)//will send the message on all other users
             }
         },
-
     });
+
+    const sendWebsocketMessageDown = (columnID) =>{
+        try{
+            props.StompClient.send("/app/sessionScheduler/"+eventID, JSON.stringify(
+                {'userID':localStorage.getItem("userId"),
+                        'taskID': props.cardID,
+                        'columnID': columnID,
+                        'action': "UNLOCK"}));
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
 
     const opacity = isDragging ? 0.4 : 1;
 
     return (
         <div ref={drag} className='movable-item' style={{  opacity }}>
-            {name}
+            {props.name}
         </div>
         )
     }
