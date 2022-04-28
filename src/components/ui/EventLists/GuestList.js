@@ -47,7 +47,7 @@ const GuestList = () => {
         );
         console.error("Details:", error);
         alert(
-          "Something went wrong while fetching the users! See the console for detailss."
+          "Something went wrong while fetching the users! See the console for details."
         );
       }
     }
