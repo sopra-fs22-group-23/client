@@ -54,7 +54,8 @@ const EventOverview = (props) => {
               🎥 {String(props.event.eventUsers)}
             </div>
             <div className="col event-information-element">
-              ⌛️ {String(props.event.eventDate)}
+              ⌛️
+              {moment(props.event.eventDate).format("Do MMMM YYYY, h:mm")}
             </div>
           </div>
         </div>
