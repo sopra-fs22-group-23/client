@@ -47,7 +47,7 @@ const EventOverview = (props) => {
               ))}
             </div>
             <div className="col event-information-element">
-              🖥 {String(props.event.eventLocation)}
+              🖥 {String(props.event)}
             </div>
             <div className="w-100"></div>
             <div className="col event-information-element">

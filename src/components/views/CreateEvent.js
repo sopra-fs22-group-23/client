@@ -4,17 +4,16 @@ import { FormField } from "../ui/FormField";
 import { apiLoggedIn, handleError } from "../../helpers/api";
 import { MyButton } from "../ui/MyButton";
 import { useNavigate } from "react-router";
-import { useParams } from "react-router-dom";
 import "../../styles/views/EditEvent.scss";
 import SelectGuestsCollaborators from "../ui/SelectGuestsCollaborators";
 
 const CreateEvent = (props) => {
-  let { eventId } = useParams();
   const navigate = useNavigate();
 
   const [phase, setPhase] = useState("infos");
 
   let content;
+  const [eventId, setEventId] = useState(null);
 
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
@@ -29,10 +28,11 @@ const CreateEvent = (props) => {
         location,
         date,
       });
-      const response = await apiLoggedIn().put(
-        `/events/${eventId}`,
+      const response = await apiLoggedIn().post(
+        `/events`,
         requestBody
       );
+      setEventId(response.data.id);
       setPhase("guests-collaborators");
     } catch (error) {
       alert(
