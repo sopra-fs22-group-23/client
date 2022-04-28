@@ -23,12 +23,14 @@ const ProfileOverview = (props) => {
 };
 
 const DashboardButtons = () => {
-
   const navigate = useNavigate();
 
   return (
     <div className="buttons">
-      <button className="newEvent-button" onClick={() => navigate("/event/create")}>
+      <button
+        className="newEvent-button"
+        onClick={() => navigate("/event/create")}
+      >
         <label className="newEvent-label">New event!</label>
       </button>
       <a href="user" className="edit">

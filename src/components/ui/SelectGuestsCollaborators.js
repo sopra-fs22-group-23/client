@@ -57,7 +57,7 @@ Invitee.propTypes = {
 };
 
 const SelectGuestsCollaborators = (props) => {
-  let { eventId } = useParams();
+  const eventId = props.eventId;
   const [phase, setPhase] = useState("invitees");
 
   //phase 1: select invitees

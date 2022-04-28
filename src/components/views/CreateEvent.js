@@ -28,10 +28,7 @@ const CreateEvent = (props) => {
         locationName,
         eventDate,
       });
-      const response = await apiLoggedIn().post(
-        `/events`,
-        requestBody
-      );
+      const response = await apiLoggedIn().post(`/events`, requestBody);
       setEventId(response.data.id);
       setPhase("guests-collaborators");
     } catch (error) {
@@ -97,7 +94,12 @@ const CreateEvent = (props) => {
       content = infos;
     }
     if (phase === "guests-collaborators") {
-      content = <SelectGuestsCollaborators setPhase3={setPhase3.bind(this)} />;
+      content = (
+        <SelectGuestsCollaborators
+          setPhase3={setPhase3.bind(this)}
+          eventId={eventId}
+        />
+      );
     }
     if (phase === "picture") {
       content = picture;
