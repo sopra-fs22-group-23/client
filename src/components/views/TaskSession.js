@@ -71,13 +71,31 @@ const TaskSession = () =>{
         SC.connect({username: "adam"}, function(frame) {
             // console.log('Connected: ' + frame);
             SC.subscribe('/topic/sessionScheduler/2', function (messageOutput) {
-                alert("Somebody has dropped task, please renew the page"+(messageOutput.body));
+                parseMessageTaskSession(messageOutput.body)
             });
             setSC(SC)
         });
         console.log(SC);
         // SC.send("/app/sessionScheduler/"+eventID, {}, JSON.stringify({'user':"test", 'taskID':"TEST", 'action': "LOCK"}));
     }, [])
+
+
+    const parseMessageTaskSession = message => {
+        //message is string
+        message = JSON.parse(message)
+        console.log(message)
+        //If user is not you, no need to reset items
+        if(message.userID != localStorage.getItem('userId')){
+            //alert("movement, please reload the page");
+
+            setItems((prevState) => {
+                return prevState.map(e =>{
+                    return {...e, columnID : e.cardID === message.taskID ? message.columnID : e.columnID}
+                    //when name is the same as of the element
+                })
+            })
+        }
+    }
 
 
 

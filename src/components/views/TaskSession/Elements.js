@@ -45,14 +45,18 @@ const MovableItem = (props) => {
                 changeItemColumn(item, dropResult.id)//changes the UI
                 changeItemOnBackend(item, dropResult.id)//put method for the endpoint
                 // props.StompClient();
-                sendWebsocketMessage()//will send the message on all other users
+                sendWebsocketMessageDown(dropResult.id)//will send the message on all other users
             }
         },
     });
 
-    const sendWebsocketMessage = () =>{
+    const sendWebsocketMessageDown = (columnID) =>{
         try{
-            props.StompClient.send("/app/sessionScheduler/"+eventID, JSON.stringify({'user':"test", 'taskID':123, 'action': "LOCK"}));
+            props.StompClient.send("/app/sessionScheduler/"+eventID, JSON.stringify(
+                {'userID':localStorage.getItem("userId"),
+                        'taskID': props.cardID,
+                        'columnID': columnID,
+                        'action': "UNLOCK"}));
         }
         catch (e) {
             console.log(e);
