@@ -5,7 +5,7 @@ import { apiLoggedIn, handleError } from "../../helpers/api";
 import { MyButton } from "../ui/MyButton";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
-import NewEvent from "./NewEvent";
+// import NewEvent from "./NewEvent";
 import "../../styles/views/EditEvent.scss";
 
 const EventEdit = (props) => {
@@ -67,7 +67,7 @@ const EventEdit = (props) => {
         />
 
         <MyButton onClick={() => updateEvent()}>Save</MyButton>
-        <NewEvent></NewEvent>
+        {/* <NewEvent></NewEvent> */}
       </div>
     </div>
   );
