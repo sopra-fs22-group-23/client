@@ -1,15 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "../../styles/ui/FormField.scss";
+import "../../../styles/ui/FormField.scss";
 
-export const PasswordField = (props) => {
+export const FormField = (props) => {
   return (
     <div className="login field">
       <label className="form-input__label">{props.label}</label>
       <input
-        type={"password"}
         className="form-input__input"
-        placeholder="enter password"
+        type={props.type}
+        placeholder={props.placeholder}
         value={props.value}
         onChange={(e) => props.onChange(e.target.value)}
       />
@@ -17,7 +17,7 @@ export const PasswordField = (props) => {
   );
 };
 
-PasswordField.propTypes = {
+FormField.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,

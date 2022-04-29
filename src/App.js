@@ -1,5 +1,5 @@
 import MainRouter from "./components/routing/routers/MainRouter";
-import Header from "./components/views/Header";
+import Header from "./components/ui/StandardComponents/Header";
 
 function App() {
   return (

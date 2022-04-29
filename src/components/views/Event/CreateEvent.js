@@ -1,11 +1,11 @@
-import Header from "./Header";
+import Header from "../../ui/StandardComponents/Header";
 import React, { useState } from "react";
-import { FormField } from "../ui/FormField";
-import { apiLoggedIn, handleError } from "../../helpers/api";
-import { MyButton } from "../ui/MyButton";
+import { FormField } from "../../ui/StandardComponents/FormField";
+import { apiLoggedIn, handleError } from "../../../helpers/api";
+import { MyButton } from "../../ui/StandardComponents/MyButton";
 import { useNavigate } from "react-router";
-import "../../styles/views/EditEvent.scss";
-import SelectGuestsCollaborators from "../ui/SelectGuestsCollaborators";
+import "../../../styles/views/EditEvent.scss";
+import SelectGuestsCollaborators from "../../ui/SelectGuestsCollaborators";
 
 const CreateEvent = (props) => {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ const CreateEvent = (props) => {
       setPhase("guests-collaborators");
     } catch (error) {
       alert(
-        `Something went wrong during event update: \n${handleError(error)}`
+        `Something went wrong during event creation: \n${handleError(error)}`
       );
     }
   };
@@ -41,7 +41,7 @@ const CreateEvent = (props) => {
   //Phase 1: insert infos
   const infos = (
     <div>
-      <p className="edit-title">Edit your event:</p>
+      <p className="edit-title">Create your event:</p>
       <FormField
         label={"Title"}
         placeholder={"..."}
@@ -58,12 +58,13 @@ const CreateEvent = (props) => {
         onChange={(loc) => setLocation(loc)}
       />
       <FormField
+        type={"datetime-local"}
         label={"Date"}
-        placeholder={"..."}
         onChange={(date) => setDate(date)}
       />
       <MyButton
         onClick={() => updateInfos()}
+        className={"SaveEvent"}
         disabled={
           title === null ||
           description === null ||
@@ -113,5 +114,6 @@ const CreateEvent = (props) => {
       <div className="edit-container">{chooseContent()}</div>
     </div>
   );
+
 };
 export default CreateEvent;

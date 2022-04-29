@@ -44,8 +44,8 @@ const Footer = (props) => {
       );
       setTasks(receivedTasks);
       setCollaborators(collaborators);
-      console.log(receivedTasks);
-      console.log("collaborators:" + collaborators);
+      /*console.log(receivedTasks);
+      console.log("collaborators:" + collaborators);*/
     }
     loadTasks();
   }, []);
@@ -84,7 +84,8 @@ const Footer = (props) => {
       </div>
     </div>
   );
-  return <>{content}</>;
+
+    return <>{content}</>;
 };
 
 export default Footer;

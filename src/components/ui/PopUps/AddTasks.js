@@ -1,9 +1,9 @@
-import {FormField} from "./FormField";
-import {MyButton} from "./MyButton";
+import {FormField} from "../StandardComponents/FormField";
+import {MyButton} from "../StandardComponents/MyButton";
 import {React, useState} from "react";
 import PropTypes from "prop-types";
-import "../../styles/ui/AddTasks.scss";
-import {apiLoggedIn, handleError} from "../../helpers/api";
+import "../../../styles/ui/AddTasks.scss";
+import {apiLoggedIn, handleError} from "../../../helpers/api";
 import {useParams} from "react-router-dom";
 
 const Task = ({ task }) => {

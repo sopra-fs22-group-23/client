@@ -1,14 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "../../views/Dashboard";
 import NotFound from "../../views/NotFound";
-import Login from "../../views/Login";
+import Login from "../../views/Login/Login";
 import User from "../../views/User";
-import Event from "../../views/Event";
-import Register from "../../views/Register";
+import Event from "../../views/Event/Event";
+import Register from "../../views/Login/Register";
 import ProtectedRoute from "../protectors/ProtectedRoute";
-import CreateEvent from "../../views/CreateEvent";
-import EventEdit from "../../views/EventEdit";
-import TaskSession from "../../views/TaskSession";
+import CreateEvent from "../../views/Event/CreateEvent";
+import EventEdit from "../../views/Event/EventEdit";
+import TaskSession from "../../views/TaskSession/TaskSession";
 
 const MainRouter = () => {
 

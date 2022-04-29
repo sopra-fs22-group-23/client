@@ -1,53 +1,14 @@
-import Header from "./Header";
+import Header from "../../ui/StandardComponents/Header";
 import React, { useState } from "react";
-import { FormField } from "../ui/FormField";
-import { apiLoggedIn, handleError } from "../../helpers/api";
-import { MyButton } from "../ui/MyButton";
+import { FormField } from "../../ui/StandardComponents/FormField";
+import { apiLoggedIn, handleError } from "../../../helpers/api";
+import { MyButton } from "../../ui/StandardComponents/MyButton";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
-import "../../styles/views/EditEvent.scss";
-import {Button, Modal, ModalBody} from "react-bootstrap";
-import AddInvitees from "../ui/AddInvitees";
-import AddTasks from "../ui/AddTasks";
-import "../../styles/views/NewEvent.scss";
-
-const InvitePopup = ({}) => {
-  const [show, popup] = useState(false);
-  const modalOpen = () => popup(true);
-  const modalClose = () => popup(false);
-
-  return (
-      <div>
-        <Button variant="success" onClick={modalOpen}>
-          Select invitees
-        </Button>
-        <Modal show={show} onHide={modalClose}>
-          <ModalBody>
-            <AddInvitees />
-          </ModalBody>
-        </Modal>
-      </div>
-  );
-};
-
-const TaskPopup = ({}) => {
-  const [showTask, TaskPopup] = useState(false);
-  const modalOpenTask = () => TaskPopup(true);
-  const modalCloseTask = () => TaskPopup(false);
-
-  return (
-      <div>
-        <Button variant="success" onClick={modalOpenTask}>
-          Select tasks
-        </Button>
-        <Modal show={showTask} onHide={modalCloseTask}>
-          <ModalBody>
-            <AddTasks />
-          </ModalBody>
-        </Modal>
-      </div>
-  );
-}
+import "../../../styles/views/EditEvent.scss";
+import "../../../styles/views/NewEvent.scss";
+import InvitePopup from "../../ui/PopUps/InvitePopup";
+import TaskPopup from "../../ui/PopUps/TaskPopup";
 
 const EventEdit = (props) => {
   let { eventId } = useParams();
@@ -61,9 +22,10 @@ const EventEdit = (props) => {
 
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
-  const [location, setLocation] = useState(null);
-  const [date, setDate] = useState(null);
+  const [locationName, setLocation] = useState(null);
+  const [eventDate, setDate] = useState(null);
 
+  /*
   function handleUpload(){
     const formData = new FormData();
     formData.append('file', file);
@@ -76,7 +38,7 @@ const EventEdit = (props) => {
         'Content-Type': 'multipart/form-data'
       }
     });
-  }
+  }*/
 
   const updateEvent = async () => {
     try {
@@ -84,16 +46,16 @@ const EventEdit = (props) => {
       const requestBody = JSON.stringify({
         title,
         description,
-        location,
-        date,
+        locationName,
+        eventDate,
       });
       const response = await apiLoggedIn().put(
         `/events/${eventId}`,
         requestBody
       );
-      handleUpload();
+      //handleUpload();
 
-      //navigate(`/event/${eventId}`);
+      navigate(`/event/${eventId}`);
     } catch (error) {
       alert(
         `Something went wrong during event update: \n${handleError(error)}`
@@ -125,22 +87,20 @@ const EventEdit = (props) => {
         />
 
         <FormField
-          label={"Date"}
-          placeholder={"..."}
-          onChange={(date) => setDate(date)}
+            type={"datetime-local"}
+            label={"Date"}
+            onChange={(date) => setDate(date)}
         />
 
-        <div className="image-field">
+        {/*<div className="image-field">
           <div>Add Image:</div>
-          <input type="file" onChange={handleChange} />
-          <img className={"img"} src={file} />
-        </div>
+          <input type="file" onChange={handleChange}/>
+          <img className={"img"} src={file}/>
+        </div>*/}
 
-        <MyButton onClick={() => updateEvent()}>Save</MyButton>
-        <div className={"d-flex"}>
-            <InvitePopup/>
-            <TaskPopup/>
-        </div>
+        <MyButton
+            onClick={() => updateEvent()}
+            className={"SaveEvent"}>Save</MyButton>
       </div>
     </div>
   );

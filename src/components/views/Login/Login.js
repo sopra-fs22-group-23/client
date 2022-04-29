@@ -1,11 +1,11 @@
-import { FormField } from "../ui/FormField";
-import { PasswordField } from "../ui/PasswordField";
+import { FormField } from "../../ui/StandardComponents/FormField";
+import { PasswordField } from "../../ui/StandardComponents/PasswordField";
 import { useState } from "react";
-import "./../../styles/views/Login.scss";
-import { MyButton } from "../ui/MyButton";
-import "../../styles/ui/MyButton.scss";
+import "../../../styles/views/Login.scss";
+import { MyButton } from "../../ui/StandardComponents/MyButton";
+import "../../../styles/ui/MyButton.scss";
 import { useNavigate } from "react-router";
-import { apiLoggedIn, handleError } from "../../helpers/api";
+import { apiLoggedIn, handleError } from "../../../helpers/api";
 
 const Login = (props) => {
   const [username, setUsername] = useState(null);
@@ -22,6 +22,8 @@ const Login = (props) => {
       // Store the token into the local storage.
       localStorage.setItem("token", response.headers.token);
       localStorage.setItem("userId", response.data.id);
+      localStorage.setItem("username", response.data.username);
+      localStorage.setItem("name", response.data.name);
       navigate("/home");
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);

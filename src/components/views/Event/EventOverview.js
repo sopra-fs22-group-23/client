@@ -1,11 +1,11 @@
 import { React, useEffect, useState } from "react";
-import "../../styles/ui/EventOverview.scss";
-import pic from "../pictures/profilePic.png";
-import { apiLoggedIn } from "../../helpers/api";
+import "../../../styles/ui/EventOverview.scss";
+import pic from "../../pictures/pic.png";
+import { apiLoggedIn } from "../../../helpers/api";
 import PropTypes from "prop-types";
 import moment from "moment";
 
-const GuestList = ({ user }) => <div>{user.username}</div>;
+const GuestList = ({ user }) => <div>{user.username},&nbsp; </div>;
 
 GuestList.propTypes = {
   user: PropTypes.object,
@@ -32,7 +32,7 @@ const EventOverview = (props) => {
         <div className="event-description">{props.event.description}</div>
         <div className="event-organizer">
           <img src={pic} className="small-profile-pic" />
-          <div className="organizer-name"> Maya</div>
+          <div className="organizer-name">Host: {props.admin.username}</div>
           <div className="creation-time">
             happening {moment(props.event.eventDate).fromNow()}
           </div>
@@ -41,21 +41,21 @@ const EventOverview = (props) => {
           <div className="event-information-title"> This event includes</div>
           <div className="row">
             <div className="col event-information-element">
-              👍🏻 Collaborators:&nbsp;
-              {eventUsers.map((user) => (
-                <GuestList user={user} key={user.id} />
+              💪🏼 &nbsp;Collaborators:&nbsp;
+              {props.collaborators.map((user) => (
+                  <GuestList user={user} key={user.id} />
               ))}
             </div>
             <div className="col event-information-element">
-              🖥 {String(props.event.locationName)}
+              &nbsp;📍 &nbsp;&nbsp;
+              {props.event.locationName}
             </div>
             <div className="w-100"></div>
             <div className="col event-information-element">
-              🎥 {String(props.event.eventUsers)}
+              👥 &nbsp;{eventUsers.length} person(s) are taking part!
             </div>
             <div className="col event-information-element">
-              ⌛️
-              {moment(props.event.eventDate).format("Do MMMM YYYY, h:mm")}
+              🕓️ &nbsp;{moment(props.event.eventDate).format("Do MMMM YYYY, h:mm")}
             </div>
           </div>
         </div>

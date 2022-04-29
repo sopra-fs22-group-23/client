@@ -1,11 +1,11 @@
-import { Column, MovableItem } from "./TaskSession/Elements";
+import { Column, MovableItem } from "./Elements";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import "./../../styles/taskSession/taskSession.scss";
+import "../../../styles/taskSession/taskSession.scss";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
-import { apiLoggedIn } from "../../helpers/api";
-import { getDomainWS } from "../../helpers/getDomain";
+import { apiLoggedIn } from "../../../helpers/api";
+import { getDomainWS } from "../../../helpers/getDomain";
 import Stomp from "webstomp-client";
 
 const TaskSession = () => {

@@ -1,9 +1,9 @@
 import React from "react";
 import { Navbar } from "react-bootstrap";
-import "../../styles/views/Header.scss";
+import "../../../styles/views/Header.scss";
 import { useNavigate } from "react-router";
-import { apiLoggedIn, handleError } from "../../helpers/api";
-import { MyButton } from "../ui/MyButton";
+import { apiLoggedIn, handleError } from "../../../helpers/api";
+import { MyButton } from "./MyButton";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -15,6 +15,8 @@ const Header = () => {
       // Remove the token from the local storage.
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
+      localStorage.removeItem("username");
+      localStorage.removeItem("name");
       navigate("/");
     } catch (error) {
       alert(`Something went wrong during logout: \n${handleError(error)}`);
