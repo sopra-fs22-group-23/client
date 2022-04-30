@@ -4,6 +4,7 @@ import "../../../styles/views/Header.scss";
 import { useNavigate } from "react-router";
 import { apiLoggedIn, handleError } from "../../../helpers/api";
 import { MyButton } from "./MyButton";
+import logo from "../../pictures/Logo.png"
 
 const Header = () => {
   const navigate = useNavigate();
@@ -26,7 +27,8 @@ const Header = () => {
   return (
     <Navbar className="color-nav">
       <div class="container-fluid">
-        <a class="navbar-brand">WeVent</a>
+        <a href="/home" className="navbar-brand">
+          <img src={logo} width={"230"} className={"mt-2"}></img></a>
         <div className={"mr-2 w-25"}>
           <MyButton onClick={() => logout()}>Logout</MyButton>
         </div>

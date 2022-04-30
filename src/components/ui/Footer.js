@@ -5,6 +5,7 @@ import { apiLoggedIn } from "../../helpers/api";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import { useNavigate } from "react-router";
+import {MyButton} from "./StandardComponents/MyButton";
 
 const Footer = (props) => {
   const navigate = useNavigate();
@@ -80,6 +81,11 @@ const Footer = (props) => {
           <div className="location-title">Location</div>
           <div className="location-real">{props.event.locationName}</div>
         </div>
+        <MyButton
+            className="role-button"
+            onClick={() => navigate(`/home`)}>
+          Back
+        </MyButton>
         {chooseButtons()}
       </div>
     </div>

@@ -1,5 +1,4 @@
 import { React } from "react";
-import { apiLoggedIn, handleError } from "../../helpers/api";
 import { useNavigate } from "react-router";
 import EventList from "./EventList";
 import "../../styles/_theme.scss";
@@ -26,28 +25,15 @@ const ProfileOverview = (props) => {
 };
 
 const DashboardButtons = () => {
-  let eventId;
   const navigate = useNavigate();
-  const title = "New Event";
-  const type = "PUBLIC";
-  const status = "IN_PLANNING";
 
-  const newEvent = async () => {
-    try {
-      const requestBody = JSON.stringify({ title, type, status });
-      const response = await apiLoggedIn().post("/events", requestBody);
-      eventId = response.data.id;
+  function toCreate() {
       navigate(`/event/create`);
-    } catch (error) {
-      alert(
-        `Something went wrong during event creation: \n${handleError(error)}`
-      );
-    }
-  };
+  }
 
   return (
     <div className="buttons">
-      <button className="newEvent-button" onClick={() => newEvent()}>
+      <button className="newEvent-button" onClick={() => toCreate()}>
         <label className="newEvent-label">New event!</label>
       </button>
       <a href="user" className="edit">
@@ -71,7 +57,6 @@ const Dashboard = (props) => {
         <div class="col-7">
           <ProfileOverview />
           <DashboardButtons />
-          {/* <NextEvents /> */}
         </div>
       </div>
     </>

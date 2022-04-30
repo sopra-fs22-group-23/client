@@ -11,6 +11,7 @@ import AddTasks from "../../ui/PopUps/AddTasks";
 import {Modal, ModalBody} from "react-bootstrap";
 import AddInvitees from "../../ui/PopUps/AddInvitees";
 import SelectGuestsCollaborators from "../../ui/SelectGuestsCollaborators";
+import TasksOverview from "../../ui/PopUps/TasksOverview";
 
 const SmallProfileOverview = (props) => {
   let content = "";
@@ -46,6 +47,11 @@ const Event = () => {
   const [showTask, TaskPopup] = useState(false);
   const modalOpenTask = () => TaskPopup(true);
   const modalCloseTask = () => TaskPopup(false);
+
+  //--- Task Overview Popup ---//
+  const [showTaskOverview, TaskOverviewPopup] = useState(false);
+  const modalOpenTaskOverview = () => TaskOverviewPopup(true);
+  const modalCloseTaskOverview = () => TaskOverviewPopup(false);
 
   //--- Invite Popup ---//
   const [show, popup] = useState(false);
@@ -112,9 +118,17 @@ const Event = () => {
       </div>
   );
   const collaboratorButton = (
-      <button className="event-button">
-        <label className="event-label"> Tasks</label>
-      </button>
+      <div>
+        <button className="event-button" onClick={() => modalOpenTaskOverview()}>
+          <label className="event-label"> Tasks</label>
+        </button>
+          <Modal show={showTaskOverview} onHide={modalCloseTaskOverview}>
+            <ModalBody>
+              <TasksOverview/>
+            </ModalBody>
+          </Modal>
+      </div>
+
   );
 
   useEffect(() => {
