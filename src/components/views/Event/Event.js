@@ -12,6 +12,7 @@ import {Modal, ModalBody} from "react-bootstrap";
 import AddInvitees from "../../ui/PopUps/AddInvitees";
 import SelectGuestsCollaborators from "../../ui/SelectGuestsCollaborators";
 import TasksOverview from "../../ui/PopUps/TasksOverview";
+import EventEdit from "./EventEdit";
 
 const SmallProfileOverview = (props) => {
   let content = "";

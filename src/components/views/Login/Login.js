@@ -38,7 +38,7 @@ const Login = (props) => {
       </div>
       <div className={"col-12 text-center py-1"}>
         <FormField
-          label="Username"
+          label="Username:"
           placeholder={"enter username"}
           onChange={(un) => setUsername(un)}
         />
