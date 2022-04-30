@@ -47,7 +47,10 @@ const Event = () => {
   //--- Task Popup ---//
   const [showTask, TaskPopup] = useState(false);
   const modalOpenTask = () => TaskPopup(true);
-  const modalCloseTask = () => TaskPopup(false);
+  const modalCloseTask = () => {
+    TaskPopup(false);
+    window.location.reload();
+  }
 
   //--- Task Overview Popup ---//
   const [showTaskOverview, TaskOverviewPopup] = useState(false);
@@ -92,7 +95,7 @@ const Event = () => {
   };
 
   const adminButtons = (
-      <div>
+      <div className={"d-flex"}>
         <button className="event-button-left" onClick={() => toEdit()}>
           <label className="event-label">Edit</label>
         </button>
@@ -106,16 +109,16 @@ const Event = () => {
             </ModalBody>
           </Modal>
         </div>
-        <button className="event-button add-button invitee-button" onClick={() => modalOpen()}>
+        {/*<button className="event-button add-button invitee-button" onClick={() => modalOpen()}>
           <label className="event-label"> + Invitees</label>
         </button>
-        <div>
+          <div>
           <Modal show={show} onHide={modalClose}>
-            <ModalBody>
-              <SelectGuestsCollaborators />
-            </ModalBody>
+          <ModalBody>
+          <SelectGuestsCollaborators />
+          </ModalBody>
           </Modal>
-        </div>
+          </div>*/}
       </div>
   );
   const collaboratorButton = (
