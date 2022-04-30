@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { apiLoggedIn, handleError } from "../../helpers/api";
-import { FormField } from "../ui/FormField";
-import { PasswordField } from "../ui/PasswordField";
-import { MyButton } from "../ui/MyButton";
-import "../../styles/ui/MyButton.scss";
-import "../../styles/ui/FormField.scss";
+import { apiLoggedIn, handleError } from "../../../helpers/api";
+import { FormField } from "../../ui/StandardComponents/FormField";
+import { PasswordField } from "../../ui/StandardComponents/PasswordField";
+import { MyButton } from "../../ui/StandardComponents/MyButton";
+import "../../../styles/ui/MyButton.scss";
+import "../../../styles/ui/FormField.scss";
 
 const Register = (props) => {
   const [name, setName] = useState(null);
@@ -22,6 +22,8 @@ const Register = (props) => {
       // Store the token into the local storage.
       localStorage.setItem("token", response.headers.token);
       localStorage.setItem("userId", response.data.id);
+        localStorage.setItem("username", response.data.username);
+        localStorage.setItem("name", response.data.name);
       navigate("/home");
     } catch (error) {
       alert(`Something went wrong during registering: \n${handleError(error)}`);

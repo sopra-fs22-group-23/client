@@ -1,8 +1,8 @@
 import { React, useEffect, useState } from "react";
-import { apiLoggedIn, handleError } from "../../helpers/api";
+import { apiLoggedIn, handleError } from "../../../helpers/api";
 import PropTypes from "prop-types";
 // import "reactjs-popup/dist/index.css";
-import "../../styles/ui/AddInvitees.scss";
+import "../../../styles/ui/AddInvitees.scss";
 import {useParams} from "react-router-dom";
 
 const User = ({ user }) => {
@@ -32,6 +32,8 @@ User.propTypes = {
 
 const AddInvitees = (props) => {
   let {eventId} = useParams();
+
+  const [phase, setPhase] = useState("invitees");
   const [users, setUsers] = useState(null);
   const [invitees, setInvitees] = useState([]);
   let allUsers = <div></div>;
@@ -42,9 +44,11 @@ const AddInvitees = (props) => {
   //TODO: Send userList as in Post Request
   const postInvitees = async () => {
     try {
-        const requestBody = JSON.stringify();
-        const response = await apiLoggedIn().post(`/events/${eventId}/users`, requestBody);
-        console.log(response.data);
+      for(let i = 0; i < invitees.length; i++){
+        let username = invitees[i];
+        const requestBody = JSON.stringify(username);
+        await apiLoggedIn().post(`/events/${eventId}/users`, requestBody);
+      }
     } catch (error) {
       alert(
           `Something went wrong during saving invitees: \n${handleError(error)}`

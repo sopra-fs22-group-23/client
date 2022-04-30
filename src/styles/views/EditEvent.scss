@@ -6,6 +6,7 @@
   justify-content: center;
   padding: 30px;
   padding-top: 15px;
+  padding-bottom: 80px;
   background-color: #ffffff;
   filter: drop-shadow(0.1mm 0.1mm 1mm rgb(210, 210, 210));
   border-radius: 24px;
@@ -27,3 +28,9 @@
   border-radius: 10px;
   align-content: end;
 }
+
+.SaveEvent {
+  margin-top: 15px;
+  float: right;
+}
+

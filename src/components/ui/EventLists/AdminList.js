@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { apiLoggedIn, handleError } from "../../../helpers/api";
 import PropTypes from "prop-types";
 import "../../../styles/ui/EventItem.scss";
-import pic from "../../pictures/pizza.jpeg";
+import pic from "../../pictures/badic.png";
 import { useNavigate } from "react-router";
 import moment from "moment";
 
