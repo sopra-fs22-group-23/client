@@ -14,7 +14,7 @@ const EventItem = ({ event }) => {
   };
 
   return (
-    <div className="event-item" onClick={routeChange}>
+    <button className="event-item" onClick={routeChange}>
       <img src={pic} className="img" />
       <div className="info">
         <p className="event-name">{event.title}</p>
@@ -22,7 +22,7 @@ const EventItem = ({ event }) => {
           {moment(event.eventDate).format("Do MMM")} · {event.locationName}
         </p>
       </div>
-    </div>
+    </button>
   );
 };
 

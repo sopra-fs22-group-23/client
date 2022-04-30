@@ -69,7 +69,11 @@ const CreateEvent = (props) => {
           title === null ||
           description === null ||
           locationName === null ||
-          eventDate === null
+          eventDate === null ||
+          title === "" ||
+          description === "" ||
+          locationName === "" ||
+          eventDate === ""
         }
       >
         Save
@@ -114,6 +118,5 @@ const CreateEvent = (props) => {
       <div className="edit-container">{chooseContent()}</div>
     </div>
   );
-
 };
 export default CreateEvent;
