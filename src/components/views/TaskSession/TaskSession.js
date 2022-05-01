@@ -74,7 +74,7 @@ const TaskSession = () => {
     //TODO add name from local storage
     SC.connect({ username: "adam" }, function (frame) {
       // console.log('Connected: ' + frame);
-      SC.subscribe("/topic/sessionScheduler/2", function (messageOutput) {
+      SC.subscribe("/topic/sessionScheduler/"+eventID, function (messageOutput) {
         parseMessageTaskSession(messageOutput.body);
       });
       setSC(SC);
