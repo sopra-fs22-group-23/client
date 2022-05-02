@@ -74,7 +74,7 @@ const Footer = (props) => {
         <div className="time">
           <div className="time-title">Time</div>
           <div className="time-real">
-            {moment(props.event.eventDate).format("h:mm")}
+            {moment.utc(props.event.eventDate).format("H:mm")}
           </div>
         </div>
         <div className="location">

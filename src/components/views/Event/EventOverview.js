@@ -55,7 +55,7 @@ const EventOverview = (props) => {
               👥 &nbsp;{eventUsers.length} person(s) are taking part!
             </div>
             <div className="col event-information-element">
-              🕓️ &nbsp;{moment(props.event.eventDate).format("Do MMMM YYYY, h:mm")}
+              🕓️ &nbsp;{moment.utc(props.event.eventDate).format("Do MMMM YYYY, H:mm")}
             </div>
           </div>
         </div>
