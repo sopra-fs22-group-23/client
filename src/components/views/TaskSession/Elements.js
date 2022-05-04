@@ -14,7 +14,10 @@ const MovableItem = (props) => {
             return prevState.map(e =>{
                 console.log(e)
                 console.log(currentItem)
-                return {...e, columnID : e.cardID === currentItem.cardID ? columnID : e.columnID}
+                return {...e,
+                        columnID : e.cardID === currentItem.cardID ? columnID : e.columnID,
+                        isMyTask : e.cardID === currentItem.cardID //if it is the card, that was moved, make it my task
+                }
                 //when name is the same as of the element
             })
         })
@@ -32,11 +35,12 @@ const MovableItem = (props) => {
 
     const [{ isDragging }, drag] = useDrag({
         item: { cardID: props.cardID},//important, this name must be unique
-        type: 'Card',
-        // collect: (monitor) => ({
-        //     isOver: monitor.isOver(),
-        //     canDrop: monitor.canDrop(),
-        // }),
+        type: props.isMyTask ? "MyCard":  'Card', //to disable movement
+        collect: (monitor) => ({
+            // isOver: monitor.isOver(),
+            // canDrop: monitor.canDrop(),
+            isDragging: monitor.isDragging()
+        }),
         //TODO on drag strat send message to websocket
         end: (item, monitor) =>{
             const dropResult = monitor.getDropResult();
@@ -44,13 +48,17 @@ const MovableItem = (props) => {
             if(dropResult){
                 changeItemColumn(item, dropResult.id)//changes the UI
                 changeItemOnBackend(item, dropResult.id)//put method for the endpoint
-                // props.StompClient();
-                sendWebsocketMessageDown(dropResult.id)//will send the message on all other users
+                sendWebsocketMessageUnlock(dropResult.id)//will send the message on all other users
+            }
+            else{
+                sendWebsocketMessageUnlock(props.columnID)//set with default column, because the column wasn't changed and we need to unlock the task
             }
         },
     });
 
-    const sendWebsocketMessageDown = (columnID) =>{
+
+
+    const sendWebsocketMessageUnlock = (columnID) =>{
         try{
             props.StompClient.send("/app/sessionScheduler/"+eventID, JSON.stringify(
                 {'userID':localStorage.getItem("userId"),
@@ -62,8 +70,24 @@ const MovableItem = (props) => {
             console.log(e);
         }
     }
+    const sendWebsocketMessageLock = () =>{
+        try{
+            props.StompClient.send("/app/sessionScheduler/"+eventID, JSON.stringify(
+                {'userID':localStorage.getItem("userId"),
+                    'taskID': props.cardID,
+                    'columnID': null,
+                    'action': "LOCK"}));
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
 
-    const opacity = isDragging ? 0.4 : 1;
+    if(isDragging){ //since isDragging is a hook, when it is changed the function is triggered, somehow wierd, but it seems to work
+        sendWebsocketMessageLock()
+    }
+
+    const opacity = isDragging || props.disabled ? 0.4 : 1;
 
     return (
         <div ref={drag} className='movable-item' style={{  opacity }}>
@@ -74,15 +98,19 @@ const MovableItem = (props) => {
 
 
 
-const Column = ({children, title, id}) => {
+const Column = ({children, title, id, disabled}) => {
     const [, drop] = useDrop({
-        accept: 'Card',
+        accept: disabled ? "" : 'Card',
         drop: () => ({id: id}),
+        collect: (monitor) => ({
+            isOver: monitor.isOver(),
+            canDrop: monitor.canDrop(),
+        }),
     });
 
 
     return (
-        <div className='column' ref={drop}>
+        <div className={`column ${disabled ? "disabled" : ""}`} ref={drop}>
             <div>{title}</div>
             {children}
         </div>

@@ -22,6 +22,7 @@ const TaskSession = () => {
     { cardID: 2, name: "item 2", columnID: 0 },
     { cardID: 3, name: "item 3", columnID: 0 },
   ]);
+  const [event, setEvent] = useState(null)
 
   //fetch users and tasks
   useEffect(() => {
@@ -50,6 +51,8 @@ const TaskSession = () => {
             cardID: id,
             columnID: userID ? userID : 0,
             name: description,
+            disabled: false,
+            isMyTask: userID === parseInt(localStorage.getItem('userId'))
           })
         );
         //0 since 0 is coded value for not assigned
@@ -66,6 +69,8 @@ const TaskSession = () => {
     fetchTasks(eventID);
   }, []);
 
+
+  //connect to websockets for this event
   let [SC, setSC] = useState(null);
   useEffect(() => {
     const path = getDomainWS();
@@ -73,34 +78,55 @@ const TaskSession = () => {
     SC = Stomp.over(WS);
     //TODO add name from local storage
     SC.connect({ username: "adam" }, function (frame) {
-      // console.log('Connected: ' + frame);
       SC.subscribe("/topic/sessionScheduler/"+eventID, function (messageOutput) {
         parseMessageTaskSession(messageOutput.body);
       });
       setSC(SC);
     });
-    console.log(SC);
-    // SC.send("/app/sessionScheduler/"+eventID, {}, JSON.stringify({'user':"test", 'taskID':"TEST", 'action': "LOCK"}));
+    // console.log(SC);
   }, []);
 
+
+  //called, when message comes from websockets
   const parseMessageTaskSession = (message) => {
     //message is string
     message = JSON.parse(message);
     console.log(message);
+
     //If user is not you, no need to reset items
-    if (message.userID != localStorage.getItem("userId")) {
+    if (message.userID !== parseInt(localStorage.getItem("userId"))) {
       //alert("movement, please reload the page");
 
-      setItems((prevState) => {
-        return prevState.map((e) => {
-          return {
-            ...e,
-            columnID:
-              e.cardID === message.taskID ? message.columnID : e.columnID,
-          };
-          //when name is the same as of the element
+      //unlock move the message and set it not to disabled
+      if(message.action === "UNLOCK"){
+        setItems((prevState) => {
+          return prevState.map((e) => {
+            return {
+              ...e,
+              columnID:
+                  (e.cardID === message.taskID && message.columnID !== null) ? message.columnID : e.columnID,//if the right was found and we also have recieved columnID
+              disabled:
+                  e.cardID === message.taskID ? false : e.disabled,
+            };
+            //when name is the same as of the element
+          });
         });
-      });
+      }
+      //make the card disabled for now
+      else{
+        setItems((prevState) => {
+          return prevState.map((e) => {
+            return {
+              ...e,
+              disabled:
+                  e.cardID === message.taskID ? true : e.disabled,
+            };
+            //when name is the same as of the element
+          });
+        });
+      }
+
+
     }
   };
 
@@ -115,16 +141,32 @@ const TaskSession = () => {
           name={item.name}
           setItems={setItems}
           StompClient={SC}
+          disabled={item.disabled}
         />
       ));
   };
+
+  const isStealingModeON = () => {
+    // if(event.stealing_mode){
+    //   return event.stealing_mode;
+    // }
+    //TODO fix fetching from endpoint
+    return false
+  }
+
+  const shouldBeDisabledFor = (userID) => {
+    if(isStealingModeON()){
+      return userID !== parseInt(localStorage.getItem('userId'))
+    }
+    return false;
+  }
 
   let content = "loading";
 
   if (users) {
     content = "";
     content = users.map((user) => (
-      <Column title={user.name} id={user.id} key={user.id}>
+      <Column title={user.name} id={user.id} key={user.id} disabled={shouldBeDisabledFor(user.id)}>
         {MovableItemsForColumn(user.id)}
       </Column>
     ));
@@ -135,7 +177,7 @@ const TaskSession = () => {
       <DndProvider backend={HTML5Backend}>
         {content}
 
-        <Column title="Not asigned" id={0}>
+        <Column title="Not assigned" id={0} disabled={isStealingModeON()}>
           {MovableItemsForColumn(0)}
         </Column>
       </DndProvider>
