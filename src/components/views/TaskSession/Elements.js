@@ -35,7 +35,7 @@ const MovableItem = (props) => {
 
     const [{ isDragging }, drag] = useDrag({
         item: { cardID: props.cardID},//important, this name must be unique
-        type: props.isMyTask ? "MyCard":  'Card', //to disable movement
+        type: 'Card', //to disable movement
         collect: (monitor) => ({
             // isOver: monitor.isOver(),
             // canDrop: monitor.canDrop(),
