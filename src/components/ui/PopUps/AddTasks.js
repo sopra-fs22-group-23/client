@@ -1,6 +1,6 @@
 import {FormField} from "../StandardComponents/FormField";
 import {MyButton} from "../StandardComponents/MyButton";
-import {React, useState} from "react";
+import {React, useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import "../../../styles/ui/AddTasks.scss";
 import {apiLoggedIn, handleError} from "../../../helpers/api";
@@ -24,6 +24,21 @@ const AddTasks = () => {
     const [task, setTask] = useState(null);
     const [tasks, setTasks] = useState([]);
 
+    useEffect(() => {
+        loadTasks();
+    })
+
+    async function loadTasks() {
+        try {
+            const response = await apiLoggedIn().get(`/events/${eventId}/tasks`);
+            setTasks(response.data)
+        } catch (error) {
+            alert(
+                `Something went wrong during loading tasks: \n${handleError(error)}`
+            );
+        }
+    }
+
     const postTasks = async () => {
         try {
             const requestBody = JSON.stringify({description : task});
@@ -36,38 +51,44 @@ const AddTasks = () => {
     }
 
     function saveTask(){
-        const newTasks = [...tasks]
-        newTasks.push(task);
-        setTasks(newTasks);
         postTasks();
+        loadTasks();
+    }
+
+    let content = <div></div>
+    if(tasks){
+        content = (
+            <div>
+                <div className={"task-title"}>
+                    Saved Tasks:
+                </div>
+
+                <ul className={"task-list"}>
+                    {tasks.map((task) => {
+                        return (
+                            <div className="task-item" key={task}>
+                                {task.description}
+                            </div>
+                        )
+                    })}
+                </ul>
+                <div className={"task-title"}>
+                    Add new task
+                </div>
+                <FormField
+                    placeholder={"New Task"}
+                    onChange={(task) => setTask(task)}>
+                </FormField>
+                <MyButton
+                    className="invite-btn"
+                    button type={"submit"}
+                    onClick={() => saveTask(task)}><p className={"invite-label"}>Save task!</p></MyButton>
+            </div>
+        )
     }
 
     return (
-        <div>
-            <div className={"task-title"}>
-                Saved Tasks:
-            </div>
-            <ul className={"task-list"}>
-                {tasks.map((task) => {
-                    return (
-                        <div className="task-item" key={task}>
-                            {task}
-                        </div>
-                    )
-                })}
-            </ul>
-            <div className={"task-title"}>
-                Add new task
-            </div>
-            <FormField
-                placeholder={"New Task"}
-                onChange={(task) => setTask(task)}>
-            </FormField>
-            <MyButton
-                className="invite-btn"
-                button type={"submit"}
-                onClick={() => saveTask(task)}><p className={"invite-label"}>Save task!</p></MyButton>
-        </div>
+        <>{content}</>
     );
 };
 
