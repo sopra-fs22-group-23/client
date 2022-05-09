@@ -25,6 +25,13 @@ const EventOverview = (props) => {
 
   let content = "";
 
+  const chooseType = () => {
+    if (props.event.type === "PUBLIC") {
+      return "Public";
+    }
+    return "Private";
+  };
+
   if (eventUsers) {
     content = (
       <div className="event">
@@ -32,7 +39,9 @@ const EventOverview = (props) => {
         <div className="event-description">{props.event.description}</div>
         <div className="event-organizer">
           <img src={pic} className="small-profile-pic" />
-          <div className="organizer-name">Host: {props.admin.username}</div>
+          <div className="organizer-name">
+            {chooseType()} event by {props.admin.username}
+          </div>
           <div className="creation-time">
             happening {moment(props.event.eventDate).fromNow()}
           </div>
@@ -43,7 +52,7 @@ const EventOverview = (props) => {
             <div className="col event-information-element">
               💪🏼 &nbsp;Collaborators:&nbsp;
               {props.collaborators.map((user) => (
-                  <GuestList user={user} key={user.id} />
+                <GuestList user={user} key={user.id} />
               ))}
             </div>
             <div className="col event-information-element">
@@ -55,7 +64,8 @@ const EventOverview = (props) => {
               👥 &nbsp;{eventUsers.length} person(s) are taking part!
             </div>
             <div className="col event-information-element">
-              🕓️ &nbsp;{moment.utc(props.event.eventDate).format("Do MMMM YYYY, H:mm")}
+              🕓️ &nbsp;
+              {moment.utc(props.event.eventDate).format("Do MMMM YYYY, H:mm")}
             </div>
           </div>
         </div>
