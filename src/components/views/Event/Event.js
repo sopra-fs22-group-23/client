@@ -157,7 +157,7 @@ const Event = () => {
         );
         console.error("Details:", error);
         alert(
-          "Something went wrong while loading the event! See the console for detailss."
+          "Something went wrong while loading the event! See the console for details."
         );
       }
     }
