@@ -4,6 +4,7 @@ import { apiLoggedIn, handleError } from "../../helpers/api";
 import "../../styles/ui/NextEvents.scss";
 import PropTypes from "prop-types";
 import pic from "../pictures/badic.png";
+import moment from "moment";
 import { useNavigate } from "react-router";
 
 const EventItemSquare = ({ event }) => {
@@ -14,21 +15,21 @@ const EventItemSquare = ({ event }) => {
   };
 
   return (
-    <div className="event-square" onClick={routeChange}>
+    <button className="event-square" onClick={routeChange}>
       <img src={pic} className="upper" />
       <div className="lower">
         <div className="time-box">
-          <p className="month">MAR</p>
-          <p className="date">28</p>
+          <p className="month"> {moment(event.eventDate).format("MMM")} </p>
+          <p className="date">{moment(event.eventDate).format("D")}</p>
         </div>
         <div>
           <p className="event-name">{event.title}</p>
           <p className="infos">
-            {event.eventDate} · {event.locationName}
+            {moment(event.eventDate).format("Do MMM")} · {event.locationName}
           </p>
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 
@@ -43,7 +44,7 @@ const NextEvents = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await apiLoggedIn().get("/events");
+        const response = await apiLoggedIn().get("/events?type=PUBLIC");
 
         setEvents(response.data);
       } catch (error) {
@@ -54,7 +55,7 @@ const NextEvents = () => {
         );
         console.error("Details:", error);
         alert(
-          "nipqbncqo bvcwoqbuov2buv2Something went wrong while fetching the events! See the console for detailss."
+          "Something went wrong while fetching the events! See the console for detailss."
         );
       }
     }
@@ -68,20 +69,32 @@ const NextEvents = () => {
     sortedEvents.sort(function (a, b) {
       return new Date(a.eventDate) - new Date(b.eventDate);
     });
-    sortedEvents = sortedEvents.slice(0, 2);
-
-    content = (
-      <div className="row">
-        <div className="col-6">
-          <EventItemSquare event={sortedEvents[0]} />
+    if (sortedEvents.length === 1) {
+      sortedEvents = sortedEvents.slice(0, 1);
+      content = (
+        <div className="row">
+          <div className="col-6">
+            <EventItemSquare event={sortedEvents[0]} />
+          </div>
         </div>
-        <div className="col-6">
+      );
+    }
+    if (sortedEvents.length > 1) {
+      sortedEvents = sortedEvents.slice(0, 2);
+      content = (
+        <div className="squares">
+          <EventItemSquare event={sortedEvents[0]} />
           <EventItemSquare event={sortedEvents[1]} />
         </div>
-      </div>
-    );
+      );
+    }
   }
 
-  return <div>{content}</div>;
+  return (
+    <div>
+      <p>Upcoming public events:</p>
+      {content}
+    </div>
+  );
 };
 export default NextEvents;

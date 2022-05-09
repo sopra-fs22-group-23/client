@@ -1,6 +1,7 @@
 import { React } from "react";
 import { useNavigate } from "react-router";
 import EventList from "./EventList";
+import NextEvents from "../ui/NextEvents";
 import "../../styles/_theme.scss";
 import Header from "../ui/StandardComponents/Header";
 import "../../styles/views/Dashboard.scss";
@@ -8,16 +9,16 @@ import pic from "../pictures/pic.png";
 import "../../styles/ui/DashboardButtons.scss";
 
 const ProfileOverview = (props) => {
-  const currentUsername = localStorage.getItem("username")
-  const currentName = localStorage.getItem("name")
+  const currentUsername = localStorage.getItem("username");
+  const currentName = localStorage.getItem("name");
   return (
     <div className="profile">
       <p className="hello">Hi {currentName}!</p>
       <div className="pic-description">
         <img src={pic} className="profilePic" />
         <p className="profile-description">
-          Heyo! My name is {currentUsername} and I’m a student at UZH. I love organizing
-          lasagne parties and coding. Let’s meet!
+          Heyo! My name is {currentUsername} and I’m a student at UZH. I love
+          organizing lasagne parties and coding. Let’s meet!
         </p>
       </div>
     </div>
@@ -28,7 +29,7 @@ const DashboardButtons = () => {
   const navigate = useNavigate();
 
   function toCreate() {
-      navigate(`/event/create`);
+    navigate(`/event/create`);
   }
 
   return (
@@ -57,6 +58,7 @@ const Dashboard = (props) => {
         <div class="col-7">
           <ProfileOverview />
           <DashboardButtons />
+          <NextEvents />
         </div>
       </div>
     </>

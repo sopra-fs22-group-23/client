@@ -19,6 +19,7 @@ const CreateEvent = (props) => {
   const [description, setDescription] = useState(null);
   const [locationName, setLocation] = useState(null);
   const [eventDate, setDate] = useState(null);
+  const [type, setType] = useState("PRIVATE");
 
   const updateInfos = async () => {
     try {
@@ -27,6 +28,7 @@ const CreateEvent = (props) => {
         description,
         locationName,
         eventDate,
+        type,
       });
       const response = await apiLoggedIn().post(`/events`, requestBody);
       setEventId(response.data.id);
@@ -36,6 +38,10 @@ const CreateEvent = (props) => {
         `Something went wrong during event creation: \n${handleError(error)}`
       );
     }
+  };
+
+  const onChangeType = (event) => {
+    setType(event.target.value);
   };
 
   //Phase 1: insert infos
@@ -62,6 +68,24 @@ const CreateEvent = (props) => {
         label={"Date"}
         onChange={(date) => setDate(date)}
       />
+      <div onChange={onChangeType} className="event-type">
+        <p className="event-type__label">Type</p>
+        <input
+          type="radio"
+          value="PRIVATE"
+          name="type"
+          defaultChecked
+          className="event-type__value"
+        />
+        <p className="event-type__name">Private</p>
+        <input
+          type="radio"
+          value="PUBLIC"
+          name="type"
+          className="event-type__value"
+        />
+        <p className="event-type__name">Public</p>
+      </div>
       <MyButton
         onClick={() => updateInfos()}
         className={"SaveEvent"}
