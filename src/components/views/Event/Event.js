@@ -60,6 +60,11 @@ const Event = () => {
   const modalOpen = () => popup(true);
   const modalClose = () => popup(false);
 
+  //--- Edit Popup ---//
+  const [showEdit, EditPopup] = useState(false);
+  const modalOpenEdit = () => EditPopup(true);
+  const modalCloseEdit = () => EditPopup(false);
+
   function toEdit() {
     if (event) {
       navigate(`/event/${eventId}/edit`);
@@ -94,9 +99,24 @@ const Event = () => {
 
   const adminButtons = (
     <div className={"d-flex"}>
-      <button className="event-button-left" onClick={() => toEdit()}>
+      {/*<button className="event-button-left" onClick={() => toEdit()}>
+        <label className="event-label">Edit</label>
+      </button>*/}
+
+      <button
+          className="event-button-left"
+          onClick={() => modalOpenEdit()}
+      >
         <label className="event-label">Edit</label>
       </button>
+      <div>
+        <Modal show={showEdit} onHide={modalCloseEdit}>
+          <ModalBody>
+            <EventEdit event={event} />
+          </ModalBody>
+        </Modal>
+      </div>
+
       <button
         className="event-button add-button"
         onClick={() => modalOpenTask()}

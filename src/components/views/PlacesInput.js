@@ -5,8 +5,9 @@ import {
     geocodeByPlaceId,
     getLatLng,
 } from 'react-places-autocomplete';
+import "../../styles/ui/FormField.scss";
 
-function PlacesInput() {
+function PlacesInput(props) {
     const [address, setAddress] = useState("");
     const [coordinates, setCoordinates] = useState({
         lat:null,
@@ -17,6 +18,8 @@ function PlacesInput() {
         const ll = await getLatLng(results[0]);
         setAddress(value);
         setCoordinates(ll);
+        props.setLocation(value);
+        props.setCoordinates(ll);
     }
 
     return (
@@ -27,10 +30,11 @@ function PlacesInput() {
         >
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                 <div>
+                    <label className="form-input__label">Location</label>
                     <input
                         {...getInputProps({
                             placeholder: 'Search Places ...',
-                            className: 'location-search-input',
+                            className: 'location-search-input form-input__input',
                         })}
                     />
                     <div className="autocomplete-dropdown-container">
