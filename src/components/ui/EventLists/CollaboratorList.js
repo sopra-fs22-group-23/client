@@ -34,11 +34,14 @@ const CollaboratorList = () => {
   const [events, setEvents] = useState(null);
   let content = <div></div>;
   const token = localStorage.getItem("token");
+  let now = moment().format();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await apiLoggedIn().get("/events?role=COLLABORATOR");
+        const response = await apiLoggedIn().get(
+          `/events?role=COLLABORATOR&from=${now}`
+        );
 
         setEvents(response.data);
       } catch (error) {

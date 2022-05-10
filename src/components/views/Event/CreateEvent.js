@@ -5,7 +5,8 @@ import { apiLoggedIn, handleError } from "../../../helpers/api";
 import { MyButton } from "../../ui/StandardComponents/MyButton";
 import { useNavigate } from "react-router";
 import "../../../styles/views/EditEvent.scss";
-import SelectGuestsCollaborators from "../../ui/SelectGuestsCollaborators";
+import SelectGuestsCollaboratorsNew from "../../ui/SelectGuestsCollaborators";
+import moment from "moment";
 
 const CreateEvent = (props) => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const CreateEvent = (props) => {
 
   const updateInfos = async () => {
     try {
+      setDate(moment.utc(eventDate).format("Do MMMM YYYY, H:mm"));
       const requestBody = JSON.stringify({
         title,
         description,
@@ -45,6 +47,7 @@ const CreateEvent = (props) => {
   };
 
   //Phase 1: insert infos
+  //TODO: add location api
   const infos = (
     <div>
       <p className="edit-title">Create your event:</p>
@@ -66,6 +69,7 @@ const CreateEvent = (props) => {
       <FormField
         type={"datetime-local"}
         label={"Date"}
+        min={new Date().toISOString().slice(0, -8)}
         onChange={(date) => setDate(date)}
       />
       <div onChange={onChangeType} className="event-type">
@@ -124,7 +128,7 @@ const CreateEvent = (props) => {
     }
     if (phase === "guests-collaborators") {
       content = (
-        <SelectGuestsCollaborators
+        <SelectGuestsCollaboratorsNew
           setPhase3={setPhase3.bind(this)}
           eventId={eventId}
         />

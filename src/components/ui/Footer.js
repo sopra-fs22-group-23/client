@@ -33,6 +33,7 @@ const Footer = (props) => {
     window.location.reload();
   };
 
+  //BUG: disabled doesn't always work
   const adminButton = (
     <button
       type="button"

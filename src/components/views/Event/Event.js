@@ -91,7 +91,7 @@ const Event = () => {
       return <div></div>;
     }
   };
-
+  //TODO: layout +invitees button
   const adminButtons = (
     <div className={"d-flex"}>
       <button className="event-button-left" onClick={() => toEdit()}>
@@ -104,22 +104,27 @@ const Event = () => {
         <label className="event-label"> + Tasks</label>
       </button>
       <div>
-        <Modal show={showTask} onHide={modalCloseTask}>
-          <ModalBody>
-            <AddTasks />
-          </ModalBody>
-        </Modal>
-      </div>
-      {/*<button className="event-button add-button invitee-button" onClick={() => modalOpen()}>
+        <div>
+          <Modal show={showTask} onHide={modalCloseTask}>
+            <ModalBody>
+              <AddTasks />
+            </ModalBody>
+          </Modal>
+        </div>
+        <button
+          className="event-button add-button invitee-button"
+          onClick={() => modalOpen()}
+        >
           <label className="event-label"> + Invitees</label>
         </button>
-          <div>
+        <div>
           <Modal show={show} onHide={modalClose}>
-          <ModalBody>
-          <SelectGuestsCollaborators />
-          </ModalBody>
+            <ModalBody>
+              <SelectGuestsCollaborators />
+            </ModalBody>
           </Modal>
-          </div>*/}
+        </div>
+      </div>
     </div>
   );
   const collaboratorButton = (

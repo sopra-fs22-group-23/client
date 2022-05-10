@@ -40,11 +40,14 @@ EventItemSquare.propTypes = {
 const NextEvents = () => {
   const [events, setEvents] = useState(null);
   let content = <div></div>;
+  let now = moment().format();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await apiLoggedIn().get("/events?type=PUBLIC");
+        const response = await apiLoggedIn().get(
+          `/events?type=PUBLIC&from=${now}`
+        );
 
         setEvents(response.data);
       } catch (error) {

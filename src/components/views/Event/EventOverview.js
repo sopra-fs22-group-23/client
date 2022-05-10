@@ -43,7 +43,7 @@ const EventOverview = (props) => {
             {chooseType()} event by {props.admin.username}
           </div>
           <div className="creation-time">
-            happening {moment(props.event.eventDate).fromNow()}
+            happening {moment.utc(props.event.eventDate).fromNow()}
           </div>
         </div>
         <div className="event-information">
