@@ -9,6 +9,9 @@ import ProtectedRoute from "../protectors/ProtectedRoute";
 import CreateEvent from "../../views/Event/CreateEvent";
 import EventEdit from "../../views/Event/EventEdit";
 import TaskSession from "../../views/TaskSession/TaskSession";
+import React from "react";
+import PlacesInput from "../../views/PlacesInput";
+import Landing from "../../views/Landing";
 
 const MainRouter = () => {
 
@@ -33,6 +36,7 @@ const MainRouter = () => {
         <Route path="/event/:eventId" element={<Event event />} />
         <Route path="/event/create" element={<CreateEvent create />} />
         <Route path="/event/:eventId/edit" element={<EventEdit edit />} />
+        <Route path="/landing" element={<Landing />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

@@ -23,10 +23,15 @@ const AddTasks = () => {
     let {eventId} = useParams();
     const [task, setTask] = useState(null);
     const [tasks, setTasks] = useState([]);
+    const [help, setHelp] = useState([]);
 
     useEffect(() => {
         loadTasks();
-    })
+    }, [])
+
+    useEffect(() => {
+        loadTasks();
+    }, [help])
 
     async function loadTasks() {
         try {
@@ -43,6 +48,7 @@ const AddTasks = () => {
         try {
             const requestBody = JSON.stringify({description : task});
             await apiLoggedIn().post(`/events/${eventId}/tasks`, requestBody);
+            setHelp(task);
         } catch (error) {
             alert(
                 `Something went wrong during saving tasks: \n${handleError(error)}`
