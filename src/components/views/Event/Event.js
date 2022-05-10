@@ -111,19 +111,6 @@ const Event = () => {
             </ModalBody>
           </Modal>
         </div>
-        <button
-          className="event-button add-button invitee-button"
-          onClick={() => modalOpen()}
-        >
-          <label className="event-label"> + Invitees</label>
-        </button>
-        <div>
-          <Modal show={show} onHide={modalClose}>
-            <ModalBody>
-              <SelectGuestsCollaborators />
-            </ModalBody>
-          </Modal>
-        </div>
       </div>
     </div>
   );
