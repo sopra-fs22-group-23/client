@@ -1,5 +1,5 @@
 import Header from "../../ui/StandardComponents/Header";
-import React, { useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { FormField } from "../../ui/StandardComponents/FormField";
 import { apiLoggedIn, handleError } from "../../../helpers/api";
 import { MyButton } from "../../ui/StandardComponents/MyButton";
@@ -9,10 +9,11 @@ import "../../../styles/views/EditEvent.scss";
 import "../../../styles/views/NewEvent.scss";
 import InvitePopup from "../../ui/PopUps/InvitePopup";
 import TaskPopup from "../../ui/PopUps/TaskPopup";
+import PlacesInput from "../PlacesInput";
 
 const EventEdit = (props) => {
   let { eventId } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [file, setFile] = useState(null);
   function handleChange(e) {
@@ -22,8 +23,15 @@ const EventEdit = (props) => {
 
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
-  const [locationName, setLocation] = useState(null);
+  let [locationName, setLocation] = useState(null); //address from PlacesInput
+  const[coordinates, setCoordinates] = useState(null);
+    let latitude;
+    let longitude;
   const [eventDate, setDate] = useState(null);
+  const prevLocation = useRef();
+  useEffect(() => {
+    prevLocation.current = props.event.locationName;
+  }, []);
 
   /*
   function handleUpload(){
@@ -41,6 +49,14 @@ const EventEdit = (props) => {
   }*/
 
   const updateEvent = async () => {
+    if(!locationName){
+      latitude = props.event.latitude;
+      longitude = props.event.longitude;
+      locationName = props.event.locationName;
+    } else {
+      latitude = coordinates.lat;
+      longitude = coordinates.lng;
+    }
     try {
       //--- Put Event Params ---//
       const requestBody = JSON.stringify({
@@ -48,6 +64,8 @@ const EventEdit = (props) => {
         description,
         locationName,
         eventDate,
+        longitude,
+        latitude,
       });
       const response = await apiLoggedIn().put(
         `/events/${eventId}`,
@@ -55,17 +73,16 @@ const EventEdit = (props) => {
       );
       //handleUpload();
 
-      navigate(`/event/${eventId}`);
+      window.location.reload();
     } catch (error) {
       alert(
-        `Something went wrong during event update: \n${handleError(error)}`
+          `Something went wrong during event update: \n${handleError(error)}`
       );
     }
   };
 
   return (
     <div>
-      <Header />
       <div className="edit-container">
         <p className="edit-title">Edit your event:</p>
         <FormField
@@ -80,11 +97,10 @@ const EventEdit = (props) => {
           onChange={(dis) => setDescription(dis)}
         />
 
-        <FormField
-          label={"Location"}
-          placeholder={"..."}
-          onChange={(loc) => setLocation(loc)}
-        />
+        <PlacesInput
+            setLocation={setLocation.bind(this)}
+            setCoordinates={setCoordinates.bind(this)}>
+        </PlacesInput>
 
         <FormField
             type={"datetime-local"}

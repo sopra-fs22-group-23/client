@@ -11,8 +11,11 @@ GuestList.propTypes = {
   user: PropTypes.object,
 };
 
+
 const EventOverview = (props) => {
+
   const [eventUsers, setEventUsers] = useState(null);
+
   useEffect(() => {
     async function loadEventUsers() {
       const response = await apiLoggedIn().get(

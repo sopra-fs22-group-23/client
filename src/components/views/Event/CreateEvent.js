@@ -7,6 +7,8 @@ import { useNavigate } from "react-router";
 import "../../../styles/views/EditEvent.scss";
 import SelectGuestsCollaboratorsNew from "../../ui/SelectGuestsCollaborators";
 import moment from "moment";
+import SelectGuestsCollaborators from "../../ui/SelectGuestsCollaborators";
+import PlacesInput from "../PlacesInput";
 
 const CreateEvent = (props) => {
   const navigate = useNavigate();
@@ -18,11 +20,18 @@ const CreateEvent = (props) => {
 
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
-  const [locationName, setLocation] = useState(null);
+
+  const [locationName, setLocation] = useState(null); //address from PlacesInput
+  const[coordinates, setCoordinates] = useState(null);
+    let latitude;
+    let longitude;
+
   const [eventDate, setDate] = useState(null);
   const [type, setType] = useState("PRIVATE");
 
   const updateInfos = async () => {
+      latitude = coordinates.lat;
+      longitude = coordinates.lng;
     try {
       setDate(moment.utc(eventDate).format("Do MMMM YYYY, H:mm"));
       const requestBody = JSON.stringify({
@@ -31,6 +40,8 @@ const CreateEvent = (props) => {
         locationName,
         eventDate,
         type,
+        longitude,
+        latitude,
       });
       const response = await apiLoggedIn().post(`/events`, requestBody);
       setEventId(response.data.id);
@@ -61,11 +72,15 @@ const CreateEvent = (props) => {
         placeholder={"..."}
         onChange={(dis) => setDescription(dis)}
       />
-      <FormField
-        label={"Location"}
-        placeholder={"..."}
-        onChange={(loc) => setLocation(loc)}
-      />
+      <PlacesInput
+        setLocation={setLocation.bind(this)}
+        setCoordinates={setCoordinates.bind(this)}>
+      </PlacesInput>
+        {/*<FormField
+            label={"Location"}
+            placeholder={"..."}
+            onChange={(loc) => setLocation(loc)}
+        />*/}
       <FormField
         type={"datetime-local"}
         label={"Date"}

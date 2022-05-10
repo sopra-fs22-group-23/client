@@ -1,12 +1,9 @@
-import React from "react";
 import Header from "../ui/StandardComponents/Header";
 
-const User = () => {
+export default function User() {
   return (
-    <dev>
-      <Header />
-    </dev>
+      <>
+          <Header/>
+          Put User Implementation here</>
   );
 };
-
-export default User;
