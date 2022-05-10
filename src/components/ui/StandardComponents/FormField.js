@@ -7,6 +7,7 @@ export const FormField = (props) => {
     <div className="login field">
       <label className="form-input__label">{props.label}</label>
       <input
+        min = {props.min}
         className="form-input__input"
         type={props.type}
         placeholder={props.placeholder}

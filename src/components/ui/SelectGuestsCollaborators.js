@@ -1,26 +1,35 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useRef } from "react";
 import { Modal } from "react-bootstrap";
 import { apiLoggedIn, handleError } from "../../helpers/api";
 import PropTypes from "prop-types";
 import "reactjs-popup/dist/index.css";
 import "../../styles/ui/AddInvitees.scss";
+import { SearchBar } from "./StandardComponents/SearchBar";
 
-const User = ({ user }) => {
+const User = (props) => {
   let [style, setStyle] = useState("user-item-unclicked");
 
   //changes style of button when button clicked
-  const selectInvitee = (e) => {
+  const updateStyle = () => {
     if (style === "user-item-unclicked") {
       setStyle("user-item-clicked");
     } else {
       setStyle("user-item-unclicked");
     }
   };
+  //changes style of button when button clicked
+  useEffect(() => {
+    if (props.invitees.includes(props.user)) {
+      setStyle("user-item-clicked");
+    } else {
+      setStyle("user-item-unclicked");
+    }
+  }, [props.invitees]);
 
   return (
-    <div className={style} onClick={(e) => selectInvitee(e)}>
+    <div className={style} onClick={() => updateStyle()}>
       <div className="user-username">
-        <p>{user.username}</p>
+        <p>{props.user.username}</p>
       </div>
     </div>
   );
@@ -30,11 +39,11 @@ User.propTypes = {
   user: PropTypes.object,
 };
 
-const Invitee = ({ invitee }) => {
+const Guest = (props) => {
   let [style, setStyle] = useState("user-item-unclicked");
 
   //changes style of button when button clicked
-  const selectCollaborator = (e) => {
+  const updateStyle = () => {
     if (style === "user-item-unclicked") {
       setStyle("user-item-clicked");
     } else {
@@ -42,34 +51,236 @@ const Invitee = ({ invitee }) => {
     }
   };
 
+  useEffect(() => {
+    if (props.collaborators.includes(props.guest)) {
+      setStyle("user-item-clicked");
+    } else {
+      setStyle("user-item-unclicked");
+    }
+  }, [props.collaborators]);
+
   return (
-    <div className={style} onClick={(e) => selectCollaborator(e)}>
+    <div className={style} onClick={(e) => updateStyle()}>
       <div className="user-username">
-        <p>{invitee.username}</p>
+        <p>{props.guest.username}</p>
       </div>
     </div>
   );
 };
 
-Invitee.propTypes = {
-  invitee: PropTypes.object,
+Guest.propTypes = {
+  guest: PropTypes.object,
 };
 
 const SelectGuestsCollaborators = (props) => {
   const eventId = props.eventId;
   const [phase, setPhase] = useState("invitees");
 
-  //phase 1: select invitees
-  const [users, setUsers] = useState(null);
-  let [guests, setGuests] = useState([]);
-  const [invitees, setInvitees] = useState([]);
-  let allUsers = <div></div>;
+  //phase 1: select guests
+  let [users, setUsers] = useState(null); //all registered users (lower part of popup)
+  let [allUsers, setAllUsers] = useState(<div>No users yet</div>); //graphic rapresentation of users list (clickable boxes with username)
+  let [invitees, setInvitees] = useState([]); //people I want invite (upper part of popup)
+  // graphic rapresentation of invitees list (upper part of popup)
   let inviteesToInvite = (
     <p className="inviteesToInvite-none">No one selected yet</p>
   );
+  let [guests, setGuests] = useState([]); //copy of the users selected to be invited, used in phase 2: collaborators
+
+  //gets list of all registered users at the begnning
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await apiLoggedIn().get(`/users`);
+        setUsers(response.data);
+      } catch (error) {
+        console.error(
+          `Something went wrong while fetching the users: \n${handleError(
+            error
+          )}`
+        );
+        console.error("Details:", error);
+        alert(
+          "Something went wrong while fetching the users! See the console for detailss."
+        );
+      }
+    }
+    fetchData();
+  }, []);
+
+  //graphic rapresentation of all registered users at the beginning
+  useEffect(() => {
+    if (users) {
+      let newUsers = [...users];
+      const myId = localStorage.getItem("userId");
+
+      //remove the creator of the event from the list of possible invitees (creator automatically invited)
+      for (var i = 0; i < users.length; i++) {
+        if (String(newUsers[i].id) === myId) {
+          newUsers.splice(i, 1);
+          break;
+        }
+      }
+      //all registered users except for the creator
+      setAllUsers(
+        <ul class="list-group">
+          {newUsers.map((user) => {
+            return (
+              <div key={user.username} onClick={() => addInvitee(user)}>
+                <User user={user} invitees={invitees} />
+              </div>
+            );
+          })}
+        </ul>
+      );
+    }
+  }, [users]);
+
+  //add or remove user from invitees list by clicking on the name
+  const addInvitee = (user) => {
+    if (invitees.includes(user) === false) {
+      invitees.push(user);
+    } else {
+      for (var i = 0; i < invitees.length; i++) {
+        if (invitees[i] === user) {
+          invitees.splice(i, 1);
+          break;
+        }
+      }
+    }
+    setInvitees(invitees);
+  };
+
+  const searchFunctionGuests = (returnList) => {
+    let newUsers = [...returnList];
+    const myId = localStorage.getItem("userId");
+
+    //remove the creator of the event from the list of possible invitees (creator automatically invited)
+    for (var i = 0; i < returnList.length; i++) {
+      if (String(newUsers[i].id) === myId) {
+        newUsers.splice(i, 1);
+        break;
+      }
+    }
+
+    //list of all users except for the creator
+    setAllUsers(
+      <ul class="list-group">
+        {newUsers.map((user) => {
+          return (
+            <div key={user.username} onClick={() => addInvitee(user)}>
+              <User user={user} invitees={invitees} />
+            </div>
+          );
+        })}
+      </ul>
+    );
+  };
+
+  //changes phase (from selecting guests to selecting collaborators)
+  const changePopUp = () => {
+    setPhase("collaborators");
+    setGuests([...invitees]);
+  };
+
+  //phase 2: select collaborators
+  let [collaborators, setCollaborators] = useState([]); //all selected collaborators
+  //graphic rapresentation of all collaborators(upper part of popup)
+  let allCollaborators = (
+    <p className="inviteesToInvite-none">No one selected yet</p>
+  );
+  //graphic rapresentation of users selected to be invited (lower part of popup)
+
+  let [allInvitees, setAllInvitees] = useState(<div></div>);
+
+  useEffect(() => {
+    setAllInvitees(
+      <ul class="list-group">
+        {invitees.map((invitee) => {
+          return (
+            <div
+              key={invitee.username}
+              onClick={() => addCollaborator(invitee)}
+            >
+              <Guest guest={invitee} collaborators={collaborators} />
+            </div>
+          );
+        })}
+      </ul>
+    );
+  }, [guests]);
 
   //Adds a user as collaborator to collaborators list and deletes them from guest list
+  //as result collaborators=users to invite as collaborators, guests=users to invite as guests
+  const addCollaborator = (invitee) => {
+    console.log(invitee);
+    if (collaborators.includes(invitee) === false) {
+      console.log(1);
+      collaborators.push(invitee);
+    } else {
+      console.log(2);
+      for (var i = 0; i < collaborators.length; i++) {
+        if (collaborators[i] === invitee) {
+          collaborators.splice(i, 1);
+          break;
+        }
+      }
+    }
+    setCollaborators(collaborators);
+    console.log(collaborators);
+
+    const newGuests = [...guests];
+    if (guests.includes(invitee) === false) {
+      newGuests.push(invitee);
+      console.log(3);
+    } else {
+      console.log(4);
+      for (var i = 0; i < newGuests.length; i++) {
+        if (newGuests[i] === invitee) {
+          newGuests.splice(i, 1);
+          break;
+        }
+      }
+    }
+    setGuests(newGuests);
+  };
+
+  if (collaborators.length !== 0) {
+    //list of selected collaborators
+    allCollaborators = collaborators.map((collaborator) => {
+      return (
+        <div className="inviteesToInvite-names" key={collaborator.username}>
+          {collaborator.username}
+        </div>
+      );
+    });
+  }
+
+  const searchFunctionCollaborators = (returnList) => {
+    let newUsers = [...returnList];
+
+    //list of all users except for the creator
+    setAllInvitees(
+      <ul class="list-group">
+        {newUsers.map((invitee) => {
+          return (
+            <div
+              key={invitee.username}
+              onClick={() => addCollaborator(invitee)}
+            >
+              <Guest guest={invitee} collaborators={collaborators} />
+            </div>
+          );
+        })}
+      </ul>
+    );
+  };
+
+  //function called at the end, to actually invite the users
   const postInviteesCollaborators = async (guests, collaborators) => {
+    console.log("guests");
+    console.log(guests);
+    console.log("collaborators");
+    console.log(collaborators);
     guests.forEach((guest) => {
       try {
         const requestBody = JSON.stringify({
@@ -107,143 +318,6 @@ const SelectGuestsCollaborators = (props) => {
     // TODO: deactivate button
   };
 
-  //add or remove user from invitees list by clicking on the name
-  const addInvitee = (user) => {
-    const newInvitees = [...invitees];
-    if (invitees.includes(user) === false) {
-      newInvitees.push(user);
-    } else {
-      for (var i = 0; i < newInvitees.length; i++) {
-        if (newInvitees[i] === user) {
-          newInvitees.splice(i, 1);
-          break;
-        }
-      }
-    }
-    setInvitees(newInvitees);
-  };
-
-  const changePopUp = () => {
-    setPhase("collaborators");
-    setGuests([...invitees]);
-  };
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await apiLoggedIn().get(`/users`);
-        setUsers(response.data);
-      } catch (error) {
-        console.error(
-          `Something went wrong while fetching the users: \n${handleError(
-            error
-          )}`
-        );
-        console.error("Details:", error);
-        alert(
-          "Something went wrong while fetching the users! See the console for detailss."
-        );
-      }
-    }
-
-    fetchData();
-  }, []);
-
-  if (users) {
-    let newUsers = [...users];
-    const myId = localStorage.getItem("userId");
-
-    //remove the creator of the event from the list of possible invitees (creator automatically invited)
-    for (var i = 0; i < users.length; i++) {
-      if (String(newUsers[i].id) === myId) {
-        newUsers.splice(i, 1);
-        break;
-      }
-    }
-
-    //list of all users except for the creator
-    allUsers = (
-      <ul class="list-group">
-        {newUsers.map((user) => {
-          return (
-            <div key={user.username} onClick={() => addInvitee(user)}>
-              <User user={user} />
-            </div>
-          );
-        })}
-      </ul>
-    );
-  }
-
-  if (invitees.length !== 0) {
-    //list of selected users
-    inviteesToInvite = invitees.map((invitee) => {
-      return (
-        <div className="inviteesToInvite-names" key={invitee.username}>
-          {invitee.username}
-        </div>
-      );
-    });
-  }
-
-  //phase 2: select collaborators
-  let [collaborators, setCollaborators] = useState([]);
-  let allCollaborators = (
-    <p className="inviteesToInvite-none">No one selected yet</p>
-  );
-
-  //Adds a user as collaborator to collaborators list and deletes them from guest list
-  //as result collaborators=users to invite as collaborators, guests=users to invite as guests
-  const addCollaborator = (invitee) => {
-    const newCollaborators = [...collaborators];
-    if (collaborators.includes(invitee) === false) {
-      newCollaborators.push(invitee);
-    } else {
-      for (var i = 0; i < newCollaborators.length; i++) {
-        if (newCollaborators[i] === invitee) {
-          newCollaborators.splice(i, 1);
-          break;
-        }
-      }
-    }
-    const newGuests = [...guests];
-    if (guests.includes(invitee) === false) {
-      newGuests.push(invitee);
-    } else {
-      for (var i = 0; i < newGuests.length; i++) {
-        if (newGuests[i] === invitee) {
-          newGuests.splice(i, 1);
-          break;
-        }
-      }
-    }
-    setCollaborators(newCollaborators);
-    setGuests(newGuests);
-  };
-
-  if (collaborators.length !== 0) {
-    //list of selected collaborators
-    allCollaborators = collaborators.map((collaborator) => {
-      return (
-        <div className="inviteesToInvite-names" key={collaborator.username}>
-          {collaborator.username}
-        </div>
-      );
-    });
-  }
-
-  let allInvitees = (
-    <ul class="list-group">
-      {invitees.map((invitee) => {
-        return (
-          <div key={invitee.username} onClick={() => addCollaborator(invitee)}>
-            <Invitee invitee={invitee} />
-          </div>
-        );
-      })}
-    </ul>
-  );
-
   //return statements
   if (phase === "invitees") {
     return (
@@ -253,6 +327,10 @@ const SelectGuestsCollaborators = (props) => {
           {inviteesToInvite}
         </div>
         <p className="inviteesToInvite-title">Select the users to invite:</p>
+        <SearchBar
+          list={users}
+          searchFunction={searchFunctionGuests.bind(this)}
+        />
         <div className="popup-inner">{allUsers}</div>
         <button className="invite-btn" onClick={() => changePopUp()}>
           <p className="invite-label">Next</p>
@@ -269,6 +347,10 @@ const SelectGuestsCollaborators = (props) => {
           {allCollaborators}
         </div>
         <p className="inviteesToInvite-title">Select your collaborators:</p>
+        <SearchBar
+          list={invitees}
+          searchFunction={searchFunctionCollaborators.bind(this)}
+        />
         <div className="popup-inner">{allInvitees}</div>
         <button
           className="invite-btn"

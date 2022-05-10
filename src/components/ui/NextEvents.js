@@ -40,11 +40,14 @@ EventItemSquare.propTypes = {
 const NextEvents = () => {
   const [events, setEvents] = useState(null);
   let content = <div></div>;
+  let now = moment().format();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await apiLoggedIn().get("/events?type=PUBLIC");
+        const response = await apiLoggedIn().get(
+          `/events?type=PUBLIC&from=${now}`
+        );
 
         setEvents(response.data);
       } catch (error) {
@@ -73,6 +76,7 @@ const NextEvents = () => {
       sortedEvents = sortedEvents.slice(0, 1);
       content = (
         <div className="row">
+          <p className="upcoming-events">Upcoming public events:</p>
           <div className="col-6">
             <EventItemSquare event={sortedEvents[0]} />
           </div>
@@ -82,19 +86,17 @@ const NextEvents = () => {
     if (sortedEvents.length > 1) {
       sortedEvents = sortedEvents.slice(0, 2);
       content = (
-        <div className="squares">
-          <EventItemSquare event={sortedEvents[0]} />
-          <EventItemSquare event={sortedEvents[1]} />
+        <div>
+          <p className="upcoming-events">Upcoming public events:</p>
+          <div className="squares">
+            <EventItemSquare event={sortedEvents[0]} />
+            <EventItemSquare event={sortedEvents[1]} />
+          </div>
         </div>
       );
     }
   }
 
-  return (
-    <div>
-      <p>Upcoming public events:</p>
-      {content}
-    </div>
-  );
+  return <div>{content}</div>;
 };
 export default NextEvents;
