@@ -3,10 +3,13 @@ import Header from "../ui/StandardComponents/Header";
 import {GoogleMap, Marker} from "@react-google-maps/api";
 import MapStyles from "../../styles/MapStyles";
 import {api} from "../../helpers/api";
+import PublicList from "../ui/EventLists/PublicList";
+import "../../styles/views/Landing.scss"
+import {SearchBar} from "../ui/StandardComponents/SearchBar";
 
 const mapContainerStyle = {
-    width: "100vw",
-    height: "85vh"
+    width: "40vw",
+    height: "60vh"
 }
 const center = {
     lat: 47.3686498,
@@ -33,12 +36,18 @@ export default function Landing() {
     let content = <div></div>
     if(events){
         content = (
-            <div>
+            <div className={"view row"}>
                 <Header />
-                <div>
+                <div className={"col-4 list-container"}>
+                    <SearchBar/>
+                    <div className={"public-list"}><PublicList/></div>
+                </div>
+                <div className={"map-container col-6 offset-1"}>
+                    <p className={"map-title"}>Discover Public Events in Area</p>
                     <GoogleMap
+                        mapContainerClassName={"map"}
                         mapContainerStyle={mapContainerStyle}
-                        zoom={12}
+                        zoom={13}
                         center={center}
                         options={options}
                     >
