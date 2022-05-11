@@ -22,16 +22,16 @@ const CreateEvent = (props) => {
   const [description, setDescription] = useState(null);
 
   const [locationName, setLocation] = useState(null); //address from PlacesInput
-  const[coordinates, setCoordinates] = useState(null);
-    let latitude;
-    let longitude;
+  const [coordinates, setCoordinates] = useState(null);
+  let latitude;
+  let longitude;
 
   const [eventDate, setDate] = useState(null);
   const [type, setType] = useState("PRIVATE");
 
   const updateInfos = async () => {
-      latitude = coordinates.lat;
-      longitude = coordinates.lng;
+    latitude = coordinates.lat;
+    longitude = coordinates.lng;
     try {
       setDate(moment.utc(eventDate).format("Do MMMM YYYY, H:mm"));
       const requestBody = JSON.stringify({
@@ -74,9 +74,9 @@ const CreateEvent = (props) => {
       />
       <PlacesInput
         setLocation={setLocation.bind(this)}
-        setCoordinates={setCoordinates.bind(this)}>
-      </PlacesInput>
-        {/*<FormField
+        setCoordinates={setCoordinates.bind(this)}
+      ></PlacesInput>
+      {/*<FormField
             label={"Location"}
             placeholder={"..."}
             onChange={(loc) => setLocation(loc)}
@@ -158,7 +158,7 @@ const CreateEvent = (props) => {
   return (
     <div>
       <Header />
-      <div className="edit-container">{chooseContent()}</div>
+      <div className="create-container">{chooseContent()}</div>
     </div>
   );
 };

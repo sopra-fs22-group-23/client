@@ -87,13 +87,17 @@ const Event = () => {
   }
 
   const chooseButtons = () => {
-    if (myRole === "ADMIN") {
-      return adminButtons;
-    }
-    if (myRole === "COLLABORATOR") {
-      return collaboratorButton;
+    if (event.status === "CANCELED") {
+      return "";
     } else {
-      return <div></div>;
+      if (myRole === "ADMIN") {
+        return adminButtons;
+      }
+      if (myRole === "COLLABORATOR") {
+        return collaboratorButton;
+      } else {
+        return <div></div>;
+      }
     }
   };
   //TODO: layout +invitees button
@@ -103,19 +107,15 @@ const Event = () => {
         <label className="event-label">Edit</label>
       </button>*/}
 
-      <button
-          className="event-button-left"
-          onClick={() => modalOpenEdit()}
-      >
+      <button className="event-button-left" onClick={() => modalOpenEdit()}>
         <label className="event-label">Edit</label>
       </button>
-      <div>
-        <Modal show={showEdit} onHide={modalCloseEdit}>
-          <ModalBody>
-            <EventEdit event={event} />
-          </ModalBody>
-        </Modal>
-      </div>
+
+      <Modal show={showEdit} onHide={modalCloseEdit}>
+        <ModalBody>
+          <EventEdit event={event} />
+        </ModalBody>
+      </Modal>
 
       <button
         className="event-button add-button"

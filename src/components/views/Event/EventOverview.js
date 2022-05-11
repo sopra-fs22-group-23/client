@@ -11,9 +11,7 @@ GuestList.propTypes = {
   user: PropTypes.object,
 };
 
-
 const EventOverview = (props) => {
-
   const [eventUsers, setEventUsers] = useState(null);
 
   useEffect(() => {
@@ -28,11 +26,32 @@ const EventOverview = (props) => {
 
   let content = "";
 
-  const chooseType = () => {
+  const translateEventType = () => {
     if (props.event.type === "PUBLIC") {
       return "Public";
     }
     return "Private";
+  };
+
+  const translateEventStatus = () => {
+    if (props.event.status === "IN_PLANNING") {
+      return "in planning";
+    }
+    if (props.event.status === "READY") {
+      return "ready";
+    }
+    if (props.event.status === "IN_SESSION") {
+      return "in session";
+    }
+    if (props.event.status === "CANCELED") {
+      return "canceled";
+    }
+    if (props.event.status === "PAST") {
+      return "past";
+    }
+    if (props.event.status === "COMPLETED") {
+      return "completed";
+    }
   };
 
   if (eventUsers) {
@@ -43,10 +62,13 @@ const EventOverview = (props) => {
         <div className="event-organizer">
           <img src={pic} className="small-profile-pic" />
           <div className="organizer-name">
-            {chooseType()} event by {props.admin.username}
+            {translateEventType()} event by {props.admin.username}
           </div>
           <div className="creation-time">
             happening {moment.utc(props.event.eventDate).fromNow()}
+          </div>
+          <div className="creation-time">
+            Event status: {translateEventStatus()}
           </div>
         </div>
         <div className="event-information">

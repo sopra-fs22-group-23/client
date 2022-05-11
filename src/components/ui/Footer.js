@@ -33,7 +33,27 @@ const Footer = (props) => {
     window.location.reload();
   };
 
+  const uninviteMyself = () => {
+    try {
+      const requestBody = JSON.stringify({
+        id: localStorage.getItem("userId"),
+        eventUserStatus: "CANCELLED",
+      });
+      const response = apiLoggedIn().put(
+        `/events/${eventId}/users`,
+        requestBody
+      );
+    } catch (error) {
+      alert(
+        `Something went wrong during inviting myself to this public event: \n${handleError(
+          error
+        )}`
+      );
+    }
+  };
+
   //BUG: disabled doesn't always work
+  //TODO: disable when session finished
   const adminButton = (
     <button
       type="button"
@@ -51,10 +71,9 @@ const Footer = (props) => {
   );
 
   const collaboratorButton = (
-    //TODO: disable button when session not started
+    //TODO: disable button when session not started/finished
     <button
       className="role-button"
-      disabled={false}
       onClick={() => navigate(`/taskSession/${eventId}`)}
     >
       Join Session
@@ -69,7 +88,9 @@ const Footer = (props) => {
 
   //TODO: unjoin event onClick()
   const unjoinPublicEventButton = (
-    <button className="role-button">Unjoin Event!</button>
+    <button className="role-button" onClick={() => uninviteMyself()}>
+      Unjoin Event!
+    </button>
   );
 
   // async function loadTasks() {
@@ -115,6 +136,9 @@ const Footer = (props) => {
   }, [tasks]);
 
   const chooseButtons = () => {
+    if (props.event.status === "CANCELED") {
+      return <p className="news-canceled">This event has been canceled</p>;
+    }
     if (props.myRole === "ADMIN") {
       return adminButton;
     }
@@ -132,8 +156,15 @@ const Footer = (props) => {
     }
   };
 
+  let chooseShadow = () => {
+    if (props.event.status === "CANCELED") {
+      return "rectangle-canceled";
+    }
+    return "rectangle-in-planning";
+  };
+
   let content = (
-    <div className="rectangle">
+    <div className={chooseShadow()}>
       <div className="infos-event">
         <div className="date">
           <div className="date-title">Date</div>
@@ -151,9 +182,6 @@ const Footer = (props) => {
           <div className="location-title">Location</div>
           <div className="location-real">{props.event.locationName}</div>
         </div>
-        <MyButton className="role-button" onClick={() => navigate(`/home`)}>
-          Back
-        </MyButton>
         {chooseButtons()}
       </div>
     </div>

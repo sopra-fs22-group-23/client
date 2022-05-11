@@ -1,21 +1,19 @@
 import MainRouter from "./components/routing/routers/MainRouter";
 import Header from "./components/ui/StandardComponents/Header";
-import {useLoadScript} from "@react-google-maps/api";
+import { useLoadScript } from "@react-google-maps/api";
 
-
-const libraries = ["places"]
+const libraries = ["places"];
 function App() {
+  useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries,
+  });
 
-    useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-        libraries,
-    });
-
-return (
-<>
-  <MainRouter />
-</>
-);
+  return (
+    <>
+      <MainRouter />
+    </>
+  );
 }
 
 export default App;
