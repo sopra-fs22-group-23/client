@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
 import Header from "../ui/StandardComponents/Header";
-import {GoogleMap, Marker, useLoadScript} from "@react-google-maps/api";
+import {GoogleMap, Marker} from "@react-google-maps/api";
 import MapStyles from "../../styles/MapStyles";
-import {api, apiLoggedIn, handleError} from "../../helpers/api";
+import {api} from "../../helpers/api";
 
-const libraries = ["places"]
 const mapContainerStyle = {
     width: "100vw",
     height: "85vh"
@@ -21,7 +20,6 @@ const options = {
 
 export default function Landing() {
 
-    const [eventMarkers, setEventMarkers] = useState([]);
     const [events, setEvents] = useState(null);
 
     useEffect(() => {
@@ -31,13 +29,6 @@ export default function Landing() {
         }
         loadEvents();
     }, []);
-
-    /*const {isLoaded, loadError} = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-        libraries,
-    });
-    if(loadError) return "Error loading Map";
-    if(!isLoaded) return "loading map..."; */
 
     let content = <div></div>
     if(events){
@@ -50,24 +41,8 @@ export default function Landing() {
                         zoom={12}
                         center={center}
                         options={options}
-                        /*onClick={(event) => {
-                            setEventMarkers((current) => [
-                                ...current,
-                                {
-                                    lat: event.latLng.lat(),
-                                    lng: event.latLng.lng(),
-                                    time: new Date(),
-                                },
-                            ]);
-                        }}*/
                     >
 
-                        {/*eventMarkers.map((marker) => (
-                            <Marker
-                                key={marker.time.toISOString()}
-                                position={{lat: marker.lat, lng: marker.lng}}>
-                            </Marker>
-                        ))*/}
                         {events.map((e) => (
                             <Marker
                                 key={e.id}
