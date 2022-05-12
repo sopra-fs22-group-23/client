@@ -1,30 +1,96 @@
 .view {
   background-color: whitesmoke;
+  min-width: 100vw;
+  height: 46.3vw;
+  margin-left: 40vw;
 }
 
 .list-container {
-  padding-top: 50px;
-  margin-left: 80px;
-}
-
-.public-list {
-  margin-top: 30px;
-  padding-left: 50px;
+  padding-top: 75px;
+  padding-left: 60px !important;
+  padding-right: 60px !important;
 }
 
 .map-container {
-  margin-left: 250px;
-  padding-top: 80px;
-  padding-bottom: 70px;
+  padding-top: 70px;
+  padding-left: 50px !important;
+  width: 57% !important;
 }
 
 .map {
-  border-radius: 20px !important;
+  border-radius: 10px !important;
 }
 
 .map-title {
-  margin-bottom: 20px;
   font-size: 35px;
   color: rgb(41, 99, 124);
   font-weight: 800;
+}
+
+.filters {
+  margin-bottom: 40px;
+}
+
+.filter {
+  border: black 1px solid;
+  border-radius: 8px;
+}
+
+.col-10 {
+  padding-right: unset !important;
+}
+
+.form-control {
+  border-radius: 7px 0 0 7px !important;
+}
+
+.event-list {
+  height: 450px;
+  overflow-y: scroll;
+  //box-shadow: 0px -20px 10px black inset;
+}
+
+.list-group {
+  padding-left: 65px !important;
+}
+
+div::-webkit-scrollbar {
+  width: 8px;               /* width of the entire scrollbar */
+}
+
+div::-webkit-scrollbar-track {
+  background: whitesmoke;        /* color of the tracking area */
+}
+
+div::-webkit-scrollbar-thumb {
+  background-color: lightgray;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 1px solid lightgray;  /* creates padding around scroll thumb */
+}
+
+.title-screen {
+  min-width: 93vw;
+  max-height: 46.3vw;
+  //other backgrounds:
+  //https://www.vecteezy.com/free-videos/background-loop
+  //https://www.pexels.com/de-de/
+}
+
+.border-container {
+  color: white;
+  margin-top: 30px;
+  margin-left: 45px;
+  display: inline-block;
+  border: white 10px solid;
+  padding: 20vw 40vw;
+}
+
+.bg-video {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 90%;
+  object-fit: cover;
+  max-height: 46.3vw;
 }

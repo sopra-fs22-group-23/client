@@ -10,15 +10,23 @@ import CreateEvent from "../../views/Event/CreateEvent";
 import EventEdit from "../../views/Event/EventEdit";
 import TaskSession from "../../views/TaskSession/TaskSession";
 import React from "react";
-import PlacesInput from "../../views/PlacesInput";
 import Landing from "../../views/Landing";
+import TitleScreen from "../../views/TitleScreen";
 
 const MainRouter = () => {
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={
+            <>
+                <div className={"row"}>
+                    {<div className={"col-6"}><TitleScreen/></div>}
+                    <div className={"col-6"}><Landing /></div>
+                </div>
+            </>
+            }
+        />
         <Route element={<ProtectedRoute />}>
           <Route path="/home" element={<Dashboard />} />
           <Route path="/user" element={<User />} />

@@ -3,13 +3,12 @@ import Header from "../ui/StandardComponents/Header";
 import {GoogleMap, Marker} from "@react-google-maps/api";
 import MapStyles from "../../styles/MapStyles";
 import {api} from "../../helpers/api";
-import PublicList from "../ui/EventLists/PublicList";
 import "../../styles/views/Landing.scss"
-import {SearchBar} from "../ui/StandardComponents/SearchBar";
+import SearchEvents from "../ui/EventLists/SearchEvents";
 
 const mapContainerStyle = {
-    width: "40vw",
-    height: "60vh"
+    width: "52vw",
+    height: "65vh"
 }
 const center = {
     lat: 47.3686498,
@@ -36,31 +35,33 @@ export default function Landing() {
     let content = <div></div>
     if(events){
         content = (
-            <div className={"view row"}>
-                <Header />
-                <div className={"col-4 list-container"}>
-                    <SearchBar/>
-                    <div className={"public-list"}><PublicList/></div>
-                </div>
-                <div className={"map-container col-6 offset-1"}>
-                    <p className={"map-title"}>Discover Public Events in Area</p>
-                    <GoogleMap
-                        mapContainerClassName={"map"}
-                        mapContainerStyle={mapContainerStyle}
-                        zoom={13}
-                        center={center}
-                        options={options}
-                    >
+            <div className={"view"}>
+                <Header/>
+                <div className={"row"}>
+                    <div className={"col-5 list-container"}>
+                        <SearchEvents/>
+                    </div>
+                    <div className={"col-7 map-container"}>
+                        <p className={"map-title"}>Discover Public Events in Area</p>
+                        <GoogleMap
+                            mapContainerClassName={"map"}
+                            mapContainerStyle={mapContainerStyle}
+                            zoom={13}
+                            center={center}
+                            options={options}
+                        >
 
-                        {events.map((e) => (
-                            <Marker
-                                key={e.id}
-                                position={{lat: e.latitude, lng: e.longitude}}>
-                            </Marker>
-                        ))}
-                    </GoogleMap>
+                            {events.map((e) => (
+                                <Marker
+                                    key={e.id}
+                                    position={{lat: e.latitude, lng: e.longitude}}>
+                                </Marker>
+                            ))}
+                        </GoogleMap>
+                    </div>
                 </div>
             </div>
+
         )
     }
 
