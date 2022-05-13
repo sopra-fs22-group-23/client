@@ -76,21 +76,92 @@ div::-webkit-scrollbar-thumb {
   //https://www.pexels.com/de-de/
 }
 
-.border-container {
-  color: white;
-  margin-top: 30px;
-  margin-left: 45px;
-  display: inline-block;
-  border: white 10px solid;
-  padding: 20vw 40vw;
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 18%;
+  padding-right: 40px;
 }
 
 .bg-video {
   position: absolute;
-  z-index: -1;
+  z-index: -100;
   top: 0;
   left: 0;
   width: 90%;
   object-fit: cover;
   max-height: 46.3vw;
+}
+
+.circle-three {
+  z-index: 0;
+  width: 200px;
+  height: 200px;
+  background-color: lightsteelblue;
+  border-radius: 50%;
+}
+
+.circle-two {
+  z-index: 25;
+  width: 190px;
+  height: 190px;
+  background-color: #29627c;
+  border-radius: 50%;
+}
+
+.circle-one {
+  //display: flex;
+  //display: table-cell;
+  //vertical-align: middle;
+  z-index: 50;
+  width: 180px;
+  height: 180px;
+  background-color: whitesmoke;
+  border: midnightblue 2px solid;
+  border-radius: 50%;
+}
+
+.title-logo {
+  z-index: 100;
+  padding-top: 18%;
+  display: block;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.op-container {
+  position: absolute;
+  z-index: -25;
+  background-color: whitesmoke;
+  opacity: 0.5;
+  min-width: 70vw;
+  min-height: 30vw;
+  margin-right: 10%;
+  margin-left: 10%;
+  margin-top: 7%;
+  border-radius: 20px;
+}
+
+.border-container {
+  position: absolute;
+  z-index: -20;
+  min-width: 70vw;
+  min-height: 30vw;
+  margin-right: 10%;
+  margin-left: 10%;
+  margin-top: 7%;
+  border: white 10px solid;
+  border-radius: 20px;
+}
+
+.title-buttons {
+  position: absolute;
+  z-index: 200;
+  min-width: 50vw;
+  min-height: 2vw;
+  margin-right: 12%;
+  margin-left: 20%;
+  margin-top: 20%;
 }
