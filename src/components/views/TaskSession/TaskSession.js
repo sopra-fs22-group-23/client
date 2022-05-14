@@ -7,6 +7,7 @@ import { useParams } from "react-router";
 import { apiLoggedIn } from "../../../helpers/api";
 import { getDomainWS } from "../../../helpers/getDomain";
 import Stomp from "webstomp-client";
+import ChatWindow from "./ChatWindow";
 
 const TaskSession = () => {
   const { eventID } = useParams();
@@ -181,6 +182,7 @@ const TaskSession = () => {
           {MovableItemsForColumn(0)}
         </Column>
       </DndProvider>
+      <ChatWindow eventID={eventID}/>
     </div>
   );
 };
