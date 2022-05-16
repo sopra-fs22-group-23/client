@@ -4,6 +4,8 @@ import Message from "./Message";
 import {getDomainWS} from "../../../helpers/getDomain";
 import Stomp from "webstomp-client";
 import {apiLoggedIn} from "../../../helpers/api";
+import chatIcon from "./icons8-chat-100.png"
+
 const ChatWindow = ({eventID}) => {
 
     const [text, setText] = useState("")
@@ -29,10 +31,8 @@ const ChatWindow = ({eventID}) => {
     useEffect(() => {
         let isMounted = true;
 
-
         fetchMessages();
         // let response;
-
 
         return () => {
             // console.log(response)
@@ -79,10 +79,20 @@ const ChatWindow = ({eventID}) => {
 
     function sendMessage(e) {
         e.preventDefault()
+        if(text.length === 0)//dont do smth if the text is empty
+                return;
+
         sendMessageServer();
         sendMessageWS();
         console.log(text);
         setText("");//set text to 0
+    }
+
+    function keyDownTextarea(e){
+        if(e.keyCode == 13 && e.shiftKey == false) {
+            e.preventDefault();
+            sendMessage(e)
+        }
     }
 
     return(
@@ -119,8 +129,9 @@ const ChatWindow = ({eventID}) => {
                     <form onSubmit={(e) => sendMessage(e)}>
                         <textarea
                             className="message-input"
-                            placeholder="Type message and press Enter to send"
+                            placeholder="Press Enter to send"
                             onChange={(e) => setText(e.target.value)}
+                            onKeyDown={keyDownTextarea}
                             value={text}
                         />
                         <button type="submit" className="message-submit" onClick={(e) => sendMessage(e)}>Send</button>
@@ -131,7 +142,7 @@ const ChatWindow = ({eventID}) => {
         </section>
         :
             <div className={"show-chat"} onClick={() => setShowChat(true)}>
-                Open Chat
+                <img src={chatIcon}/>
             </div>
 
         }

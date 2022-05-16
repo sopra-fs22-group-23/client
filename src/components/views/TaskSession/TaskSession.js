@@ -8,6 +8,8 @@ import { apiLoggedIn } from "../../../helpers/api";
 import { getDomainWS } from "../../../helpers/getDomain";
 import Stomp from "webstomp-client";
 import ChatWindow from "./ChatWindow";
+import Footer from "./Footer";
+import Header from "../../ui/StandardComponents/Header";
 
 const TaskSession = () => {
   const { eventID } = useParams();
@@ -174,16 +176,22 @@ const TaskSession = () => {
   }
 
   return (
-    <div className={"taskContainer"}>
-      <DndProvider backend={HTML5Backend}>
-        {content}
+      <>
+      <Header/>
+      <div className={"taskContainer"}>
 
-        <Column title="Not assigned" id={0} disabled={isStealingModeON()}>
-          {MovableItemsForColumn(0)}
-        </Column>
-      </DndProvider>
-      <ChatWindow eventID={eventID}/>
-    </div>
+        <DndProvider backend={HTML5Backend}>
+          {content}
+
+          <Column title="Not assigned" id={0} disabled={isStealingModeON()}>
+            {MovableItemsForColumn(0)}
+          </Column>
+        </DndProvider>
+
+        <Footer eventID={eventID}/>
+      </div>
+        <ChatWindow eventID={eventID}/>
+      </>
   );
 };
 
