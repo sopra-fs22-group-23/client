@@ -7,10 +7,9 @@ import "../../../styles/ui/MyButton.scss";
 import { useNavigate } from "react-router";
 import { apiLoggedIn, handleError } from "../../../helpers/api";
 
-const Login = (props) => {
+const Login = () => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
-
   const navigate = useNavigate();
 
   const doLogin = async () => {
@@ -30,7 +29,6 @@ const Login = (props) => {
     }
   };
 
-  //TODO: Style
   return (
     <div className={"marginClass mx-auto w-50"}>
       <div className={"col-12 text-center login-text py-1 mb-3"}>

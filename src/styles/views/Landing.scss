@@ -1,5 +1,5 @@
 .view {
-  background-color: whitesmoke;
+  background-color: white;
   min-width: 100vw;
   height: 46.3vw;
   margin-left: 40vw;
@@ -77,10 +77,11 @@ div::-webkit-scrollbar-thumb {
 }
 
 .logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 18%;
+  //display: flex;
+  //justify-content: center;
+  //align-items: center;
+  margin-left: 30%;
+  padding-top: 5%;
   padding-right: 40px;
 }
 
@@ -90,6 +91,7 @@ div::-webkit-scrollbar-thumb {
   top: 0;
   left: 0;
   width: 90%;
+  opacity: 0.45;
   object-fit: cover;
   max-height: 46.3vw;
 }
@@ -117,7 +119,7 @@ div::-webkit-scrollbar-thumb {
   z-index: 50;
   width: 180px;
   height: 180px;
-  background-color: whitesmoke;
+  background-color: white;
   border: midnightblue 2px solid;
   border-radius: 50%;
 }
@@ -135,25 +137,40 @@ div::-webkit-scrollbar-thumb {
   position: absolute;
   z-index: -25;
   background-color: whitesmoke;
-  opacity: 0.5;
-  min-width: 70vw;
-  min-height: 30vw;
+  opacity: 1;
+  min-width: 30vw;
+  min-height: 35vw;
   margin-right: 10%;
-  margin-left: 10%;
+  margin-left: 30%;
   margin-top: 7%;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .border-container {
   position: absolute;
   z-index: -20;
-  min-width: 70vw;
-  min-height: 30vw;
+  min-width: 30vw;
+  min-height: 35vw;
   margin-right: 10%;
-  margin-left: 10%;
+  margin-left: 30%;
   margin-top: 7%;
-  border: white 10px solid;
-  border-radius: 20px;
+  border: lightsteelblue 10px solid;
+  border-radius: 10px;
+}
+
+.login-container {
+  position: absolute;
+  z-index: 200;
+  min-width: 30vw;
+  min-height: 35vw;
+  margin-right: 10%;
+  margin-left: 30%;
+  margin-top: 7%;
+}
+
+.register-btn {
+  margin-left: 38%;
+  margin-top: 15px;
 }
 
 .title-buttons {
@@ -164,4 +181,10 @@ div::-webkit-scrollbar-thumb {
   margin-right: 12%;
   margin-left: 20%;
   margin-top: 20%;
+}
+
+.scroll-img {
+  max-width: 200px;
+  filter: invert(80%);
+  margin-top: 17vw;
 }

@@ -21,7 +21,7 @@ const MainRouter = () => {
         <Route path="/" element={
             <>
                 <div className={"row"}>
-                    {<div className={"col-6"}><TitleScreen/></div>}
+                    <div className={"col-6"}><TitleScreen/></div>
                     <div className={"col-6"}><Landing /></div>
                 </div>
             </>
