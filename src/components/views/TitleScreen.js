@@ -1,25 +1,17 @@
-import React, {useState} from "react";
+import React from "react";
 import "../../styles/views/Landing.scss"
 import bg from "../pictures/new.mp4"
 import logo from "../pictures/LogoCut.png";
-import arrow from "../pictures/right-arrow.png";
-import {useNavigate} from "react-router";
-import Login from "./Login/Login";
-import {MyButton} from "../ui/StandardComponents/MyButton";
+import arrow from "../pictures/right-arrow-blue.png";
+import Login from "./Login";
 
 const TitleScreen = () => {
-    const navigate = useNavigate();
-    const [loginRegister, setLoginRegister] = useState(
-        <div>
-            <Login/>
-        </div>
-    );
     return (
         <div className={"title-screen"}>
             <div className={"op-container"}></div>
             <div className={"border-container"}></div>
             <div className={"login-container"}>
-                {loginRegister}
+                <Login/>
             </div>
             <div className={"scroll-btn"}>
                 <button
@@ -27,15 +19,6 @@ const TitleScreen = () => {
                     onClick={() => window.scroll(3000, 0)}
                 ><img src={arrow} className={"scroll-img"}/></button>
             </div>
-
-            {/*<div className={"title-buttons"}>
-                <Button
-                    onClick={() => navigate("/login")}>Login/Register</Button>
-                <Button
-                    className={"float-end"}
-                    onClick={() => window.scroll(3000, 0)}
-                >Browse</Button>
-            </div>*/}
             <div className={"logo-container"}>
                 <div className={"circle-three"}>
                     <div className={"circle-two"}>

@@ -1,10 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "../../views/Dashboard";
 import NotFound from "../../views/NotFound";
-import Login from "../../views/Login/Login";
 import User from "../../views/User";
 import Event from "../../views/Event/Event";
-import Register from "../../views/Login/Register";
 import ProtectedRoute from "../protectors/ProtectedRoute";
 import CreateEvent from "../../views/Event/CreateEvent";
 import EventEdit from "../../views/Event/EventEdit";
@@ -12,6 +10,7 @@ import TaskSession from "../../views/TaskSession/TaskSession";
 import React from "react";
 import Landing from "../../views/Landing";
 import TitleScreen from "../../views/TitleScreen";
+import "../../../styles/views/Landing.scss"
 
 const MainRouter = () => {
 
@@ -22,7 +21,7 @@ const MainRouter = () => {
             <>
                 <div className={"row"}>
                     <div className={"col-6"}><TitleScreen/></div>
-                    <div className={"col-6"}><Landing /></div>
+                    <div className={"col-6"}><div className={"view"}><Landing /></div></div>
                 </div>
             </>
             }
@@ -31,20 +30,12 @@ const MainRouter = () => {
           <Route path="/home" element={<Dashboard />} />
           <Route path="/user" element={<User />} />
           <Route path="/taskSession/:eventID" element={<TaskSession/>} />
+          <Route path="/event/create" element={<CreateEvent create />} />
+          <Route path="/event/:eventId/edit" element={<EventEdit edit />} />
+          <Route path="/landing" element={<Landing />} />
         </Route>
-        <Route
-            exact
-            path="/login"
-            element={
-              <>
-                <Login />
-                <Register />
-              </>
-            }
-        />
+
         <Route path="/event/:eventId" element={<Event event />} />
-        <Route path="/event/create" element={<CreateEvent create />} />
-        <Route path="/event/:eventId/edit" element={<EventEdit edit />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

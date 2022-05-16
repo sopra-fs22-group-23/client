@@ -35,7 +35,7 @@ export default function Landing() {
     let content = <div></div>
     if(events){
         content = (
-            <div className={"view"}>
+            <div>
                 <Header/>
                 <div className={"row"}>
                     <div className={"col-5 list-container"}>
