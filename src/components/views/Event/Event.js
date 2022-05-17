@@ -39,7 +39,6 @@ const Event = () => {
   const [myRole, setMyRole] = useState(null);
   const [admin, setAdmin] = useState(null);
   const [collaborators, setCollaborators] = useState([]);
-  const navigate = useNavigate();
   const myId = localStorage.getItem("userId");
 
   //--- Task Popup ---//
@@ -69,12 +68,6 @@ const Event = () => {
   const [showinvitee, InviteePopup] = useState(false);
   const modalOpenInvitee = () => InviteePopup(true);
   const modalCloseInvitee = () => InviteePopup(false);
-
-  function toEdit() {
-    if (event) {
-      navigate(`/event/${eventId}/edit`);
-    }
-  }
 
   function findMe(eventUsers) {
     for (let i in eventUsers) {
