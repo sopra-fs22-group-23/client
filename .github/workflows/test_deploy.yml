@@ -1,4 +1,4 @@
-name: Deploy Project
+name: Deploy test branch
 
 on:
   push:
@@ -13,14 +13,14 @@ jobs:
 
       HEROKU_KEY: ${{ secrets.HEROKU_API_KEY }}
       HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
-      HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME_TEST }}
+      HEROKU_APP_NAME_TEST: ${{ secrets.HEROKU_APP_NAME_TEST }}
 
     steps:
       # checkout repository code
       - uses: actions/checkout@v1
 
       # deploy code
-      - run: heroku git:remote -a $HEROKU_APP_NAME
+      - run: heroku git:remote -a $HEROKU_APP_NAME_TEST
       - run: git push heroku HEAD:refs/heads/master
 
 
