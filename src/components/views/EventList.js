@@ -68,9 +68,7 @@ class EventList extends Component {
           </div>
         </div>
         <div class="container-list">
-          <div class="scrollable-list">
-            <ul class="list-group">{this.decideList()}</ul>
-          </div>
+          <div class="scrollable-list">{this.decideList()}</div>
         </div>
       </div>
     );

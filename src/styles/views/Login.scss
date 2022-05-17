@@ -1,5 +1,4 @@
 .login {
-
   &-field {
     padding-left: 20%;
     padding-right: 20%;
@@ -8,7 +7,7 @@
   }
 
   &-title {
-    font-family: Calibri;
+    //  font-family: Calibri;
     margin-top: 65px;
     margin-bottom: 50px;
     text-align: center;
@@ -19,7 +18,7 @@
   }
 
   &-label {
-    font-family: Calibri;
+    // font-family: Calibri;
     padding-right: 1em;
     display: table-cell;
     font-size: 16px;
@@ -60,13 +59,11 @@
     background-color: #1c4a5f;
     width: 45%;
   }
-
 }
 
 .login-text {
   font-weight: bold;
   font-size: 12pt;
-
 }
 .pw {
   margin-bottom: 158px;
