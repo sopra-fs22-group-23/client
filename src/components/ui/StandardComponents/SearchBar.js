@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import "../../../styles/ui/SearchBar.scss";
-import { FormField } from "./FormField";
 
 export const SearchBar = (props) => {
   const [inputText, setInputText] = useState("");

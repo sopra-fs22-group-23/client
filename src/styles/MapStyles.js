@@ -6,7 +6,7 @@ export default [
         "stylers": [
             {
                 "color": "#ffffff"
-            }
+            },
         ]
     },
     {

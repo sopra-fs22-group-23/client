@@ -3,10 +3,12 @@ import Header from "../ui/StandardComponents/Header";
 import {GoogleMap, Marker} from "@react-google-maps/api";
 import MapStyles from "../../styles/MapStyles";
 import {api} from "../../helpers/api";
+import "../../styles/views/Landing.scss"
+import SearchEvents from "../ui/EventLists/SearchEvents";
 
 const mapContainerStyle = {
-    width: "100vw",
-    height: "85vh"
+    width: "52vw",
+    height: "65vh"
 }
 const center = {
     lat: 47.3686498,
@@ -34,24 +36,32 @@ export default function Landing() {
     if(events){
         content = (
             <div>
-                <Header />
-                <div>
-                    <GoogleMap
-                        mapContainerStyle={mapContainerStyle}
-                        zoom={12}
-                        center={center}
-                        options={options}
-                    >
+                <Header/>
+                <div className={"row"}>
+                    <div className={"col-5 list-container"}>
+                        <SearchEvents/>
+                    </div>
+                    <div className={"col-7 map-container"}>
+                        <p className={"map-title"}>Discover Public Events in Area</p>
+                        <GoogleMap
+                            mapContainerClassName={"map"}
+                            mapContainerStyle={mapContainerStyle}
+                            zoom={13}
+                            center={center}
+                            options={options}
+                        >
 
-                        {events.map((e) => (
-                            <Marker
-                                key={e.id}
-                                position={{lat: e.latitude, lng: e.longitude}}>
-                            </Marker>
-                        ))}
-                    </GoogleMap>
+                            {events.map((e) => (
+                                <Marker
+                                    key={e.id}
+                                    position={{lat: e.latitude, lng: e.longitude}}>
+                                </Marker>
+                            ))}
+                        </GoogleMap>
+                    </div>
                 </div>
             </div>
+
         )
     }
 
