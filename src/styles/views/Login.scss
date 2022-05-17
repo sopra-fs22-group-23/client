@@ -1,13 +1,73 @@
-.Login {
-  font-size: 10pt;
+.login {
+
+  &-field {
+    padding-left: 20%;
+    padding-right: 20%;
+    //padding-top: 3em;
+    height: 35vw;
+  }
+
+  &-title {
+    font-family: Calibri;
+    margin-top: 65px;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+
+  &-group {
+    margin-bottom: 1em;
+  }
+
+  &-label {
+    font-family: Calibri;
+    padding-right: 1em;
+    display: table-cell;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+  }
+
+  &-input-field {
+    width: 100%;
+    display: table-cell;
+    border: 0.3px solid rgb(41, 99, 124);
+    border-radius: 12px;
+    height: 39px;
+    padding-left: 15px;
+  }
 }
 
-.marginClass {
-  margin-top: 10em;
+.button {
+  &-btn {
+    height: 3em;
+    border-radius: 12px;
+    margin-top: 1em;
+    width: 45%;
+  }
+  &-login {
+    float: right;
+    color: white;
+    background-color: #1c4a5f;
+  }
+  &-login-reg {
+    float: right;
+  }
+  &-register {
+    float: left;
+  }
+  &-register-reg {
+    color: white;
+    background-color: #1c4a5f;
+    width: 45%;
+  }
+
 }
 
 .login-text {
   font-weight: bold;
   font-size: 12pt;
 
+}
+.pw {
+  margin-bottom: 158px;
 }

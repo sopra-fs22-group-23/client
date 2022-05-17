@@ -1,0 +1,181 @@
+.view {
+  background-color: white;
+  min-width: 100vw;
+  height: 46.3vw;
+  margin-left: 50vw;
+}
+
+.title-screen {
+  min-width: 100vw;
+  max-height: 46.3vw;
+  //other backgrounds:
+  //https://www.vecteezy.com/free-videos/background-loop
+  //https://www.pexels.com/de-de/
+}
+
+.list-container {
+  padding-top: 75px;
+  padding-left: 60px !important;
+  padding-right: 60px !important;
+}
+
+.map-container {
+  padding-top: 70px;
+  padding-left: 50px !important;
+  width: 57% !important;
+}
+
+.map {
+  border-radius: 10px !important;
+}
+
+.map-title {
+  font-size: 35px;
+  color: rgb(41, 99, 124);
+  font-weight: 800;
+}
+
+.filters {
+  margin-bottom: 40px;
+}
+
+.filter {
+  border: black 1px solid;
+  border-radius: 8px;
+}
+
+.col-10 {
+  padding-right: unset !important;
+}
+
+.form-control {
+  border-radius: 7px 0 0 7px !important;
+}
+
+.event-list {
+  height: 450px;
+  overflow-y: scroll;
+  //box-shadow: 0px -20px 10px black inset;
+}
+
+.list-group {
+  padding-left: 65px !important;
+}
+
+div::-webkit-scrollbar {
+  width: 8px;               /* width of the entire scrollbar */
+}
+
+div::-webkit-scrollbar-track {
+  background: whitesmoke;        /* color of the tracking area */
+}
+
+div::-webkit-scrollbar-thumb {
+  background-color: lightgray;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 1px solid lightgray;  /* creates padding around scroll thumb */
+}
+
+.logo-container {
+  //display: flex;
+  //justify-content: center;
+  //align-items: center;
+  margin-left: 30%;
+  padding-top: 3%;
+  padding-right: 40px;
+}
+
+.bg-video {
+  position: absolute;
+  z-index: -100;
+  top: 0;
+  left: 0;
+  margin-right: 200px !important;
+  width: 95%;
+  opacity: 0.45;
+  //object-fit: cover;
+  max-height: 46.3vw;
+}
+
+.circle-three {
+  z-index: 0;
+  width: 200px;
+  height: 200px;
+  background-color: lightsteelblue;
+  border-radius: 50%;
+}
+
+.circle-two {
+  z-index: 25;
+  width: 190px;
+  height: 190px;
+  background-color: #29627c;
+  border-radius: 50%;
+}
+
+.circle-one {
+  //display: flex;
+  //display: table-cell;
+  //vertical-align: middle;
+  z-index: 50;
+  width: 180px;
+  height: 180px;
+  background-color: white;
+  border: midnightblue 2px solid;
+  border-radius: 50%;
+}
+
+.title-logo {
+  z-index: 100;
+  padding-top: 18%;
+  display: block;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.op-container {
+  position: absolute;
+  z-index: -25;
+  background-color: whitesmoke;
+  opacity: 1;
+  min-width: 30vw;
+  min-height: 35vw;
+  margin-right: 10%;
+  margin-left: 34%;
+  margin-top: 7%;
+  border-radius: 10px;
+}
+
+.border-container {
+  position: absolute;
+  z-index: -20;
+  min-width: 30vw;
+  min-height: 35vw;
+  margin-right: 10%;
+  margin-left: 34%;
+  margin-top: 7%;
+  border: lightsteelblue 10px solid;
+  border-radius: 10px;
+}
+
+.login-container {
+  position: absolute;
+  z-index: 200;
+  min-width: 30vw;
+  min-height: 35vw;
+  margin-right: 10%;
+  margin-left: 34%;
+  margin-top: 7%;
+}
+
+.scroll-btn {
+  position: center;
+  z-index: 10000;
+}
+
+.scroll-img {
+  max-width: 200px;
+  margin-top: 17vw;
+  opacity: 0.99;
+}

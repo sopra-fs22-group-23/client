@@ -74,13 +74,8 @@ const CreateEvent = (props) => {
       />
       <PlacesInput
         setLocation={setLocation.bind(this)}
-        setCoordinates={setCoordinates.bind(this)}
-      ></PlacesInput>
-      {/*<FormField
-            label={"Location"}
-            placeholder={"..."}
-            onChange={(loc) => setLocation(loc)}
-        />*/}
+        setCoordinates={setCoordinates.bind(this)}>
+      </PlacesInput>
       <FormField
         type={"datetime-local"}
         label={"Date"}

@@ -151,7 +151,7 @@ const TaskSession = () => {
     //   return event.stealing_mode;
     // }
     //TODO fix fetching from endpoint
-    return false
+    return true;
   }
 
   const shouldBeDisabledFor = (userID) => {
