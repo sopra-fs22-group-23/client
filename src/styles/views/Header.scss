@@ -3,10 +3,34 @@
   height: 100px;
 }
 
-.LogoutButton {
-  width: 10% !important;
+.lg {
+  color: #1c4a5f;
+  margin-bottom: 10px;
+}
+
+.profile-image {
+  max-width: 40px;
+  max-height: 40px;
+  border-radius: 100px;
 }
 
 .navbar-brand {
   margin-left: 3em;
+}
+
+.nav-item {
+  padding-left: 30px;
+}
+
+.hover {
+  position: absolute;
+  text-align: center;
+  right: 0;
+  margin-right: 140px !important;
+  padding-top: 15px;
+  background-color: whitesmoke;
+  border: #1c4a5f 1px solid;
+  width: 150px;
+  height: 100px;
+  border-radius: 12px 0 12px 12px;
 }
