@@ -180,7 +180,7 @@ const Footer = (props) => {
         </div>
         <div className="location">
           <div className="location-title">Location</div>
-          <div className="location-real">{props.event.locationName}</div>
+          <div className="location-real location-container">{props.event.locationName}</div>
         </div>
         {chooseButtons()}
       </div>

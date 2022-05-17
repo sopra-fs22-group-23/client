@@ -82,7 +82,7 @@ const EventOverview = (props) => {
             </div>
             <div className="col event-information-element">
               &nbsp;📍 &nbsp;&nbsp;
-              {props.event.locationName}
+              <div className={"location-container automaticShorter"}>{props.event.locationName}</div>
             </div>
             <div className="w-100"></div>
             <div className="col event-information-element">

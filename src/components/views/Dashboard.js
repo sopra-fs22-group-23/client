@@ -37,9 +37,6 @@ const DashboardButtons = () => {
       <button className="newEvent-button" onClick={() => toCreate()}>
         <label className="newEvent-label">New event!</label>
       </button>
-      <a href="user" className="edit">
-        edit
-      </a>
     </div>
   );
 };

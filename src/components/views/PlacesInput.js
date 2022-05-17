@@ -41,7 +41,7 @@ function PlacesInput(props) {
                         {loading && <div>Loading...</div>}
                         {suggestions.map(suggestion => {
                             const className = suggestion.active
-                                ? 'suggestion-item--active'
+                                ? 'suggestion-item--active '
                                 : 'suggestion-item';
                             // inline style for demonstration purpose
                             const style = suggestion.active

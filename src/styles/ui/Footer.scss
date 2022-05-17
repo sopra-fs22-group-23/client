@@ -71,6 +71,13 @@
   }
 }
 
+.location-container {
+  max-width: 350px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .rectangle-canceled {
   display: inline-block;
   border-radius: 40px 40px 0px 0px;
