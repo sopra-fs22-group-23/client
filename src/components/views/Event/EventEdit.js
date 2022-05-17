@@ -1,5 +1,5 @@
 import Header from "../../ui/StandardComponents/Header";
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FormField } from "../../ui/StandardComponents/FormField";
 import { apiLoggedIn, handleError } from "../../../helpers/api";
 import { MyButton } from "../../ui/StandardComponents/MyButton";
@@ -14,19 +14,22 @@ import PlacesInput from "../PlacesInput";
 const EventEdit = (props) => {
   let { eventId } = useParams();
   const navigate = useNavigate();
+  let [phase, setPhase] = useState("edit");
 
   const [file, setFile] = useState(null);
+
   function handleChange(e) {
     setFile(e.target.files[0]);
-    console.log(e.target.files[0])
+    console.log(e.target.files[0]);
   }
 
   const [title, setTitle] = useState(null);
+  let status = "IN_PLANNING";
   const [description, setDescription] = useState(null);
   let [locationName, setLocation] = useState(null); //address from PlacesInput
-  const[coordinates, setCoordinates] = useState(null);
-    let latitude;
-    let longitude;
+  const [coordinates, setCoordinates] = useState(null);
+  let latitude;
+  let longitude;
   const [eventDate, setDate] = useState(null);
   const prevLocation = useRef();
   useEffect(() => {
@@ -49,7 +52,7 @@ const EventEdit = (props) => {
   }*/
 
   const updateEvent = async () => {
-    if(!locationName){
+    if (!locationName) {
       latitude = props.event.latitude;
       longitude = props.event.longitude;
       locationName = props.event.locationName;
@@ -76,13 +79,45 @@ const EventEdit = (props) => {
       window.location.reload();
     } catch (error) {
       alert(
-          `Something went wrong during event update: \n${handleError(error)}`
+        `Something went wrong during event update: \n${handleError(error)}`
       );
     }
   };
 
-  return (
-    <div>
+  const cancelEvent = async () => {
+    if (!locationName) {
+      latitude = props.event.latitude;
+      longitude = props.event.longitude;
+      locationName = props.event.locationName;
+    } else {
+      latitude = coordinates.lat;
+      longitude = coordinates.lng;
+    }
+    status = "CANCELED";
+    try {
+      //--- Put Event Params ---//
+      const requestBody = JSON.stringify({
+        title,
+        description,
+        locationName,
+        eventDate,
+        longitude,
+        latitude,
+        status,
+      });
+      const response = await apiLoggedIn().put(
+        `/events/${eventId}`,
+        requestBody
+      );
+
+      window.location.reload();
+    } catch (error) {
+      alert(`Something went wrong while cancelling: \n${handleError(error)}`);
+    }
+  };
+
+  if (phase === "edit") {
+    return (
       <div className="edit-container">
         <p className="edit-title">Edit your event:</p>
         <FormField
@@ -98,14 +133,14 @@ const EventEdit = (props) => {
         />
 
         <PlacesInput
-            setLocation={setLocation.bind(this)}
-            setCoordinates={setCoordinates.bind(this)}>
-        </PlacesInput>
+          setLocation={setLocation.bind(this)}
+          setCoordinates={setCoordinates.bind(this)}
+        ></PlacesInput>
 
         <FormField
-            type={"datetime-local"}
-            label={"Date"}
-            onChange={(date) => setDate(date)}
+          type={"datetime-local"}
+          label={"Date"}
+          onChange={(date) => setDate(date)}
         />
 
         {/*<div className="image-field">
@@ -113,12 +148,56 @@ const EventEdit = (props) => {
           <input type="file" onChange={handleChange}/>
           <img className={"img"} src={file}/>
         </div>*/}
-
-        <MyButton
+        <div style={{ float: "right" }}>
+          <MyButton
+            onClick={() => setPhase("cancel")}
+            className={"SaveEvent"}
+            style={{
+              "background-color": "DarkRed",
+              width: "145px",
+              "margin-right": "10px",
+            }}
+          >
+            Cancel event
+          </MyButton>
+          <MyButton
             onClick={() => updateEvent()}
-            className={"SaveEvent"}>Save</MyButton>
+            className={"SaveEvent"}
+            style={{ width: "145px" }}
+          >
+            Save
+          </MyButton>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+  if (phase === "cancel") {
+    return (
+      <div className="edit-container">
+        <p
+          className="edit-title"
+          style={{ "font-size": "22px", "font-weight": "600" }}
+        >
+          Are you sure you want to cancel this event?
+        </p>
+        <div style={{ display: "flex" }}>
+          <MyButton
+            onClick={() => setPhase("edit")}
+            className={"SaveEvent"}
+            style={{ "margin-right": "10px" }}
+          >
+            Back
+          </MyButton>
+          <MyButton
+            onClick={() => [cancelEvent(), window.location.reload()]}
+            className={"SaveEvent"}
+            style={{ "background-color": "DarkRed" }}
+          >
+            Cancel
+          </MyButton>
+        </div>
+      </div>
+    );
+  }
 };
 export default EventEdit;
