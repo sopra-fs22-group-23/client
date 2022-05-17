@@ -111,7 +111,7 @@ const Column = ({children, title, id, disabled}) => {
 
     return (
         <div className={`column ${disabled ? "disabled" : ""}`} ref={drop}>
-            <div>{title}</div>
+            <h6 className={"columnTitle"}>{title}</h6>
             {children}
         </div>
     )
