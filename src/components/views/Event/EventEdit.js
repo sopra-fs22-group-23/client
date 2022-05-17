@@ -189,7 +189,7 @@ const EventEdit = (props) => {
             Back
           </MyButton>
           <MyButton
-            onClick={() => cancelEvent()}
+            onClick={() => [cancelEvent(), window.location.reload()]}
             className={"SaveEvent"}
             style={{ "background-color": "DarkRed" }}
           >

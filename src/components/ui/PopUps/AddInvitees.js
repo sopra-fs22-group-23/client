@@ -3,7 +3,7 @@ import { apiLoggedIn, handleError } from "../../../helpers/api";
 import PropTypes from "prop-types";
 // import "reactjs-popup/dist/index.css";
 import "../../../styles/ui/AddInvitees.scss";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const User = ({ user }) => {
   let [style, setStyle] = useState("user-item-unclicked");
@@ -31,7 +31,7 @@ User.propTypes = {
 };
 
 const AddInvitees = (props) => {
-  let {eventId} = useParams();
+  let { eventId } = useParams();
 
   const [phase, setPhase] = useState("invitees");
   const [users, setUsers] = useState(null);
@@ -44,17 +44,17 @@ const AddInvitees = (props) => {
   //TODO: Send userList as in Post Request
   const postInvitees = async () => {
     try {
-      for(let i = 0; i < invitees.length; i++){
+      for (let i = 0; i < invitees.length; i++) {
         let username = invitees[i];
         const requestBody = JSON.stringify(username);
         await apiLoggedIn().post(`/events/${eventId}/users`, requestBody);
       }
     } catch (error) {
       alert(
-          `Something went wrong during saving invitees: \n${handleError(error)}`
+        `Something went wrong during saving invitees: \n${handleError(error)}`
       );
     }
-  }
+  };
 
   //add or remove user from invitees list by clicking on the name
   const addInvitee = (user) => {

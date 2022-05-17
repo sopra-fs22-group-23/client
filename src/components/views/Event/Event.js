@@ -9,7 +9,7 @@ import pic from "../../pictures/pic.png";
 import { useNavigate } from "react-router";
 import AddTasks from "../../ui/PopUps/AddTasks";
 import { Modal, ModalBody } from "react-bootstrap";
-import AddInvitees from "../../ui/PopUps/AddInvitees";
+// import AddInvitees from "../../ui/AddInvitees";
 import SelectGuestsCollaborators from "../../ui/SelectGuestsCollaborators";
 import TasksOverview from "../../ui/PopUps/TasksOverview";
 import EventEdit from "./EventEdit";
@@ -65,6 +65,11 @@ const Event = () => {
   const modalOpenEdit = () => EditPopup(true);
   const modalCloseEdit = () => EditPopup(false);
 
+  //--- invitee Popup ---//
+  const [showinvitee, InviteePopup] = useState(false);
+  const modalOpenInvitee = () => InviteePopup(true);
+  const modalCloseInvitee = () => InviteePopup(false);
+
   function toEdit() {
     if (event) {
       navigate(`/event/${eventId}/edit`);
@@ -117,6 +122,21 @@ const Event = () => {
         </ModalBody>
       </Modal>
 
+      {/* TODO: add fucking addInvitees component
+      <button className="event-button-left" onClick={() => modalOpenInvitee()}>
+        <label className="event-label">Add Invitee</label>
+      </button>
+
+      <Modal show={showinvitee} onHide={modalCloseInvitee}>
+        <ModalBody>
+          <AddInvitees
+            event={event}
+            collaborators={collaborators}
+            eventId={eventId}
+          />
+        </ModalBody>
+      </Modal> */}
+
       <button
         className="event-button add-button"
         onClick={() => modalOpenTask()}
@@ -134,6 +154,7 @@ const Event = () => {
       </div>
     </div>
   );
+
   const collaboratorButton = (
     <div>
       <button className="event-button" onClick={() => modalOpenTaskOverview()}>

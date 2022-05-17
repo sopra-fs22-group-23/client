@@ -13,13 +13,13 @@ const Footer = (props) => {
   let [tasks, setTasks] = useState([]);
   let [collaborators, setCollaborators] = useState(null);
 
-  const inviteMyself = () => {
+  const inviteMyself = async () => {
     try {
       const requestBody = JSON.stringify({
         id: localStorage.getItem("userId"),
         eventUserRole: "GUEST",
       });
-      const response = apiLoggedIn().post(
+      const response = await apiLoggedIn().post(
         `/events/${eventId}/users`,
         requestBody
       );
@@ -30,7 +30,7 @@ const Footer = (props) => {
         )}`
       );
     }
-    window.location.reload();
+    //window.location.reload();
   };
 
   const uninviteMyself = () => {
