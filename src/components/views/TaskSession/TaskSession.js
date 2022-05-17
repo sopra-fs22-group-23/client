@@ -188,7 +188,7 @@ const TaskSession = () => {
           </Column>
         </DndProvider>
 
-        <Footer eventID={eventID}/>
+        {/*<Footer eventID={eventID}/>*/}
       </div>
         <ChatWindow eventID={eventID}/>
       </>
