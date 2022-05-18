@@ -59,11 +59,22 @@ const Header = () => {
         return <></>
     }
 
+    function nav() {
+        if(userId){
+            navigate("/home");
+        } else {
+            navigate("/")
+        }
+    }
+
     return (
         <Navbar className="color-nav">
             <div class="container-fluid">
-                <a href="/home" className="navbar-brand">
-                    <img src={logo} width={"230"} className={"mt-2"}></img></a>
+                <button
+                    className={"navbar-brand"}
+                    onClick={() => nav()}>
+                    <img src={logo} width={"230"} className={"mt-2"}></img>
+                </button>
                 <div className={"mr-2 w-25"}>
                     <div>
                         <div className="collapse navbar-collapse" id="navbarNav">
