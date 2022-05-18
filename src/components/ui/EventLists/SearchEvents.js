@@ -89,24 +89,28 @@ const SearchEvents = () => {
                 <button
                     className={"col-2 filter"}
                     onClick={() => filterEvents("free")}
-                >free</button>
+                >free
+                </button>
                 <button
                     className={"col-2 filter"}
                     onClick={() => filterEvents("food pizza pasta nachos grill")}
-                >food</button>
+                >food
+                </button>
                 <button
                     className={"col-2 filter"}
                     onClick={() => filterEvents("drinks beer wine gin bar")}
-                >drinks</button>
+                >drinks
+                </button>
                 <button
                     className={"col-2 filter"}
                     onClick={() => filterEvents("music concert dj techno rave hiphop rnb rock")}
-                >music</button>
+                >music
+                </button>
                 <button
                     className={"col-2 filter"}
                     onClick={() => filterEvents("ball foot volley tennis hockey jogging cycling")}
-                >sports</button>
-
+                >sports
+                </button>
             </div>
             <div className={"px-auto event-list"}>
                 <ul className="list-group">
