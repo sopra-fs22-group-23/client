@@ -36,7 +36,7 @@ export default function Landing() {
     if(events){
         content = (
             <div>
-                <Header/>
+                <Header location={"Landing"}/>
                 <div className={"row"}>
                     <div className={"col-5 list-container"}>
                         <SearchEvents/>

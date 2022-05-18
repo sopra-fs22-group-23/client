@@ -4,11 +4,6 @@
   font-size: 14pt;
 }
 
-.lg {
-  color: #1c4a5f;
-  margin-bottom: 10px;
-}
-
 .profile-image {
   max-width: 40px;
   max-height: 40px;
@@ -20,7 +15,21 @@
 }
 
 .nav-item {
-  padding-left: 30px;
+  padding-right: 40px;
+}
+
+.nav-link {
+  font-weight: bold;
+  color: #1c4a5f !important;
+}
+
+.button-scroll-login {
+  font-weight: bold;
+  color: #1c4a5f !important;
+}
+
+.nav-container {
+  margin-right: 100px;
 }
 
 .hover {
@@ -29,14 +38,21 @@
   z-index: 100;
   text-align: right;
   right: 0;
-  margin-right: 140px !important;
-  padding-top: 15px;
-  padding-right: 30px;
-  background-color: whitesmoke;
-  border: #1c4a5f 1px solid;
-  width: 200px;
+  margin-right: 150px !important;
+  padding-top: 25px;
+  padding-right: 20px;
+  width: 140px;
   height: 140px;
-  border-radius: 12px 0 12px 12px;
+  background-color: white;
+  border-radius: 8px;
+  border: #1c4a5f 0.5px solid;
+  box-shadow: #1c4a5f 5px 5px;
+}
+
+.lg {
+  color: black;
+  margin-bottom: 10px;
+  font-weight: 400;
 }
 
 .button-scroll-login {
@@ -45,8 +61,15 @@
 }
 
 .nav-icons {
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   margin-top: 10px;
   margin-bottom: 10px;
+  margin-left: 15px;
+}
+
+.login-icon {
+  height: 35px;
+  width: 35px;
+  margin-left: 10px;
 }
