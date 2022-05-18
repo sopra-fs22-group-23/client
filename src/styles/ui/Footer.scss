@@ -71,6 +71,14 @@
   }
 }
 
+.location-container {
+  text-align: left;
+  min-width: 335px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .rectangle-canceled {
   display: inline-block;
   border-radius: 40px 40px 0px 0px;

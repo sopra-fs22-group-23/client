@@ -22,7 +22,7 @@ const EventItem = ({ event }) => {
             <div className="info">
                 <p className="event-name">{event.title}</p>
                 <p className="event-information">
-                    {moment(event.eventDate).format("Do MMM")} · {event.locationName}
+                    <>{moment(event.eventDate).format("Do MMM")}  ·  <a className={"location-container"}>{event.locationName}</a></>
                 </p>
             </div>
         </button>

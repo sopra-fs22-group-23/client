@@ -5,13 +5,19 @@ import { apiLoggedIn, handleError } from "../../helpers/api";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import { useNavigate } from "react-router";
-import { MyButton } from "./StandardComponents/MyButton";
+import {Modal, ModalBody} from "react-bootstrap";
+import LocationMap from "./PopUps/LocationMap";
 
 const Footer = (props) => {
   const navigate = useNavigate();
   let { eventId } = useParams();
   let [tasks, setTasks] = useState([]);
   let [collaborators, setCollaborators] = useState(null);
+
+  //--- Map Popup ---//
+  const [showMap, popupMap] = useState(false);
+  const modalOpenMap = () => popupMap(true);
+  const modalCloseMap = () => popupMap(false);
 
   const inviteMyself = async () => {
     try {
@@ -180,10 +186,19 @@ const Footer = (props) => {
         </div>
         <div className="location">
           <div className="location-title">Location</div>
-          <div className="location-real">{props.event.locationName}</div>
+          <button
+              className={"location-real location-container"}
+              onClick={() => modalOpenMap()}>
+            {props.event.locationName}
+          </button>
         </div>
         {chooseButtons()}
       </div>
+      <Modal show={showMap} onHide={modalCloseMap}>
+        <ModalBody>
+          <LocationMap event={props.event} />
+        </ModalBody>
+      </Modal>
     </div>
   );
 
