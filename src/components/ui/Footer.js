@@ -5,7 +5,6 @@ import { apiLoggedIn, handleError } from "../../helpers/api";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import { useNavigate } from "react-router";
-import { MyButton } from "./StandardComponents/MyButton";
 import {Modal, ModalBody} from "react-bootstrap";
 import LocationMap from "./PopUps/LocationMap";
 

@@ -21,8 +21,8 @@ const EventItem = ({ event }) => {
             <img src={pic} className="img" />
             <div className="info">
                 <p className="event-name">{event.title}</p>
-                <p className="event-information location-container">
-                    <>{moment(event.eventDate).format("Do MMM")}  ·  {event.locationName}</>
+                <p className="event-information">
+                    <>{moment(event.eventDate).format("Do MMM")}  ·  <a className={"location-container"}>{event.locationName}</a></>
                 </p>
             </div>
         </button>
