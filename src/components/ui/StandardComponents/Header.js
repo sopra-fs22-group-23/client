@@ -5,6 +5,9 @@ import {useNavigate} from "react-router";
 import {apiLoggedIn, handleError} from "../../../helpers/api";
 import user from "../../pictures/pic.png";
 import logo from "../../pictures/Logo.png";
+import out from "../../pictures/logout.png";
+import login from "../../pictures/login.png";
+import settings from "../../pictures/settings.png";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -29,10 +32,10 @@ const Header = () => {
             <div>
                 <div className={"hover"}>
                     <div>
-                        <button className={"lg"} onClick={() => navigate("/user")}>Profile Settings</button>
+                        <button className={"lg"} onClick={() => navigate("/user")}>Profile Settings  <img className={"nav-icons"} src={settings}/></button>
                     </div>
                     <div>
-                        <button className={"lg"} onClick={() => logout()}>Logout</button>
+                        <button className={"lg"} onClick={() => logout()}>Logout  <img className={"nav-icons"} src={out}/></button>
                     </div>
                 </div>
 
@@ -56,7 +59,13 @@ const Header = () => {
                 </ul>
             )
         }
-        return <></>
+        return (
+            <button
+                className={"button-scroll-login"}
+                onClick={() => window.scroll(-3000, 0)}
+            >Back to login  <img className={"nav-icons"} src={login}/>
+            </button>
+        );
     }
 
     function nav() {
