@@ -57,6 +57,14 @@
   }
 }
 
+.overview-location {
+  text-align: left;
+  max-width: 350px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .location-spec-map {
   border-radius: 8px;
   margin-top: 2em;

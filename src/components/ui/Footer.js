@@ -187,7 +187,7 @@ const Footer = (props) => {
         <div className="location">
           <div className="location-title">Location</div>
           <button
-              className={"location-real location-container"}
+              className={"location-real footer-location"}
               onClick={() => modalOpenMap()}>
             {props.event.locationName}
           </button>

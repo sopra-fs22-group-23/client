@@ -4,9 +4,7 @@ import pic from "../../pictures/pic.png";
 import {apiLoggedIn} from "../../../helpers/api";
 import PropTypes from "prop-types";
 import moment from "moment";
-import MapStyles from "../../../styles/MapStyles";
 import {Modal, ModalBody} from "react-bootstrap";
-import EventEdit from "./EventEdit";
 import LocationMap from "../../ui/PopUps/LocationMap";
 
 const GuestList = ({user}) => <div>{user.username},&nbsp; </div>;
@@ -94,7 +92,7 @@ const EventOverview = (props) => {
                             &nbsp;📍 &nbsp;&nbsp;
                             <div>
                                 <button
-                                    className={"location-container"}
+                                    className={"overview-location"}
                                     onClick={() => modalOpenMap()}>
                                     {props.event.locationName}
                                 </button>
