@@ -24,7 +24,7 @@ const EventItemSquare = ({ event }) => {
         </div>
         <div>
           <p className="event-name">{event.title}</p>
-          <p className="infos">
+          <p className="infos location-wrapper">
             {moment(event.eventDate).format("Do MMM")} · {event.locationName}
           </p>
         </div>

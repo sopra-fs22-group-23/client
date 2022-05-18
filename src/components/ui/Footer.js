@@ -7,19 +7,30 @@ import moment from "moment";
 import { useNavigate } from "react-router";
 import {Modal, ModalBody} from "react-bootstrap";
 import LocationMap from "./PopUps/LocationMap";
+import EmailPopup from "./PopUps/EmailPopup";
 
 const Footer = (props) => {
   const navigate = useNavigate();
   let { eventId } = useParams();
   let [tasks, setTasks] = useState([]);
   let [collaborators, setCollaborators] = useState(null);
+  const isLoggedIn = localStorage.getItem("token");
 
   //--- Map Popup ---//
   const [showMap, popupMap] = useState(false);
   const modalOpenMap = () => popupMap(true);
   const modalCloseMap = () => popupMap(false);
 
+  //--- Email Popup ---//
+  const [showMail, popupMail] = useState(false);
+  const modalOpenMail = () => popupMail(true);
+  const modalCloseMail = () => popupMail(false);
+
   const inviteMyself = async () => {
+    if(!isLoggedIn){
+      modalOpenMail();
+      return;
+    }
     try {
       const requestBody = JSON.stringify({
         id: localStorage.getItem("userId"),
@@ -197,6 +208,11 @@ const Footer = (props) => {
       <Modal show={showMap} onHide={modalCloseMap}>
         <ModalBody>
           <LocationMap event={props.event} />
+        </ModalBody>
+      </Modal>
+      <Modal show={showMail} onHide={modalCloseMail}>
+        <ModalBody>
+          <EmailPopup event={props.event} />
         </ModalBody>
       </Modal>
     </div>

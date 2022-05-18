@@ -195,7 +195,7 @@ const Event = () => {
   if (event) {
     content = (
       <div>
-        <Header />
+        <Header location={"EventOverview"}/>
         <div className="row">
           <div className="col-7">
             <EventOverview

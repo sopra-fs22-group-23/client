@@ -1,6 +1,7 @@
 import {React, useEffect, useState} from "react";
 import "../../../styles/ui/EventOverview.scss";
 import pic from "../../pictures/pic.png";
+import share from "../../pictures/share.png";
 import {apiLoggedIn} from "../../../helpers/api";
 import PropTypes from "prop-types";
 import moment from "moment";
@@ -94,7 +95,7 @@ const EventOverview = (props) => {
                                 <button
                                     className={"overview-location"}
                                     onClick={() => modalOpenMap()}>
-                                    {props.event.locationName}
+                                    <img className={"text-icons"} src={share}></img>{props.event.locationName}
                                 </button>
                             </div>
                         </div>

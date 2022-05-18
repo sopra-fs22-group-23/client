@@ -5,8 +5,11 @@ import {useNavigate} from "react-router";
 import {apiLoggedIn, handleError} from "../../../helpers/api";
 import user from "../../pictures/pic.png";
 import logo from "../../pictures/Logo.png";
+import out from "../../pictures/logout.png";
+import login from "../../pictures/previous.png";
+import settings from "../../pictures/settings.png";
 
-const Header = () => {
+const Header = (props) => {
     const navigate = useNavigate();
     let userId = localStorage.getItem("userId");
 
@@ -29,10 +32,10 @@ const Header = () => {
             <div>
                 <div className={"hover"}>
                     <div>
-                        <button className={"lg"} onClick={() => navigate("/user")}>Profile Settings</button>
+                        <button className={"lg"} onClick={() => navigate("/user")}>Profile<img className={"nav-icons"} src={settings}/></button>
                     </div>
                     <div>
-                        <button className={"lg"} onClick={() => logout()}>Logout</button>
+                        <button className={"lg"} onClick={() => logout()}>Logout<img className={"nav-icons"} src={out}/></button>
                     </div>
                 </div>
 
@@ -56,15 +59,41 @@ const Header = () => {
                 </ul>
             )
         }
-        return <></>
+        if(props.location === "EventOverview"){
+            return (
+                <button
+                    className={"button-scroll-login"}
+                    onClick={() => navigate("/")}
+                >Login  <img className={"login-icon"} src={login}/>
+                </button>
+            );
+        }
+        return (
+            <button
+                className={"button-scroll-login"}
+                onClick={() => window.scroll(-3000, 0)}
+            >Login  <img className={"login-icon"} src={login}/>
+            </button>
+        );
+    }
+
+    function nav() {
+        if(userId){
+            navigate("/home");
+        } else {
+            navigate("/")
+        }
     }
 
     return (
         <Navbar className="color-nav">
             <div class="container-fluid">
-                <a href="/home" className="navbar-brand">
-                    <img src={logo} width={"230"} className={"mt-2"}></img></a>
-                <div className={"mr-2 w-25"}>
+                <button
+                    className={"navbar-brand"}
+                    onClick={() => nav()}>
+                    <img src={logo} width={"230"} className={"mt-2"}></img>
+                </button>
+                <div className={"nav-container"}>
                     <div>
                         <div className="collapse navbar-collapse" id="navbarNav">
                             <ul className="navbar-nav">

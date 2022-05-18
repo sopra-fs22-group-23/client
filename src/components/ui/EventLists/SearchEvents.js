@@ -33,9 +33,9 @@ EventItem.propTypes = {
     event: PropTypes.object,
 };
 
-const SearchEvents = (props) => {
+const SearchEvents = () => {
     let now = moment().format();
-    const [searchTerm, setSearchTerm] = useState("");
+    let [searchTerm, setSearchTerm] = useState("");
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
@@ -61,6 +61,11 @@ const SearchEvents = (props) => {
         }
     }
 
+    function filterEvents(filterKey) {
+        searchTerm = filterKey;
+        loadEvents();
+    }
+
     return (
         <div>
             <div className="row">
@@ -81,11 +86,31 @@ const SearchEvents = (props) => {
                     </Button>
             </div>
             <div className={"row filters justify-content-center"}>
-                <div className={"col-2 filter"}>Filter</div>
-                <div className={"col-2 filter"}>Filter</div>
-                <div className={"col-2 filter"}>Filter</div>
-                <div className={"col-2 filter"}>Filter</div>
-                <div className={"col-2 filter"}>Filter</div>
+                <button
+                    className={"col-2 filter"}
+                    onClick={() => filterEvents("free")}
+                >free
+                </button>
+                <button
+                    className={"col-2 filter"}
+                    onClick={() => filterEvents("food pizza pasta nachos grill")}
+                >food
+                </button>
+                <button
+                    className={"col-2 filter"}
+                    onClick={() => filterEvents("drinks beer wine gin bar")}
+                >drinks
+                </button>
+                <button
+                    className={"col-2 filter"}
+                    onClick={() => filterEvents("music concert dj techno rave hiphop rnb rock")}
+                >music
+                </button>
+                <button
+                    className={"col-2 filter"}
+                    onClick={() => filterEvents("ball foot volley tennis hockey jogging cycling")}
+                >sports
+                </button>
             </div>
             <div className={"px-auto event-list"}>
                 <ul className="list-group">
