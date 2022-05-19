@@ -24,12 +24,11 @@ const options = {
 export default function Landing() {
 
     let now = moment().format();
-    const [events, setEvents] = useState(null);
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
         async function loadEvents() {
             try {
-                //Get public events with search keyword
                 const response = await api.get(
                     `/events?type=PUBLIC&from=${now}`,
                 );

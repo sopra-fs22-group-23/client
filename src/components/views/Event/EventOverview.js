@@ -60,9 +60,6 @@ const EventOverview = (props) => {
                     <div className="creation-time">
                         happening {moment.utc(props.event.eventDate).fromNow()}
                     </div>
-                    <div className="creation-time">
-                        Event status: {translateEventStatus()}
-                    </div>
                 </div>
                 <div className="event-information">
                     <div className="event-information-title"> This event includes</div>
