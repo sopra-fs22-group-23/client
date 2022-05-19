@@ -1,11 +1,10 @@
 import "../../styles/ui/Footer.scss";
 import { React, useEffect, useState } from "react";
 import "../../styles/ui/EventOverview.scss";
-import { apiLoggedIn, handleError } from "../../helpers/api";
+import { apiLoggedIn, api, handleError } from "../../helpers/api";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import { useNavigate } from "react-router";
-import { MyButton } from "./StandardComponents/MyButton";
 
 const Footer = (props) => {
   const navigate = useNavigate();
@@ -15,14 +14,26 @@ const Footer = (props) => {
 
   const inviteMyself = async () => {
     try {
-      const requestBody = JSON.stringify({
-        id: localStorage.getItem("userId"),
-        eventUserRole: "GUEST",
-      });
-      const response = await apiLoggedIn().post(
-        `/events/${eventId}/users`,
-        requestBody
-      );
+      if (props.myStatus === "CANCELLED") {
+        const requestBody = JSON.stringify({
+          id: localStorage.getItem("userId"),
+          eventUserRole: "GUEST",
+          eventUserStatus: "INVITED",
+        });
+        const response = await api().put(
+          `/events/${eventId}/users`,
+          requestBody
+        );
+      } else {
+        const requestBody = JSON.stringify({
+          id: localStorage.getItem("userId"),
+          eventUserRole: "GUEST",
+        });
+        const response = await apiLoggedIn().post(
+          `/events/${eventId}/users`,
+          requestBody
+        );
+      }
     } catch (error) {
       alert(
         `Something went wrong during inviting myself to this public event: \n${handleError(
@@ -30,66 +41,23 @@ const Footer = (props) => {
         )}`
       );
     }
-    //window.location.reload();
-  };
-
-  const uninviteMyself = () => {
-    try {
-      const requestBody = JSON.stringify({
-        id: localStorage.getItem("userId"),
-        eventUserStatus: "CANCELLED",
-      });
-      const response = apiLoggedIn().put(
-        `/events/${eventId}/users`,
-        requestBody
-      );
-    } catch (error) {
-      alert(
-        `Something went wrong during inviting myself to this public event: \n${handleError(
-          error
-        )}`
-      );
-    }
+    window.location.reload();
   };
 
   //BUG: disabled doesn't always work
   //TODO: disable when session finished
-  const adminButton = (
-    <button
-      type="button"
-      className="role-button"
-      disabled={
-        tasks.length === 0 ||
-        collaborators === null ||
-        collaborators === [] ||
-        collaborators.length === 0
-      }
-      onClick={() => navigate(`/taskSession/${eventId}`)}
-    >
-      Start Session
-    </button>
-  );
-
-  const collaboratorButton = (
-    //TODO: disable button when session not started/finished
+  const sessionButton = (
     <button
       className="role-button"
       onClick={() => navigate(`/taskSession/${eventId}`)}
     >
-      Join Session
+      Open session
     </button>
   );
 
   const joinPublicEventButton = (
     <button className="role-button" onClick={() => inviteMyself()}>
       Join Event!
-    </button>
-  );
-
-  //TODO: unjoin event onClick()
-  const unjoinPublicEventButton = (
-    <button className="role-button" onClick={() => uninviteMyself()}>
-      Unjoin Event!
     </button>
   );
 
@@ -136,20 +104,19 @@ const Footer = (props) => {
   }, [tasks]);
 
   const chooseButtons = () => {
+    console.log(props.myStatus);
     if (props.event.status === "CANCELED") {
       return <p className="news-canceled">This event has been canceled</p>;
     }
-    if (props.myRole === "ADMIN") {
-      return adminButton;
+    if (props.myRole === "ADMIN" || props.myRole === "COLLABORATOR") {
+      return sessionButton;
     }
-    if (props.myRole === "COLLABORATOR") {
-      return collaboratorButton;
-    }
-    if (props.event.type === "PRIVATE" && props.myRole === "GUEST") {
-      return <div></div>;
-    }
-    if (props.event.type === "PUBLIC" && props.myRole === "GUEST") {
-      return unjoinPublicEventButton;
+    if (props.myRole === "GUEST" && props.event.type === "PUBLIC") {
+      return (
+        <p className="news-participating">
+          You are partecipating to this event!
+        </p>
+      );
     }
     if (props.event.type === "PUBLIC" && props.myRole === null) {
       return joinPublicEventButton;

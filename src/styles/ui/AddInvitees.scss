@@ -29,7 +29,7 @@
 }
 
 .inviteesToInvite {
-  margin-bottom: 30px;
+  //margin-bottom: 30px;
   .inviteesToInvite-label {
     align-content: left;
     font-size: 22px;
@@ -53,6 +53,7 @@
   font-size: 22px;
   color: rgb(41, 99, 124);
   font-weight: 800;
+  margin-top: 8px;
 }
 .invite-btn {
   margin-top: 30px;
@@ -67,17 +68,28 @@
     color: #ffffff;
   }
 }
-.container-list {
-  position: fixed;
+
+.scrollable-list {
   height: 100%;
+  overflow-y: scroll;
+  padding-top: 0px !important;
 }
 
 .scrollable-list {
   height: 100%;
   overflow-y: scroll;
+  padding-top: 0px !important;
 }
 
-.old-Collaborator {
+.myList-group {
+  margin-top: 30px;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  border-radius: 0.25rem;
+}
+
+.user-item-collab {
   border-radius: 8px;
   vertical-align: middle;
   align-items: center;
@@ -85,3 +97,14 @@
   background-color: rgb(255, 247, 247);
   border: 0.2px solid rgb(236, 153, 153);
 }
+// .container-list {
+//   position: fixed;
+//   height: 100%;
+// }
+
+// .scrollable-list {
+//   padding-right: 15px;
+//   height: 100%;
+//   overflow-y: scroll;
+//   padding-bottom: 20px;
+// }

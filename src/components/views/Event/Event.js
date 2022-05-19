@@ -9,8 +9,7 @@ import pic from "../../pictures/pic.png";
 import { useNavigate } from "react-router";
 import AddTasks from "../../ui/PopUps/AddTasks";
 import { Modal, ModalBody } from "react-bootstrap";
-// import AddInvitees from "../../ui/AddInvitees";
-import SelectGuestsCollaborators from "../../ui/SelectGuestsCollaborators";
+import AddInvitees from "../../ui/AddInvitees";
 import TasksOverview from "../../ui/PopUps/TasksOverview";
 import EventEdit from "./EventEdit";
 
@@ -37,6 +36,7 @@ const Event = () => {
   let { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [myRole, setMyRole] = useState(null);
+  const [myStatus, setMyStatus] = useState(null);
   const [admin, setAdmin] = useState(null);
   const [collaborators, setCollaborators] = useState([]);
   const navigate = useNavigate();
@@ -80,6 +80,7 @@ const Event = () => {
     for (let i in eventUsers) {
       if (String(eventUsers[i].id) === String(myId)) {
         setMyRole(eventUsers[i].eventUserRole);
+        setMyStatus(eventUsers[i].eventUserStatus);
       }
     }
   }
@@ -122,20 +123,20 @@ const Event = () => {
         </ModalBody>
       </Modal>
 
-      {/* TODO: add fucking addInvitees component
+      {/* TODO: add fucking addInvitees component */}
       <button className="event-button-left" onClick={() => modalOpenInvitee()}>
         <label className="event-label">Add Invitee</label>
       </button>
 
       <Modal show={showinvitee} onHide={modalCloseInvitee}>
-        <ModalBody>
+        <ModalBody style={{ "margin-bottom": "0px !important" }}>
           <AddInvitees
             event={event}
             collaborators={collaborators}
             eventId={eventId}
           />
         </ModalBody>
-      </Modal> */}
+      </Modal>
 
       <button
         className="event-button add-button"
@@ -216,7 +217,7 @@ const Event = () => {
             <div className="event-buttons">{chooseButtons()}</div>
           </div>
         </div>
-        <Footer myRole={myRole} event={event} />
+        <Footer myRole={myRole} event={event} myStatus={myStatus} />
       </div>
     );
   }
