@@ -1,10 +1,10 @@
 import { React, useEffect, useState, useRef } from "react";
 import { Modal } from "react-bootstrap";
-import { apiLoggedIn, handleError } from "../../helpers/api";
+import { apiLoggedIn, handleError } from "../../../helpers/api";
 import PropTypes from "prop-types";
 import "reactjs-popup/dist/index.css";
-import "../../styles/ui/AddInvitees.scss";
-import { SearchBar } from "./StandardComponents/SearchBar";
+import "../../../styles/ui/AddInvitees.scss";
+import { SearchBar } from "../StandardComponents/SearchBar";
 
 const User = (props) => {
   let [style, setStyle] = useState("user-item-unclicked");
@@ -72,7 +72,7 @@ Guest.propTypes = {
   guest: PropTypes.object,
 };
 
-const SelectGuestsCollaborators = (props) => {
+const InviteGuestsCollabs = (props) => {
   const eventId = props.eventId;
   const [phase, setPhase] = useState("invitees");
 
@@ -437,4 +437,4 @@ const SelectGuestsCollaborators = (props) => {
   }
 };
 
-export default SelectGuestsCollaborators;
+export default InviteGuestsCollabs;

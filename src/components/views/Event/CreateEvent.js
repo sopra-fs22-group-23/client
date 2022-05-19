@@ -5,9 +5,8 @@ import { apiLoggedIn, handleError } from "../../../helpers/api";
 import { MyButton } from "../../ui/StandardComponents/MyButton";
 import { useNavigate } from "react-router";
 import "../../../styles/views/EditEvent.scss";
-import SelectGuestsCollaboratorsNew from "../../ui/SelectGuestsCollaborators";
 import moment from "moment";
-import SelectGuestsCollaborators from "../../ui/SelectGuestsCollaborators";
+import InviteGuestsCollabs from "../../ui/AddInvitees/InviteGuestsCollabs";
 import PlacesInput from "../PlacesInput";
 
 const CreateEvent = (props) => {
@@ -74,8 +73,8 @@ const CreateEvent = (props) => {
       />
       <PlacesInput
         setLocation={setLocation.bind(this)}
-        setCoordinates={setCoordinates.bind(this)}>
-      </PlacesInput>
+        setCoordinates={setCoordinates.bind(this)}
+      ></PlacesInput>
       <FormField
         type={"datetime-local"}
         label={"Date"}
@@ -138,7 +137,7 @@ const CreateEvent = (props) => {
     }
     if (phase === "guests-collaborators") {
       content = (
-        <SelectGuestsCollaboratorsNew
+        <InviteGuestsCollabs
           setPhase3={setPhase3.bind(this)}
           eventId={eventId}
         />

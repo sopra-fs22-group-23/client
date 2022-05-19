@@ -1,10 +1,10 @@
 import { React, useEffect, useState, useRef } from "react";
 import { Modal } from "react-bootstrap";
-import { apiLoggedIn, handleError } from "../../helpers/api";
+import { apiLoggedIn, handleError } from "../../../helpers/api";
 import PropTypes from "prop-types";
 import "reactjs-popup/dist/index.css";
-import "../../styles/ui/AddInvitees.scss";
-import { SearchBar } from "./StandardComponents/SearchBar";
+import "../../../styles/ui/AddInvitees.scss";
+import { SearchBar } from "../StandardComponents/SearchBar";
 
 const User = (props) => {
   const chooseStyle = () => {
@@ -58,7 +58,7 @@ User.propTypes = {
   user: PropTypes.object,
 };
 
-const AddInvitees = (props) => {
+const AddGuests = (props) => {
   const eventId = props.eventId;
   const [phase, setPhase] = useState("invitees");
   const myId = localStorage.getItem("userId");
@@ -385,11 +385,11 @@ const AddInvitees = (props) => {
           className="invite-btn"
           onClick={() => postInviteesCollaborators(invitees, cancelledGuests)}
         >
-          <p className="invite-label">Next</p>
+          <p className="invite-label">Save</p>
         </button>
       </div>
     );
   }
 };
 
-export default AddInvitees;
+export default AddGuests;

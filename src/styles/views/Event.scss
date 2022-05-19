@@ -4,21 +4,24 @@
   margin: 35px 0 0 30px;
 
   .event-button {
+    text-align: center;
     border-radius: 13px;
     height: 60px;
-    width: 220px;
+    width: 200px;
     background-color: #29627c;
   }
   .event-button-left {
+    text-align: center;
     border-radius: 13px;
     height: 60px;
-    width: 220px;
+    width: 210px;
     margin-right: 26px;
     background-color: #29627c;
     margin-right: 26px;
   }
   .event-label {
-    vertical-align: top;
+    vertical-align: middle;
+    margin-top: 12px;
     font-size: 22px;
     line-height: auto;
     color: #ffffff;
@@ -64,9 +67,17 @@
 }
 .add-button {
   float: right;
-  margin-right: 95px;
-  background-color: #4CAF50 !important;
+  //margin-right: 95px;
+  background-color: rgb(76, 175, 80) !important;
   width: 180px !important;
-  text-align: start;
-  padding-left: 40px;
+  text-align: center;
+  //padding-left: 40px;
+}
+.event-button-plus {
+  text-align: center;
+  border-radius: 13px;
+  height: 60px;
+  width: 200px;
+  background-color: #86a8b4;
+  color: #000000;
 }

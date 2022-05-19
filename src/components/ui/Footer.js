@@ -1,10 +1,11 @@
 import "../../styles/ui/Footer.scss";
 import { React, useEffect, useState } from "react";
-import "../../styles/ui/EventOverview.scss";
 import { apiLoggedIn, api, handleError } from "../../helpers/api";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import { useNavigate } from "react-router";
+import AddTasks from "./PopUps/AddTasks";
+import { Modal, ModalBody } from "react-bootstrap";
 
 const Footer = (props) => {
   const navigate = useNavigate();
@@ -12,28 +13,24 @@ const Footer = (props) => {
   let [tasks, setTasks] = useState([]);
   let [collaborators, setCollaborators] = useState(null);
 
+  //--- Task Popup ---//
+  const [showTask, TaskPopup] = useState(false);
+  const modalOpenTask = () => TaskPopup(true);
+  const modalCloseTask = () => {
+    TaskPopup(false);
+    window.location.reload();
+  };
+
   const inviteMyself = async () => {
     try {
-      if (props.myStatus === "CANCELLED") {
-        const requestBody = JSON.stringify({
-          id: localStorage.getItem("userId"),
-          eventUserRole: "GUEST",
-          eventUserStatus: "INVITED",
-        });
-        const response = await api().put(
-          `/events/${eventId}/users`,
-          requestBody
-        );
-      } else {
-        const requestBody = JSON.stringify({
-          id: localStorage.getItem("userId"),
-          eventUserRole: "GUEST",
-        });
-        const response = await apiLoggedIn().post(
-          `/events/${eventId}/users`,
-          requestBody
-        );
-      }
+      const requestBody = JSON.stringify({
+        id: localStorage.getItem("userId"),
+        eventUserRole: "GUEST",
+      });
+      const response = await apiLoggedIn().post(
+        `/events/${eventId}/users`,
+        requestBody
+      );
     } catch (error) {
       alert(
         `Something went wrong during inviting myself to this public event: \n${handleError(
@@ -41,10 +38,8 @@ const Footer = (props) => {
         )}`
       );
     }
-    window.location.reload();
   };
 
-  //BUG: disabled doesn't always work
   //TODO: disable when session finished
   const sessionButton = (
     <button
@@ -55,8 +50,33 @@ const Footer = (props) => {
     </button>
   );
 
+  const addTasksButton = (
+    <>
+      <button
+        className="role-button add-buttons"
+        style={{
+          "vertical-align": "middle",
+          width: "500px !important",
+          "margin-right": "20px",
+        }}
+        onClick={() => modalOpenTask()}
+      >
+        + Tasks
+      </button>
+
+      <Modal show={showTask} onHide={modalCloseTask}>
+        <ModalBody>
+          <AddTasks />
+        </ModalBody>
+      </Modal>
+    </>
+  );
+
   const joinPublicEventButton = (
-    <button className="role-button" onClick={() => inviteMyself()}>
+    <button
+      className="role-button"
+      onClick={() => [inviteMyself(), window.location.reload()]}
+    >
       Join Event!
     </button>
   );
@@ -108,7 +128,15 @@ const Footer = (props) => {
     if (props.event.status === "CANCELED") {
       return <p className="news-canceled">This event has been canceled</p>;
     }
-    if (props.myRole === "ADMIN" || props.myRole === "COLLABORATOR") {
+    if (props.myRole === "ADMIN") {
+      return (
+        <div className="d-flex" style={{ "margin-left": "auto" }}>
+          {addTasksButton}
+          {sessionButton}
+        </div>
+      );
+    }
+    if (props.myRole === "COLLABORATOR") {
       return sessionButton;
     }
     if (props.myRole === "GUEST" && props.event.type === "PUBLIC") {
