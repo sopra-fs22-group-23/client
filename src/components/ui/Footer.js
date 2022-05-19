@@ -48,6 +48,7 @@ const Footer = (props) => {
         `/events/${eventId}/users`,
         requestBody
       );
+      window.location.reload();
     } catch (error) {
       alert(
         `Something went wrong during inviting myself to this public event: \n${handleError(
@@ -92,7 +93,7 @@ const Footer = (props) => {
   const joinPublicEventButton = (
     <button
       className="role-button"
-      onClick={() => [inviteMyself(), window.location.reload()]}
+      onClick={() => inviteMyself()}
     >
       Join Event!
     </button>
