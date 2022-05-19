@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, ModalBody } from "react-bootstrap";
 //import AddInvitees from "./AddInvitees";
-import SelectGuestsCollaborators from "../SelectGuestsCollaborators";
+import SelectGuestsCollaborators from "../AddInvitees/InviteGuestsCollabs";
 
 const InvitePopup = ({}) => {
   const [show, popup] = useState(false);

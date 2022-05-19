@@ -1,10 +1,10 @@
 import { React, useEffect, useState, useRef } from "react";
 import { Modal } from "react-bootstrap";
-import { apiLoggedIn, handleError } from "../../helpers/api";
+import { apiLoggedIn, handleError } from "../../../helpers/api";
 import PropTypes from "prop-types";
 import "reactjs-popup/dist/index.css";
-import "../../styles/ui/AddInvitees.scss";
-import { SearchBar } from "./StandardComponents/SearchBar";
+import "../../../styles/ui/AddInvitees.scss";
+import { SearchBar } from "../StandardComponents/SearchBar";
 
 const User = (props) => {
   let [style, setStyle] = useState("user-item-unclicked");
@@ -72,7 +72,7 @@ Guest.propTypes = {
   guest: PropTypes.object,
 };
 
-const SelectGuestsCollaborators = (props) => {
+const InviteGuestsCollabs = (props) => {
   const eventId = props.eventId;
   const [phase, setPhase] = useState("invitees");
 
@@ -122,7 +122,7 @@ const SelectGuestsCollaborators = (props) => {
       }
       //all registered users except for the creator
       setAllUsers(
-        <ul class="list-group">
+        <>
           {newUsers.map((user) => {
             return (
               <div key={user.username} onClick={() => addInvitee(user)}>
@@ -130,7 +130,7 @@ const SelectGuestsCollaborators = (props) => {
               </div>
             );
           })}
-        </ul>
+        </>
       );
     }
   }, [users]);
@@ -140,15 +140,27 @@ const SelectGuestsCollaborators = (props) => {
     if (invitees.includes(user) === false) {
       invitees.push(user);
     } else {
-      for (var i = 0; i < invitees.length; i++) {
+      for (let i in invitees) {
         if (invitees[i] === user) {
           invitees.splice(i, 1);
           break;
         }
       }
     }
-    setInvitees(invitees);
+    const newInvitees = [...invitees];
+    setInvitees(newInvitees);
+    console.log(invitees);
   };
+
+  if (invitees.length !== 0) {
+    inviteesToInvite = invitees.map((invitee) => {
+      return (
+        <div className="inviteesToInvite-names" key={invitee.username}>
+          {invitee.username}
+        </div>
+      );
+    });
+  }
 
   const searchFunctionGuests = (returnList) => {
     let newUsers = [...returnList];
@@ -164,7 +176,7 @@ const SelectGuestsCollaborators = (props) => {
 
     //list of all users except for the creator
     setAllUsers(
-      <ul class="list-group">
+      <>
         {newUsers.map((user) => {
           return (
             <div key={user.username} onClick={() => addInvitee(user)}>
@@ -172,7 +184,7 @@ const SelectGuestsCollaborators = (props) => {
             </div>
           );
         })}
-      </ul>
+      </>
     );
   };
 
@@ -194,7 +206,7 @@ const SelectGuestsCollaborators = (props) => {
 
   useEffect(() => {
     setAllInvitees(
-      <ul class="list-group">
+      <>
         {invitees.map((invitee) => {
           return (
             <div
@@ -205,7 +217,7 @@ const SelectGuestsCollaborators = (props) => {
             </div>
           );
         })}
-      </ul>
+      </>
     );
   }, [guests]);
 
@@ -260,7 +272,7 @@ const SelectGuestsCollaborators = (props) => {
 
     //list of all users except for the creator
     setAllInvitees(
-      <ul class="list-group">
+      <>
         {newUsers.map((invitee) => {
           return (
             <div
@@ -271,7 +283,7 @@ const SelectGuestsCollaborators = (props) => {
             </div>
           );
         })}
-      </ul>
+      </>
     );
   };
 
@@ -324,14 +336,43 @@ const SelectGuestsCollaborators = (props) => {
       <div>
         <div className="inviteesToInvite">
           <p className="inviteesToInvite-label">You are inviting:</p>
-          {inviteesToInvite}
+          <div
+            style={{
+              height: "85px",
+              "margin-bottom": "8px",
+              "padding-top": "0px !important",
+            }}
+          >
+            <div
+              className="scrollable-list"
+              style={{
+                "padding-top": "0px !important",
+                padding: "0px",
+                "scroll-padding": "110px !important",
+              }}
+            >
+              {inviteesToInvite}
+            </div>
+          </div>
         </div>
         <p className="inviteesToInvite-title">Select the users to invite:</p>
         <SearchBar
           list={users}
           searchFunction={searchFunctionGuests.bind(this)}
         />
-        <div className="popup-inner">{allUsers}</div>
+        <div className="popup-inner">
+          <div style={{ height: "250px", "margin-bottom": "60px" }}>
+            <div
+              className="scrollable-list"
+              style={{
+                "padding-top": "0px !important",
+                "scroll-padding-top": "0px",
+              }}
+            >
+              {allUsers}
+            </div>
+          </div>
+        </div>
         <button className="invite-btn" onClick={() => changePopUp()}>
           <p className="invite-label">Next</p>
         </button>
@@ -344,14 +385,44 @@ const SelectGuestsCollaborators = (props) => {
       <div>
         <div className="inviteesToInvite">
           <p className="inviteesToInvite-label">Your collaborators are:</p>
-          {allCollaborators}
+          <div
+            style={{
+              height: "85px",
+              "margin-bottom": "8px",
+              "padding-top": "0px !important",
+            }}
+          >
+            <div
+              className="scrollable-list"
+              style={{
+                padding: "0px",
+                "scroll-padding": "110px !important",
+                "padding-top": "0px !important",
+              }}
+            >
+              {allCollaborators}
+            </div>
+          </div>
         </div>
         <p className="inviteesToInvite-title">Select your collaborators:</p>
         <SearchBar
           list={invitees}
           searchFunction={searchFunctionCollaborators.bind(this)}
         />
-        <div className="popup-inner">{allInvitees}</div>
+        <div className="popup-inner">
+          <div style={{ height: "250px", "margin-bottom": "60px" }}>
+            <div
+              className="scrollable-list"
+              style={{
+                "padding-top": "0px",
+                "scroll-padding-top": "0px",
+                "padding-top": "0px !important",
+              }}
+            >
+              {allInvitees}
+            </div>
+          </div>
+        </div>
         <button
           className="invite-btn"
           onClick={() => [
@@ -366,4 +437,4 @@ const SelectGuestsCollaborators = (props) => {
   }
 };
 
-export default SelectGuestsCollaborators;
+export default InviteGuestsCollabs;

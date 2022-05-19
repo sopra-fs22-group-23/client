@@ -148,6 +148,20 @@
 .in-planning {
   filter: drop-shadow(0mm -9mm 18mm rgb(41, 99, 124));
 }
+.news-participating {
+  margin-right: 140px;
+  margin-top: 50px;
+  margin-left: auto;
+  color: rgb(41, 99, 124);
+  font-size: 22px;
+  font-weight: 800px;
+}
+
+.add-buttons {
+  float: right;
+  background-color: rgb(76, 175, 80) !important;
+  width: 120px !important;
+  text-align: center;
 
 .email {
   &-title {

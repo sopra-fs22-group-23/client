@@ -30,10 +30,6 @@ EventItem.propTypes = {
   event: PropTypes.object,
 };
 
-EventItem.propTypes = {
-  event: PropTypes.object,
-};
-
 const AdminList = () => {
   const [events, setEvents] = useState(null);
   let content = <div></div>;

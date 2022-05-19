@@ -15,23 +15,28 @@ GuestList.propTypes = {
 };
 
 const EventOverview = (props) => {
-    const [eventUsers, setEventUsers] = useState(null);
+  const [eventUsers, setEventUsers] = useState(null);
+  const [cancelledEventUsers, setCancelledEventUsers] = useState([]);
+
+  useEffect(() => {
+    async function loadEventUsers() {
+      const response = await apiLoggedIn().get(
+        `/events/${props.event.id}/users`
+      );
+      setEventUsers(response.data);
+
+      const response2 = await apiLoggedIn().get(
+        `events/${props.event.id}/users?eventUserStatus=CANCELLED`
+      );
+      setCancelledEventUsers(response2.data);
+    }
+    loadEventUsers();
+  }, []);
 
     //--- Map Popup ---//
     const [showMap, popupMap] = useState(false);
     const modalOpenMap = () => popupMap(true);
     const modalCloseMap = () => popupMap(false);
-
-    useEffect(() => {
-        async function loadEventUsers() {
-            const response = await apiLoggedIn().get(
-                `/events/${props.event.id}/users`
-            );
-            setEventUsers(response.data);
-        }
-
-        loadEventUsers();
-    }, []);
 
     let content = "";
 
@@ -40,27 +45,6 @@ const EventOverview = (props) => {
             return "Public";
         }
         return "Private";
-    };
-
-    const translateEventStatus = () => {
-        if (props.event.status === "IN_PLANNING") {
-            return "in planning";
-        }
-        if (props.event.status === "READY") {
-            return "ready";
-        }
-        if (props.event.status === "IN_SESSION") {
-            return "in session";
-        }
-        if (props.event.status === "CANCELED") {
-            return "canceled";
-        }
-        if (props.event.status === "PAST") {
-            return "past";
-        }
-        if (props.event.status === "COMPLETED") {
-            return "completed";
-        }
     };
 
     if (eventUsers) {
@@ -101,7 +85,7 @@ const EventOverview = (props) => {
                         </div>
                         <div className="w-100"></div>
                         <div className="col event-information-element">
-                            👥 &nbsp;{eventUsers.length} person(s) are taking part!
+                            👥 &nbsp;{eventUsers.length - cancelledEventUsers.length} person(s) are taking part!
                         </div>
                         <div className="col event-information-element">
                             🕓️ &nbsp;

@@ -41,7 +41,6 @@ const DashboardButtons = () => {
   );
 };
 
-//TODO: fix NextEvents
 const Dashboard = (props) => {
   return (
     <>
