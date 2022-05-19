@@ -1,0 +1,91 @@
+.user {
+  width: 100%;
+  margin-top: 40px;
+
+  .userPic {
+    height: 100px;
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 100px;
+  }
+
+  .hello-user {
+    text-align: left;
+    vertical-align: top;
+    font-size: 48px;
+    margin-left: 20px;
+    margin-top: 20px;
+    color: #1c4a5f;
+    font-weight: 600;
+  }
+
+  .user-description {
+    font-size: 20px;
+    height: 10px;
+    color: #000000;
+    margin-left: 50px;
+    margin-bottom: 40px;
+  }
+
+  .user-title {
+    font-size: 25px;
+    height: 15px;
+    color: #1c4a5f;
+    margin-left: 28px;
+    font-weight: bold;
+  }
+
+  .pic-description {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .eventUser-overview {
+    margin-top: 60px;
+  }
+}
+
+.eventUser-item {
+  width: 700px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  padding: 6px 6px;
+  background-color: #ffffff;
+  border: 1px solid #e2f0f6;
+  //filter: drop-shadow(1mm 0mm 1mm rgb(191, 191, 191));
+  .eventUser-img {
+    border-radius: 10px;
+    height: 91px;
+    width: 200px;
+  }
+  .eventUser-info {
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    padding: 20px 6px;
+  }
+  .eventUser-name {
+    text-align: left;
+    vertical-align: top;
+    font-size: 16px;
+    line-height: 100%;
+    color: #00388c;
+    font-weight: bold;
+  }
+  .eventUser-information {
+    text-align: left;
+    vertical-align: top;
+    font-size: 12px;
+    line-height: 100%;
+    color: #00388c;
+    margin-left: 8px;
+  }
+}
+
+.eventUser-list {
+  margin-top: 40px;
+}
+
