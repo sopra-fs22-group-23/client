@@ -39,7 +39,6 @@ const Event = () => {
   const [myStatus, setMyStatus] = useState(null);
   const [admin, setAdmin] = useState(null);
   const [collaborators, setCollaborators] = useState([]);
-  const navigate = useNavigate();
   const myId = localStorage.getItem("userId");
 
   //--- Task Overview Popup ---//
@@ -226,7 +225,7 @@ const Event = () => {
   if (event) {
     content = (
       <div>
-        <Header />
+        <Header location={"EventOverview"}/>
         <div className="row">
           <div className="col-7">
             <EventOverview

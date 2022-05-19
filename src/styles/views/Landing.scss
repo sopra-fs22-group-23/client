@@ -40,8 +40,21 @@
 }
 
 .filter {
-  border: black 1px solid;
+  color: #1c4a5f !important;
+  background-color: #ccd7e8;
+  box-shadow: 0 3px 2px 0 lightgray;
   border-radius: 8px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.filter:focus {
+  color: white !important;
+  background-color: #1c4a5f;
+  box-shadow: 0 3px 2px 0 lightgray;
+  border-radius: 8px;
+  margin-left: 3px;
+  margin-right: 3px;
 }
 
 .col-10 {

@@ -13,6 +13,11 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+
+    .columnTitle{
+      padding-top: 10px;
+    }
+
   }
 
   .first-column {
@@ -25,7 +30,7 @@
 
   .movable-item {
     border-radius: 10px;
-    background-color: #fff3f3;
+    background-color: rgb(226, 240, 246);
     height: 100px;
     width: 170px;
     margin: 10px auto;

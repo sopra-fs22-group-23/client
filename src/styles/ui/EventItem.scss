@@ -36,3 +36,10 @@
     margin-left: 8px;
   }
 }
+
+.location-container {
+  max-width: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

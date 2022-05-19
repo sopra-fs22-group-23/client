@@ -6,12 +6,25 @@ import moment from "moment";
 import { useNavigate } from "react-router";
 import AddTasks from "./PopUps/AddTasks";
 import { Modal, ModalBody } from "react-bootstrap";
+import LocationMap from "./PopUps/LocationMap";
+import EmailPopup from "./PopUps/EmailPopup";
 
 const Footer = (props) => {
   const navigate = useNavigate();
   let { eventId } = useParams();
   let [tasks, setTasks] = useState([]);
   let [collaborators, setCollaborators] = useState(null);
+  const isLoggedIn = localStorage.getItem("token");
+
+  //--- Map Popup ---//
+  const [showMap, popupMap] = useState(false);
+  const modalOpenMap = () => popupMap(true);
+  const modalCloseMap = () => popupMap(false);
+
+  //--- Email Popup ---//
+  const [showMail, popupMail] = useState(false);
+  const modalOpenMail = () => popupMail(true);
+  const modalCloseMail = () => popupMail(false);
 
   //--- Task Popup ---//
   const [showTask, TaskPopup] = useState(false);
@@ -22,6 +35,10 @@ const Footer = (props) => {
   };
 
   const inviteMyself = async () => {
+    if(!isLoggedIn){
+      modalOpenMail();
+      return;
+    }
     try {
       const requestBody = JSON.stringify({
         id: localStorage.getItem("userId"),
@@ -175,10 +192,24 @@ const Footer = (props) => {
         </div>
         <div className="location">
           <div className="location-title">Location</div>
-          <div className="location-real">{props.event.locationName}</div>
+          <button
+              className={"location-real footer-location"}
+              onClick={() => modalOpenMap()}>
+            {props.event.locationName}
+          </button>
         </div>
         {chooseButtons()}
       </div>
+      <Modal show={showMap} onHide={modalCloseMap}>
+        <ModalBody>
+          <LocationMap event={props.event} />
+        </ModalBody>
+      </Modal>
+      <Modal show={showMail} onHide={modalCloseMail}>
+        <ModalBody>
+          <EmailPopup event={props.event} />
+        </ModalBody>
+      </Modal>
     </div>
   );
 

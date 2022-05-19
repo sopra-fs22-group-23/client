@@ -57,7 +57,6 @@ const CreateEvent = (props) => {
   };
 
   //Phase 1: insert infos
-  //TODO: add location api
   const infos = (
     <div>
       <p className="edit-title">Create your event:</p>
