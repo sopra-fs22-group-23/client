@@ -15,6 +15,7 @@ import EventEdit from "./Event/EventEdit";
 import EventList from "./EventList";
 import NextEvents from "../ui/NextEvents";
 import moment from "moment";
+import UserEdit from "./UserEdit";
 
 const ProfileOverview = (props) => {
     let user = props.user;
@@ -50,11 +51,10 @@ const EventItem = (props) => {
     const taskList = props.taskList;
     const eventIds = props.eventIds;
 
-    console.log(taskList);
     //let tasks = taskList[eventIds.indexOf(event.id)];
     //const [tasks, setTasks] = useState([]);
-    console.log(eventIds.indexOf(event.id));
-    const tasks = taskList[eventIds.indexOf(event.id)];
+    const tasks = taskList[eventIds.indexOf(event.id)] || [];
+    //setTasks(taskList[eventIds.indexOf(event.id)] || []);
     //const listId = eventIds.indexOf(event.id);
     //setTasks(taskList[listId]);
     //let tasks = ["adsfahsdfasdfasd faasdfsdfasdfasdfasdfa",2,3];
@@ -90,7 +90,7 @@ const EventItem = (props) => {
                         <div>
                             <ul className="list-group">
                                 {tasks.map((task) => (
-                                    <p className="event-tasks">- {task.description}</p>
+                                    <p className="event-tasks" key={task.id}>- {task.description}</p>
                                 ))}
                             </ul>
                         </div>
@@ -147,7 +147,13 @@ const Profile = () => {
     const [eventUsers, setEventUsers] = useState([]);
     const [taskList, setTaskList] = useState([]);
     const [eventIds, setEventIds] = useState([]);
+    console.log(myId);
 
+
+    //--- Edit Popup ---//
+    const [showEdit, EditPopup] = useState(false);
+    const modalOpenEdit = () => EditPopup(true);
+    const modalCloseEdit = () => EditPopup(false);
 
     useEffect(() => {
         function loadEventIds() {
@@ -156,28 +162,6 @@ const Profile = () => {
                 ids.push(eventUsers[i].id);
             }
             return ids;
-        }
-
-        async function loadUser() {
-            try {
-                const response = await apiLoggedIn().get(`/users/${myId}`);
-                setUser(response.data);
-                const allEventUsers = await apiLoggedIn().get(
-                    `/users/${myId}/events`
-                );
-                setEventUsers(allEventUsers.data);
-                setEventIds(loadEventIds());
-            } catch (error) {
-                console.error(
-                    `Something went wrong while loading the user: \n${handleError(
-                        error
-                    )}`
-                );
-                console.error("Details:", error);
-                alert(
-                    "Something went wrong while loading the user! See the console for details."
-                );
-            }
         }
 
         async function loadTasks() {
@@ -190,8 +174,7 @@ const Profile = () => {
                     let block = response.data;
                     tasks.push(block);
                 }
-                setTaskList(tasks);
-                return tasks;
+                await setTaskList(tasks);
             } catch (error) {
                 console.error(
                     `Something went wrong while loading the tasks: \n${handleError(
@@ -205,11 +188,32 @@ const Profile = () => {
             }
         }
 
+        async function loadUser() {
+            try {
+                const response = await apiLoggedIn().get(`/users/${myId}`);
+                await setUser(response.data);
+                const allEventUsers = await apiLoggedIn().get(
+                    `/users/${myId}/events`
+                );
+                await setEventUsers(allEventUsers.data);
+            } catch (error) {
+                console.error(
+                    `Something went wrong while loading the user: \n${handleError(
+                        error
+                    )}`
+                );
+                console.error("Details:", error);
+                alert(
+                    "Something went wrong while loading the user! See the console for details."
+                );
+            }
+        }
+
         loadUser();
         loadTasks();
+        setEventIds(loadEventIds());
         //setTaskList(await loadTasks());
 
-        console.log(taskList);
 
     }, []);
 
@@ -225,6 +229,17 @@ const Profile = () => {
                             <ProfileOverview
                             user={user}
                             />
+                            <div className="user-buttons">
+                                <button className="user-button-left" onClick={() => modalOpenEdit()}>
+                                    <label className="user-label">Edit</label>
+                                </button>
+                                <Modal show={showEdit} onHide={modalCloseEdit}>
+                                    <ModalBody>
+                                        <UserEdit user={user} />
+                                    </ModalBody>
+                                </Modal>
+
+                            </div>
                         </div>
                     </div>
                     <div class="col-7">

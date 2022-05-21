@@ -103,3 +103,30 @@
   }
 }
 
+.user-buttons {
+  display: flex;
+  flex-direction: row;
+  margin: 35px 0 0 30px;
+
+  .user-button {
+    border-radius: 13px;
+    height: 60px;
+    width: 220px;
+    background-color: #29627c;
+  }
+  .user-button-left {
+    border-radius: 13px;
+    height: 60px;
+    width: 220px;
+    margin-right: 26px;
+    background-color: #29627c;
+    margin-right: 26px;
+  }
+  .user-label {
+    vertical-align: top;
+    font-size: 22px;
+    line-height: auto;
+    color: #ffffff;
+  }
+}
+
