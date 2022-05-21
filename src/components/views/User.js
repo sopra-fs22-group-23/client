@@ -18,17 +18,20 @@ import moment from "moment";
 
 const ProfileOverview = (props) => {
     let user = props.user;
+
     return (
         <div className="user">
             <div className="pic-description">
                 <img src={pic} className="userPic" />
-                <p className="hello-user">User: {user.username}</p>
+                <p className="hello-user">@{user.username}</p>
             </div>
             <p></p>
             <p className="user-title">Username:</p>
             <p className="user-description">{user.username}</p>
             <p className="user-title">Name:</p>
             <p className="user-description">{user.name}</p>
+            <p className="user-title">Status:</p>
+            <p className="user-description">{user.status}</p>
             <p className="user-title">Email:</p>
             <p className="user-description">{user.email}</p>
             <p className="user-title">Password:</p>
@@ -48,6 +51,7 @@ const EventItem = ({ event }) => {
         navigate(path);
     };
 
+
     return (
         <button className="eventUser-item" onClick={routeChange}>
             <img src={badic} className="eventUser-img" />
@@ -56,18 +60,24 @@ const EventItem = ({ event }) => {
                 <p className="eventUser-information">
                     {moment(event.eventDate).format("Do MMM")} · {event.locationName}
                 </p>
+                <p className="eventUser-information">
+                    Role: {event.eventUserRole} · Status: {event.eventUserStatus}
+                </p>
             </div>
         </button>
     );
 };
 
-const EventUserList = (props) => {
-    let events = props.eventUsers;
+const EventUserList = ({ eventUsers }) => {
+    //let events = props.eventUsers;
+
+    console.log(eventUsers);
+
 
     return (
         <div className="eventUser-list">
             <ul className="list-group">
-                {events.map((event) => (
+                {eventUsers.map((event) => (
                     <EventItem event={event} key={event.id}/>
                 ))}
             </ul>
@@ -75,8 +85,8 @@ const EventUserList = (props) => {
     );
 };
 
-const EventUserOverview = (props) => {
-    let eventUsers = props.eventUsers;
+const EventUserOverview = ({ eventUsers }) => {
+    //let eventUsers = props.eventUsers;
 
     return (
         <div className="user">
@@ -93,18 +103,17 @@ const EventUserOverview = (props) => {
 const User = () => {
     const [user, setUser] = useState(null);
     const myId = localStorage.getItem("userId");
-    const [eventUsers, setEventUsers] = useState(null);
-
+    const [eventUsers, setEventUsers] = useState([]);
 
 
     useEffect(() => {
         async function loadUser() {
             try {
                 const response = await apiLoggedIn().get(`/users/${myId}`);
-                const allEventUsers = await apiLoggedIn().get(
-                    `users/${myId}/events`
-                );
                 setUser(response.data);
+                const allEventUsers = await apiLoggedIn().get(
+                    `/users/${myId}/events`
+                );
                 setEventUsers(allEventUsers.data);
             } catch (error) {
                 console.error(
@@ -122,6 +131,8 @@ const User = () => {
     }, []);
 
     let content = "";
+
+    console.log(eventUsers);
 
     if (user) {
         content = (
