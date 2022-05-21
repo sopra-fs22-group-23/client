@@ -90,3 +90,16 @@
   margin-top: 40px;
 }
 
+
+.event-overview {
+  width: 900px;
+  display: flex;
+
+  .event-tasks {
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    text-align: left;
+  }
+}
+

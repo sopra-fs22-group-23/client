@@ -6,14 +6,6 @@ import { apiLoggedIn, handleError } from "../../helpers/api";
 import pic from "../pictures/pic.png";
 import badic from "../pictures/badic.png";
 import { useNavigate } from "react-router";
-import AddTasks from "../ui/PopUps/AddTasks";
-import { Modal, ModalBody } from "react-bootstrap";
-// import AddInvitees from "../../ui/AddInvitees";
-import SelectGuestsCollaborators from "../ui/SelectGuestsCollaborators";
-import TasksOverview from "../ui/PopUps/TasksOverview";
-import EventEdit from "./Event/EventEdit";
-import EventList from "./EventList";
-import NextEvents from "../ui/NextEvents";
 import moment from "moment";
 
 const ProfileOverview = (props) => {
@@ -102,17 +94,17 @@ const EventUserOverview = ({ eventUsers }) => {
 
 const User = () => {
     const [user, setUser] = useState(null);
-    const myId = localStorage.getItem("userId");
+    let { userId } = useParams();
     const [eventUsers, setEventUsers] = useState([]);
 
 
     useEffect(() => {
         async function loadUser() {
             try {
-                const response = await apiLoggedIn().get(`/users/${myId}`);
+                const response = await apiLoggedIn().get(`/users/${userId}`);
                 setUser(response.data);
                 const allEventUsers = await apiLoggedIn().get(
-                    `/users/${myId}/events`
+                    `/users/${userId}/events`
                 );
                 setEventUsers(allEventUsers.data);
             } catch (error) {
