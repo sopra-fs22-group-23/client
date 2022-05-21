@@ -32,14 +32,18 @@ const DashboardButtons = () => {
     navigate(`/event/create`);
   }
 
+  function toProfile() {
+      navigate(`/profile`)
+  }
+
   return (
     <div className="buttons">
-      <button className="newEvent-button" onClick={() => toCreate()}>
-        <label className="newEvent-label">New event!</label>
-      </button>
-      <a href="user" className="edit">
-        edit
-      </a>
+        <button className="newEvent-button" onClick={() => toCreate()}>
+            <label className="newEvent-label">New event!</label>
+        </button>
+        <button className="profile-button" onClick={() => toProfile()}>
+            <label className="profile-label">My Profile</label>
+        </button>
     </div>
   );
 };
