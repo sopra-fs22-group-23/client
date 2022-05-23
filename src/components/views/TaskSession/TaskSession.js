@@ -16,30 +16,31 @@ const TaskSession = () => {
 
   //const get
   const [users, setUsers] = useState([
-    { id: 0, name: "Unknown" },
-    { id: 1, name: "seocnd user" },
+      // { id: 0, name: "Unknown" },
+      // { id: 1, name: "seocnd user" },
   ]);
 
   const [items, setItems] = useState([
-    { cardID: 1, name: "item 1", columnID: 0 },
-    { cardID: 2, name: "item 2", columnID: 0 },
-    { cardID: 3, name: "item 3", columnID: 0 },
-    { cardID: 3, name: "item 3", columnID: 0 },
-    { cardID: 3, name: "item 3", columnID: 0 },
-    { cardID: 3, name: "item 3", columnID: 0 },
-    { cardID: 3, name: "item 3", columnID: 0 },
-    { cardID: 3, name: "item 3", columnID: 0 },
-    { cardID: 3, name: "item 3", columnID: 0 },
-    { cardID: 3, name: "item 3", columnID: 0 },
-    { cardID: 3, name: "item 3", columnID: 0 },
-    { cardID: 3, name: "item 3", columnID: 0 },
-    { cardID: 3, name: "item 3", columnID: 0 },
-    { cardID: 3, name: "item 3", columnID: 0 },
-    { cardID: 3, name: "item 3", columnID: 0 },
-    { cardID: 3, name: "item 3", columnID: 0 },
-    { cardID: 3, name: "item 3", columnID: 0 },
+    // { cardID: 1, name: "item 1", columnID: 0 },
+    // { cardID: 2, name: "item 2", columnID: 0 },
+    // { cardID: 3, name: "item 3", columnID: 0 },
+    // { cardID: 3, name: "item 3", columnID: 0 },
+    // { cardID: 3, name: "item 3", columnID: 0 },
+    // { cardID: 3, name: "item 3", columnID: 0 },
+    // { cardID: 3, name: "item 3", columnID: 0 },
+    // { cardID: 3, name: "item 3", columnID: 0 },
+    // { cardID: 3, name: "item 3", columnID: 0 },
+    // { cardID: 3, name: "item 3", columnID: 0 },
+    // { cardID: 3, name: "item 3", columnID: 0 },
+    // { cardID: 3, name: "item 3", columnID: 0 },
+    // { cardID: 3, name: "item 3", columnID: 0 },
+    // { cardID: 3, name: "item 3", columnID: 0 },
+    // { cardID: 3, name: "item 3", columnID: 0 },
+    // { cardID: 3, name: "item 3", columnID: 0 },
+    // { cardID: 3, name: "item 3", columnID: 0 },
   ]);
   const [event, setEvent] = useState(null)
+  const [isStealingModeON, setIsStealingModeOn] = useState(null);
 
   //fetch users and tasks
   useEffect(() => {
@@ -82,8 +83,21 @@ const TaskSession = () => {
       }
     }
 
+    async function fetchEvent(eventID) {
+      try {
+        const response = await apiLoggedIn().get(`/events/${eventID}`);
+        setEvent(response.data)
+        setIsStealingModeOn(response.data.gameMode === "ON");
+      } catch (error) {
+        console.error(`Something went wrong while fetching the users}`);
+        console.error("Details:", error);
+        // alert("Something went wrong while fetching the users! See the console for details.");
+      }
+    }
+
     fetchUsers(eventID);
     fetchTasks(eventID);
+    fetchEvent(eventID);
   }, []);
 
 
@@ -163,16 +177,10 @@ const TaskSession = () => {
       ));
   };
 
-  const isStealingModeON = () => {
-    // if(event.stealing_mode){
-    //   return event.stealing_mode;
-    // }
-    //TODO fix fetching from endpoint
-    return true;
-  }
+
 
   const shouldBeDisabledFor = (userID) => {
-    if(isStealingModeON()){
+    if(isStealingModeON){
       return userID !== parseInt(localStorage.getItem('userId'))
     }
     return false;
@@ -197,7 +205,7 @@ const TaskSession = () => {
         <DndProvider backend={HTML5Backend}>
           {content}
 
-          <Column title="Not assigned" id={0} disabled={isStealingModeON()}>
+          <Column title="Not assigned" id={0} disabled={isStealingModeON}>
             {MovableItemsForColumn(0)}
           </Column>
         </DndProvider>
