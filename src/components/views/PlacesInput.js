@@ -38,10 +38,10 @@ function PlacesInput(props) {
                         })}
                     />
                     <div className="autocomplete-dropdown-container">
-                        {loading && <div>Loading...</div>}
+                        {loading && <div className={"loading-places"}>Loading...</div>}
                         {suggestions.map(suggestion => {
                             const className = suggestion.active
-                                ? 'suggestion-item--active'
+                                ? 'suggestion-item--active '
                                 : 'suggestion-item';
                             // inline style for demonstration purpose
                             const style = suggestion.active

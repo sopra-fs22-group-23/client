@@ -18,7 +18,7 @@ const EventItem = ({ event }) => {
       <img src={pic} className="img" />
       <div className="info">
         <p className="event-name">{event.title}</p>
-        <p className="event-information">
+        <p className="event-information location-field">
           {moment(event.eventDate).format("Do MMM")} · {event.locationName}
         </p>
       </div>
@@ -26,13 +26,10 @@ const EventItem = ({ event }) => {
   );
 };
 
-EventItem.propTypes = {
-  event: PropTypes.object,
-};
-
 const GuestList = () => {
   const [events, setEvents] = useState(null);
   let content = <div></div>;
+  const myUsername = localStorage.getItem("username");
   const token = localStorage.getItem("token");
   let now = moment().format();
 
@@ -42,7 +39,7 @@ const GuestList = () => {
         const response = await apiLoggedIn().get(
           `/events?role=GUEST&from=${now}`
         );
-        setEvents(response.data);
+        validateEvents(response.data);
       } catch (error) {
         console.error(
           `Something went wrong while fetching the users: \n${handleError(
@@ -55,15 +52,31 @@ const GuestList = () => {
         );
       }
     }
-
     fetchData();
   }, []);
 
-  if (events && token) {
+  async function validateEvents(allEvents) {
+    let validEvents = [...allEvents];
+    for (let n in validEvents) {
+      let response = await apiLoggedIn().get(
+        `/events/${validEvents[n].id}/users?eventUserStatus=CANCELLED`
+      );
+      let currentCancelledUsers = response.data;
+
+      for (let i in currentCancelledUsers) {
+        if (currentCancelledUsers[i].username === myUsername) {
+          validEvents.splice(n, 1);
+        }
+      }
+    }
+    setEvents(validEvents);
+  }
+
+  if (events) {
     content = (
       <ul class="list-group">
         {events.map((event) => (
-          <EventItem event={event} key={event.id} />
+          <EventItem event={event} key={event.username} />
         ))}
       </ul>
     );

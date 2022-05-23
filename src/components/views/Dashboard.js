@@ -38,6 +38,7 @@ const DashboardButtons = () => {
 
   return (
     <div className="buttons">
+
         <button className="newEvent-button" onClick={() => toCreate()}>
             <label className="newEvent-label">New event!</label>
         </button>
@@ -48,7 +49,6 @@ const DashboardButtons = () => {
   );
 };
 
-//TODO: fix NextEvents
 const Dashboard = (props) => {
   return (
     <>

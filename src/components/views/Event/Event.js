@@ -7,12 +7,11 @@ import { useParams } from "react-router-dom";
 import { apiLoggedIn, handleError } from "../../../helpers/api";
 import pic from "../../pictures/pic.png";
 import { useNavigate } from "react-router";
-import AddTasks from "../../ui/PopUps/AddTasks";
 import { Modal, ModalBody } from "react-bootstrap";
-// import AddInvitees from "../../ui/AddInvitees";
-import SelectGuestsCollaborators from "../../ui/SelectGuestsCollaborators";
+import AddGuests from "../../ui/AddInvitees/AddGuests";
 import TasksOverview from "../../ui/PopUps/TasksOverview";
 import EventEdit from "./EventEdit";
+import AddCollaborators from "../../ui/AddInvitees/AddCollaborators";
 
 const SmallProfileOverview = (props) => {
   let content = "";
@@ -37,28 +36,15 @@ const Event = () => {
   let { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [myRole, setMyRole] = useState(null);
+  const [myStatus, setMyStatus] = useState(null);
   const [admin, setAdmin] = useState(null);
   const [collaborators, setCollaborators] = useState([]);
-  const navigate = useNavigate();
   const myId = localStorage.getItem("userId");
-
-  //--- Task Popup ---//
-  const [showTask, TaskPopup] = useState(false);
-  const modalOpenTask = () => TaskPopup(true);
-  const modalCloseTask = () => {
-    TaskPopup(false);
-    window.location.reload();
-  };
 
   //--- Task Overview Popup ---//
   const [showTaskOverview, TaskOverviewPopup] = useState(false);
   const modalOpenTaskOverview = () => TaskOverviewPopup(true);
   const modalCloseTaskOverview = () => TaskOverviewPopup(false);
-
-  //--- Invite Popup ---//
-  const [show, popup] = useState(false);
-  const modalOpen = () => popup(true);
-  const modalClose = () => popup(false);
 
   //--- Edit Popup ---//
   const [showEdit, EditPopup] = useState(false);
@@ -70,16 +56,16 @@ const Event = () => {
   const modalOpenInvitee = () => InviteePopup(true);
   const modalCloseInvitee = () => InviteePopup(false);
 
-  function toEdit() {
-    if (event) {
-      navigate(`/event/${eventId}/edit`);
-    }
-  }
+  //--- Collab Popup ---//
+  const [showCollab, CollabPopup] = useState(false);
+  const modalOpenCollab = () => CollabPopup(true);
+  const modalCloseCollab = () => CollabPopup(false);
 
   function findMe(eventUsers) {
     for (let i in eventUsers) {
       if (String(eventUsers[i].id) === String(myId)) {
         setMyRole(eventUsers[i].eventUserRole);
+        setMyStatus(eventUsers[i].eventUserStatus);
       }
     }
   }
@@ -95,8 +81,11 @@ const Event = () => {
     if (event.status === "CANCELED") {
       return "";
     } else {
-      if (myRole === "ADMIN") {
-        return adminButtons;
+      if (myRole === "ADMIN" && event.type === "PRIVATE") {
+        return adminButtonsPrivate;
+      }
+      if (myRole === "ADMIN" && event.type === "PUBLIC") {
+        return adminButtonsPublic;
       }
       if (myRole === "COLLABORATOR") {
         return collaboratorButton;
@@ -105,15 +94,64 @@ const Event = () => {
       }
     }
   };
-  //TODO: layout +invitees button
-  const adminButtons = (
-    <div className={"d-flex"}>
-      {/*<button className="event-button-left" onClick={() => toEdit()}>
-        <label className="event-label">Edit</label>
-      </button>*/}
 
-      <button className="event-button-left" onClick={() => modalOpenEdit()}>
-        <label className="event-label">Edit</label>
+  const adminButtonsPrivate = (
+    <div className="d-flex" style={{ width: "460px !important" }}>
+      <button
+        className="event-button"
+        style={{ "margin-right": "26px", width: "280px" }}
+        onClick={() => modalOpenEdit()}
+      >
+        <p className="event-label">Edit</p>
+      </button>
+
+      <Modal show={showEdit} onHide={modalCloseEdit}>
+        <ModalBody>
+          <EventEdit event={event} />
+        </ModalBody>
+      </Modal>
+      <div>
+        <button
+          className="event-button-plus"
+          style={{ "margin-right": "0px !important", "margin-bottom": "8px" }}
+          onClick={() => modalOpenInvitee()}
+        >
+          <p className="event-label">+ Guests</p>
+        </button>
+
+        <Modal show={showinvitee} onHide={modalCloseInvitee}>
+          <ModalBody style={{ "margin-bottom": "0px !important" }}>
+            <AddGuests eventId={eventId} />
+          </ModalBody>
+        </Modal>
+
+        <button
+          className="event-button-plus"
+          style={{ "margin-right": "0px !important" }}
+          onClick={() => modalOpenCollab()}
+        >
+          <p className="event-label" style={{ color: "#212529 !important" }}>
+            + Collaborators
+          </p>
+        </button>
+
+        <Modal show={showCollab} onHide={modalCloseCollab}>
+          <ModalBody style={{ "margin-bottom": "0px !important" }}>
+            <AddCollaborators eventId={eventId} />
+          </ModalBody>
+        </Modal>
+      </div>
+    </div>
+  );
+
+  const adminButtonsPublic = (
+    <div className={"d-flex"}>
+      <button
+        className="event-button"
+        style={{ "margin-right": "26px" }}
+        onClick={() => modalOpenEdit()}
+      >
+        <p className="event-label">Edit</p>
       </button>
 
       <Modal show={showEdit} onHide={modalCloseEdit}>
@@ -122,43 +160,31 @@ const Event = () => {
         </ModalBody>
       </Modal>
 
-      {/* TODO: add fucking addInvitees component
-      <button className="event-button-left" onClick={() => modalOpenInvitee()}>
-        <label className="event-label">Add Invitee</label>
+      <button
+        className="event-button add-button"
+        onClick={() => modalOpenCollab()}
+      >
+        <p className="event-label" style={{ color: "#212529 !important" }}>
+          + Collaborators
+        </p>
       </button>
 
-      <Modal show={showinvitee} onHide={modalCloseInvitee}>
-        <ModalBody>
-          <AddInvitees
+      <Modal show={showCollab} onHide={modalCloseCollab}>
+        <ModalBody style={{ "margin-bottom": "0px !important" }}>
+          <AddCollaborators
             event={event}
             collaborators={collaborators}
             eventId={eventId}
           />
         </ModalBody>
-      </Modal> */}
-
-      <button
-        className="event-button add-button"
-        onClick={() => modalOpenTask()}
-      >
-        <label className="event-label"> + Tasks</label>
-      </button>
-      <div>
-        <div>
-          <Modal show={showTask} onHide={modalCloseTask}>
-            <ModalBody>
-              <AddTasks />
-            </ModalBody>
-          </Modal>
-        </div>
-      </div>
+      </Modal>
     </div>
   );
 
   const collaboratorButton = (
     <div>
       <button className="event-button" onClick={() => modalOpenTaskOverview()}>
-        <label className="event-label"> Tasks</label>
+        <p className="event-label"> Tasks</p>
       </button>
       <Modal show={showTaskOverview} onHide={modalCloseTaskOverview}>
         <ModalBody>
@@ -202,7 +228,7 @@ const Event = () => {
   if (event) {
     content = (
       <div>
-        <Header />
+        <Header location={"EventOverview"} />
         <div className="row">
           <div className="col-7">
             <EventOverview
@@ -216,7 +242,7 @@ const Event = () => {
             <div className="event-buttons">{chooseButtons()}</div>
           </div>
         </div>
-        <Footer myRole={myRole} event={event} />
+        <Footer myRole={myRole} event={event} myStatus={myStatus} />
       </div>
     );
   }

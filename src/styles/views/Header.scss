@@ -1,12 +1,75 @@
 .color-nav {
   background-color: rgb(226, 240, 246);
   height: 100px;
+  font-size: 14pt;
 }
 
-.LogoutButton {
-  width: 10% !important;
+.profile-image {
+  max-width: 40px;
+  max-height: 40px;
+  border-radius: 100px;
 }
 
 .navbar-brand {
   margin-left: 3em;
+}
+
+.nav-item {
+  padding-right: 40px;
+}
+
+.nav-link {
+  color: #1c4a5f !important;
+  font-weight: 600 !important;
+}
+
+.button-scroll-login {
+  font-weight: bold;
+  color: #1c4a5f !important;
+}
+
+.nav-container {
+  margin-right: 100px;
+}
+
+.hover {
+  position: absolute;
+  font-size: 12pt !important;
+  z-index: 100;
+  text-align: right;
+  right: 0;
+  margin-right: 150px !important;
+  padding-top: 25px;
+  padding-right: 20px;
+  width: 140px;
+  height: 140px;
+  background-color: white;
+  border-radius: 8px;
+  border: #1c4a5f 0.5px solid;
+  box-shadow: #1c4a5f 5px 5px;
+}
+
+.lg {
+  color: black;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+.button-scroll-login {
+  font-size: 14pt;
+  margin-left: 100px;
+}
+
+.nav-icons {
+  height: 25px;
+  width: 25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 15px;
+}
+
+.login-icon {
+  height: 35px;
+  width: 35px;
+  margin-left: 10px;
 }

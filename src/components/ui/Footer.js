@@ -1,77 +1,132 @@
 import "../../styles/ui/Footer.scss";
 import { React, useEffect, useState } from "react";
-import "../../styles/ui/EventOverview.scss";
-import { apiLoggedIn, handleError } from "../../helpers/api";
+import { apiLoggedIn, api, handleError } from "../../helpers/api";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import { useNavigate } from "react-router";
-import { MyButton } from "./StandardComponents/MyButton";
+import AddTasks from "./PopUps/AddTasks";
+import { Modal, ModalBody } from "react-bootstrap";
+import LocationMap from "./PopUps/LocationMap";
+import EmailPopup from "./PopUps/EmailPopup";
 
 const Footer = (props) => {
   const navigate = useNavigate();
   let { eventId } = useParams();
   let [tasks, setTasks] = useState([]);
   let [collaborators, setCollaborators] = useState(null);
+  const isLoggedIn = localStorage.getItem("token");
 
-  const inviteMyself = async () => {
-    try {
-      const requestBody = JSON.stringify({
-        id: localStorage.getItem("userId"),
-        eventUserRole: "GUEST",
-      });
-      const response = await apiLoggedIn().post(
-        `/events/${eventId}/users`,
-        requestBody
-      );
-    } catch (error) {
-      alert(
-        `Something went wrong during inviting myself to this public event: \n${handleError(
-          error
-        )}`
-      );
-    }
-    //window.location.reload();
+  //--- Map Popup ---//
+  const [showMap, popupMap] = useState(false);
+  const modalOpenMap = () => popupMap(true);
+  const modalCloseMap = () => popupMap(false);
+
+  //--- Email Popup ---//
+  const [showMail, popupMail] = useState(false);
+  const modalOpenMail = () => popupMail(true);
+  const modalCloseMail = () => popupMail(false);
+
+  //--- Task Popup ---//
+  const [showTask, TaskPopup] = useState(false);
+  const modalOpenTask = () => TaskPopup(true);
+  const modalCloseTask = () => {
+    TaskPopup(false);
+    window.location.reload();
   };
 
-  const uninviteMyself = () => {
+  const inviteMyself = async () => {
+    if (!isLoggedIn) {
+      modalOpenMail();
+      return;
+    }
+    window.location.reload();
+    if (props.myStatus !== "CANCELLED") {
+      try {
+        const requestBody = JSON.stringify({
+          id: localStorage.getItem("userId"),
+          eventUserRole: "GUEST",
+        });
+        const response = await apiLoggedIn().post(
+          `/events/${eventId}/users`,
+          requestBody
+        );
+      } catch (error) {
+        alert(
+          `Something went wrong during inviting myself to this public event: \n${handleError(
+            error
+          )}`
+        );
+      }
+    } else {
+      try {
+        const requestBody = JSON.stringify({
+          id: localStorage.getItem("userId"),
+          eventUserStatus: "CONFIRMED",
+        });
+        const response = await apiLoggedIn().put(
+          `/events/${eventId}/users`,
+          requestBody
+        );
+      } catch (error) {
+        alert(
+          `Something went wrong during rejoining myself to this public event: \n${handleError(
+            error
+          )}`
+        );
+      }
+    }
+  };
+
+  const unInviteMyself = async () => {
     try {
       const requestBody = JSON.stringify({
         id: localStorage.getItem("userId"),
         eventUserStatus: "CANCELLED",
       });
-      const response = apiLoggedIn().put(
+      const response = await apiLoggedIn().put(
         `/events/${eventId}/users`,
         requestBody
       );
+      window.location.reload();
     } catch (error) {
       alert(
-        `Something went wrong during inviting myself to this public event: \n${handleError(
+        `Something went wrong during cancelling myself from this public event: \n${handleError(
           error
         )}`
       );
     }
   };
 
-  //BUG: disabled doesn't always work
   //TODO: disable when session finished
-  const adminButton = (
+  const sessionButton = (
     <button
-      type="button"
       className="role-button"
       onClick={() => navigate(`/taskSession/${eventId}`)}
     >
-      Start Session
+      Open session
     </button>
   );
 
-  const collaboratorButton = (
-    //TODO: disable button when session not started/finished
-    <button
-      className="role-button"
-      onClick={() => navigate(`/taskSession/${eventId}`)}
-    >
-      Join Session
-    </button>
+  const addTasksButton = (
+    <>
+      <button
+        className="role-button add-buttons"
+        style={{
+          "vertical-align": "middle",
+          width: "500px !important",
+          "margin-right": "20px",
+        }}
+        onClick={() => modalOpenTask()}
+      >
+        + Tasks
+      </button>
+
+      <Modal show={showTask} onHide={modalCloseTask}>
+        <ModalBody>
+          <AddTasks />
+        </ModalBody>
+      </Modal>
+    </>
   );
 
   const joinPublicEventButton = (
@@ -80,9 +135,8 @@ const Footer = (props) => {
     </button>
   );
 
-  //TODO: unjoin event onClick()
-  const unjoinPublicEventButton = (
-    <button className="role-button" onClick={() => uninviteMyself()}>
+  const unJoinPublicEventButton = (
+    <button className="role-button" onClick={() => unInviteMyself()}>
       Unjoin Event!
     </button>
   );
@@ -130,22 +184,32 @@ const Footer = (props) => {
   }, [tasks]);
 
   const chooseButtons = () => {
+    console.log(props.myStatus);
     if (props.event.status === "CANCELED") {
       return <p className="news-canceled">This event has been canceled</p>;
     }
     if (props.myRole === "ADMIN") {
-      return adminButton;
+      return (
+        <div className="d-flex" style={{ "margin-left": "auto" }}>
+          {addTasksButton}
+          {sessionButton}
+        </div>
+      );
     }
     if (props.myRole === "COLLABORATOR") {
-      return collaboratorButton;
+      return sessionButton;
     }
-    if (props.event.type === "PRIVATE" && props.myRole === "GUEST") {
-      return <div></div>;
+    if (
+      props.myRole === "GUEST" &&
+      props.event.type === "PUBLIC" &&
+      props.myStatus !== "CANCELLED"
+    ) {
+      return unJoinPublicEventButton;
     }
-    if (props.event.type === "PUBLIC" && props.myRole === "GUEST") {
-      return unjoinPublicEventButton;
-    }
-    if (props.event.type === "PUBLIC" && props.myRole === null) {
+    if (
+      (props.event.type === "PUBLIC" && props.myRole === null) ||
+      (props.event.type === "PUBLIC" && props.myStatus === "CANCELLED")
+    ) {
       return joinPublicEventButton;
     }
   };
@@ -174,10 +238,25 @@ const Footer = (props) => {
         </div>
         <div className="location">
           <div className="location-title">Location</div>
-          <div className="location-real">{props.event.locationName}</div>
+          <button
+            className={"location-real footer-location"}
+            onClick={() => modalOpenMap()}
+          >
+            {props.event.locationName}
+          </button>
         </div>
         {chooseButtons()}
       </div>
+      <Modal show={showMap} onHide={modalCloseMap}>
+        <ModalBody>
+          <LocationMap event={props.event} />
+        </ModalBody>
+      </Modal>
+      <Modal show={showMail} onHide={modalCloseMail}>
+        <ModalBody>
+          <EmailPopup event={props.event} />
+        </ModalBody>
+      </Modal>
     </div>
   );
 

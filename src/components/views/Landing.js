@@ -5,6 +5,7 @@ import MapStyles from "../../styles/MapStyles";
 import {api} from "../../helpers/api";
 import "../../styles/views/Landing.scss"
 import SearchEvents from "../ui/EventLists/SearchEvents";
+import moment from "moment";
 
 const mapContainerStyle = {
     width: "52vw",
@@ -22,12 +23,26 @@ const options = {
 
 export default function Landing() {
 
-    const [events, setEvents] = useState(null);
+    let now = moment().format();
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
         async function loadEvents() {
-            const response = await api.get("/events");
-            setEvents(response.data);
+            try {
+                const response = await api.get(
+                    `/events?type=PUBLIC&from=${now}`,
+                );
+                //Throw out cancelled events
+                const eventsNotCancelled = response.data.filter(
+                    (r) => r.status !== "CANCELED"
+                );
+                setEvents(eventsNotCancelled);
+            } catch (error) {
+                console.error("Details:", error);
+                alert(
+                    "Something went wrong while loading events! See the console for details."
+                );
+            }
         }
         loadEvents();
     }, []);
@@ -36,7 +51,7 @@ export default function Landing() {
     if(events){
         content = (
             <div>
-                <Header/>
+                <Header location={"Landing"}/>
                 <div className={"row"}>
                     <div className={"col-5 list-container"}>
                         <SearchEvents/>

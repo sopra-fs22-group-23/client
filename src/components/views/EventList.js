@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import AdminList from "../ui/EventLists/AdminList";
 import CollaboratorList from "../ui/EventLists/CollaboratorList";
 import GuestList from "../ui/EventLists/GuestList";
-import { SearchBar } from "../ui/StandardComponents/SearchBar";
 
 class EventList extends Component {
   constructor() {
