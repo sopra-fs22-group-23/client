@@ -39,6 +39,7 @@ const Footer = (props) => {
       modalOpenMail();
       return;
     }
+    window.location.reload();
     if (props.myStatus !== "CANCELLED") {
       try {
         const requestBody = JSON.stringify({
@@ -49,7 +50,6 @@ const Footer = (props) => {
           `/events/${eventId}/users`,
           requestBody
         );
-        window.location.reload();
       } catch (error) {
         alert(
           `Something went wrong during inviting myself to this public event: \n${handleError(
@@ -67,7 +67,6 @@ const Footer = (props) => {
           `/events/${eventId}/users`,
           requestBody
         );
-        window.location.reload();
       } catch (error) {
         alert(
           `Something went wrong during rejoining myself to this public event: \n${handleError(
