@@ -101,17 +101,21 @@ const EventUserList = (props) => {
 
 
     return (
-        <div className="eventUser-list">
-            <ul className="list-group">
-                {events.map((event) => (
-                    <EventItem
-                        event={event}
-                        key={event.id}
-                        taskList={taskList}
-                        eventIds={eventIds}
-                    />
-                ))}
-            </ul>
+        <div style={{height: "500px"}}>
+            <div className="scrollable-list">
+                <div className="eventUser-list">
+                    <ul className="list-group">
+                        {events.map((event) => (
+                            <EventItem
+                                event={event}
+                                key={event.id}
+                                taskList={taskList}
+                                eventIds={eventIds}
+                            />
+                        ))}
+                    </ul>
+                </div>
+            </div>
         </div>
     );
 };
@@ -143,7 +147,6 @@ const Profile = () => {
     const [eventUsers, setEventUsers] = useState([]);
     const [taskList, setTaskList] = useState([]);
     const [eventIds, setEventIds] = useState([]);
-    console.log(myId);
 
 
     //--- Edit Popup ---//
@@ -224,19 +227,23 @@ const Profile = () => {
                 <div class="row">
                     <div class="col-5">
                         <div class="container">
-                            <ProfileOverview
-                            user={user}
-                            />
-                            <div className="user-buttons">
-                                <button className="user-button-left" onClick={() => modalOpenEdit()}>
-                                    <label className="user-label">Edit</label>
-                                </button>
-                                <Modal show={showEdit} onHide={modalCloseEdit}>
-                                    <ModalBody>
-                                        <UserEdit user={user} />
-                                    </ModalBody>
-                                </Modal>
+                            <div style={{height: "600px"}}>
+                                <div className="scrollable-list">
+                                    <ProfileOverview
+                                        user={user}
+                                    />
+                                    <div className="user-buttons">
+                                        <button className="user-button-left" onClick={() => modalOpenEdit()}>
+                                            <label className="user-label">Edit</label>
+                                        </button>
+                                        <Modal show={showEdit} onHide={modalCloseEdit}>
+                                            <ModalBody>
+                                                <UserEdit user={user} />
+                                            </ModalBody>
+                                        </Modal>
 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

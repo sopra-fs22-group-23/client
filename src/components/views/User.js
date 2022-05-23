@@ -71,12 +71,16 @@ const EventUserList = ({ eventUsers }) => {
 
 
     return (
-        <div className="eventUser-list">
-            <ul className="list-group">
-                {eventUsers.map((event) => (
-                    <EventItem event={event} key={event.id}/>
-                ))}
-            </ul>
+        <div style={{height: "500px"}}>
+            <div className="scrollable-list">
+                <div className="eventUser-list">
+                    <ul className="list-group">
+                        {eventUsers.map((event) => (
+                            <EventItem event={event} key={event.id}/>
+                        ))}
+                    </ul>
+                </div>
+            </div>
         </div>
     );
 };
