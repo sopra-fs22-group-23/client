@@ -28,7 +28,7 @@ const EventItem = ({ event }) => {
 
 const GuestList = () => {
   const [events, setEvents] = useState(null);
-  let content = <div>ssss</div>;
+  let content = <div></div>;
   const myUsername = localStorage.getItem("username");
   const token = localStorage.getItem("token");
   let now = moment().format();

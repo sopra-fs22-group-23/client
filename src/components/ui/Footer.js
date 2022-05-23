@@ -35,7 +35,7 @@ const Footer = (props) => {
   };
 
   const inviteMyself = async () => {
-    if(!isLoggedIn){
+    if (!isLoggedIn) {
       modalOpenMail();
       return;
     }
@@ -91,10 +91,7 @@ const Footer = (props) => {
   );
 
   const joinPublicEventButton = (
-    <button
-      className="role-button"
-      onClick={() => inviteMyself()}
-    >
+    <button className="role-button" onClick={() => inviteMyself()}>
       Join Event!
     </button>
   );
@@ -194,8 +191,9 @@ const Footer = (props) => {
         <div className="location">
           <div className="location-title">Location</div>
           <button
-              className={"location-real footer-location"}
-              onClick={() => modalOpenMap()}>
+            className={"location-real footer-location"}
+            onClick={() => modalOpenMap()}
+          >
             {props.event.locationName}
           </button>
         </div>
