@@ -11,6 +11,8 @@ import React from "react";
 import Landing from "../../views/Landing";
 import TitleScreen from "../../views/TitleScreen";
 import "../../../styles/views/Landing.scss"
+import MyProfile from "../../views/MyProfile";
+import UserEdit from "../../views/UserEdit";
 
 const MainRouter = () => {
 
@@ -28,7 +30,9 @@ const MainRouter = () => {
         />
         <Route element={<ProtectedRoute />}>
           <Route path="/home" element={<Dashboard />} />
-          <Route path="/user" element={<User />} />
+          <Route path="/user/:userId" element={<User />} />
+          <Route path="/profile" element={<MyProfile />} />
+          <Route path="/profile/edit" element={<UserEdit edit />} />
           <Route path="/taskSession/:eventID" element={<TaskSession/>} />
           <Route path="/event/create" element={<CreateEvent create />} />
           <Route path="/event/:eventId/edit" element={<EventEdit edit />} />
