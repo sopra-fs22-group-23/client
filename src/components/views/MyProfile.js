@@ -130,7 +130,7 @@ const EventUserOverview = (props) => {
     return (
         <div className="user">
             <div className="eventUser-overview">
-                <p className="hello-user">{props.user.username}'s events</p>
+                <p className="hello-user">Your events & tasks:</p>
                 <EventUserList
                     eventUsers={eventUsers}
                     taskList={taskList}

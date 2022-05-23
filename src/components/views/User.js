@@ -85,13 +85,13 @@ const EventUserList = ({ eventUsers }) => {
     );
 };
 
-const EventUserOverview = ({ eventUsers }) => {
-    //let eventUsers = props.eventUsers;
+const EventUserOverview = (props) => {
+    const eventUsers = props.eventUsers;
 
     return (
         <div className="user">
             <div className="eventUser-overview">
-                <p className="hello-user">Event Overview</p>
+                <p className="hello-user">{props.user.username}'s events:</p>
                 <EventUserList
                     eventUsers={eventUsers}
                 />
@@ -149,6 +149,7 @@ const User = () => {
                     <div class="col-7">
                         <EventUserOverview
                         eventUsers={eventUsers}
+                        user={user}
                         />
                     </div>
                 </div>
