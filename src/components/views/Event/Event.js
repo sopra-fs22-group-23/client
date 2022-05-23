@@ -160,7 +160,10 @@ const Event = () => {
         </ModalBody>
       </Modal>
 
-      <button className="event-button" onClick={() => modalOpenCollab()}>
+      <button
+        className="event-button add-button"
+        onClick={() => modalOpenCollab()}
+      >
         <p className="event-label" style={{ color: "#212529 !important" }}>
           + Collaborators
         </p>
@@ -225,7 +228,7 @@ const Event = () => {
   if (event) {
     content = (
       <div>
-        <Header location={"EventOverview"}/>
+        <Header location={"EventOverview"} />
         <div className="row">
           <div className="col-7">
             <EventOverview
