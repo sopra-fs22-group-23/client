@@ -176,7 +176,7 @@ Messages
             bottom: -15px;
             font-size: 10px;
             color: #555;
-            right:0; //previsous was 15
+            right: -3px; //previsous was 15
             /* color: rgba(255, 255, 255, .7);*/
 
         }
@@ -681,9 +681,9 @@ box-shadow: 0 1px 1px rgba(0,0,0,0.3);*/
 .show-chat{
     text-align: center;
     background: white;
-    z-index: 10;
+    z-index: 20;
     position: fixed;
-    bottom: 40px;
+    bottom: 20px;
     right: 40px;
     cursor: pointer;
     border-radius: 20px;
@@ -725,4 +725,10 @@ box-shadow: 0 1px 1px rgba(0,0,0,0.3);*/
     to {
         transform: translateY(15px);
     }
+}
+
+.message-wrapper{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }

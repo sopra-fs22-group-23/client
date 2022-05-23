@@ -1,8 +1,7 @@
-import "../../../styles/ui/Footer.scss";
+
 import { React } from "react";
-import "../../../styles/ui/EventOverview.scss";
+import "../../../styles/ui/Footer.scss";
 import { useNavigate } from "react-router";
-import { MyButton } from "../../ui/StandardComponents/MyButton";
 
 const Footer = (props) => {
     const navigate = useNavigate();
@@ -29,12 +28,12 @@ const Footer = (props) => {
 
 
     let content = (
-        <div className="rectangle">
+        <div className="rectangle-in-planning">
             <div className="infos-event">
                 <button
                             type="button"
                             className="role-button"
-                            style={{marginLeft:"20px"}}
+                            style={{marginLeft:"40px"}}
                             onClick={() => navigate(`/event/${props.eventID}`)}
                         >
                     Back to event

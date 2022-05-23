@@ -24,6 +24,20 @@ const TaskSession = () => {
     { cardID: 1, name: "item 1", columnID: 0 },
     { cardID: 2, name: "item 2", columnID: 0 },
     { cardID: 3, name: "item 3", columnID: 0 },
+    { cardID: 3, name: "item 3", columnID: 0 },
+    { cardID: 3, name: "item 3", columnID: 0 },
+    { cardID: 3, name: "item 3", columnID: 0 },
+    { cardID: 3, name: "item 3", columnID: 0 },
+    { cardID: 3, name: "item 3", columnID: 0 },
+    { cardID: 3, name: "item 3", columnID: 0 },
+    { cardID: 3, name: "item 3", columnID: 0 },
+    { cardID: 3, name: "item 3", columnID: 0 },
+    { cardID: 3, name: "item 3", columnID: 0 },
+    { cardID: 3, name: "item 3", columnID: 0 },
+    { cardID: 3, name: "item 3", columnID: 0 },
+    { cardID: 3, name: "item 3", columnID: 0 },
+    { cardID: 3, name: "item 3", columnID: 0 },
+    { cardID: 3, name: "item 3", columnID: 0 },
   ]);
   const [event, setEvent] = useState(null)
 
@@ -134,7 +148,7 @@ const TaskSession = () => {
   };
 
   //key is there unique property, each child should have it
-  const MovableItemsForColumn = (columnID) => {
+  const   MovableItemsForColumn = (columnID) => {
     return items
       .filter((item) => item.columnID === columnID)
       .map((item) => (
@@ -188,7 +202,7 @@ const TaskSession = () => {
           </Column>
         </DndProvider>
 
-        {/*<Footer eventID={eventID}/>*/}
+        <Footer eventID={eventID}/>
       </div>
         <ChatWindow eventID={eventID}/>
       </>

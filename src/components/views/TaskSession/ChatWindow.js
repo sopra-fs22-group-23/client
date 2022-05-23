@@ -11,7 +11,9 @@ const ChatWindow = ({eventID}) => {
 
     const [text, setText] = useState("")
     const [showChat, setShowChat] = useState(true)
-    const [messages, setMessages] = useState([])
+    const [messages, setMessages] = useState([
+        {text: "messsage", username:"test", }
+    ])
     const [unreadMessages, setUnread] = useState(0)
 
 

@@ -7,7 +7,7 @@ export default function Message(props){
         <div className={`message new ${props.personal ? "message-personal" : "" }` }>
             {/*<figure className="avatar"></figure>*/}
             {props.text}
-            <div className="timestamp">
+            <div className="timestamp message-wrapper">
                 {!props.personal ? props.username : null} {moment(props.datetime).format("ddd hh:mm")}
                 </div>
         </div>

@@ -3,6 +3,10 @@
   flex-direction: row;
   justify-content: space-around;
 
+  height: 47em;/*to be able to scroll on all tasks*/
+  overflow-y: scroll;
+
+
   .column {
     height: max-content;
     min-height: 100px;
