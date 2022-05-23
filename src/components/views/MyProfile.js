@@ -21,11 +21,6 @@ const ProfileOverview = (props) => {
 
   return (
     <div className="user">
-      <div className="pic-description">
-        <img src={pic} className="userPic" />
-        <p className="hello-user">@{user.username}</p>
-      </div>
-      <p></p>
       <p className="user-title">Username:</p>
       <p className="user-description">{user.username}</p>
       <p className="user-title">Name:</p>
@@ -101,7 +96,7 @@ const EventUserList = (props) => {
   let eventIds = props.eventIds;
 
   return (
-    <div style={{ height: "500px" }}>
+    <div style={{ height: "100%" }} className="container-list">
       <div className="scrollable-list">
         <div className="eventUser-list">
           <ul className="list-group">
@@ -218,7 +213,13 @@ const Profile = () => {
         <div class="row">
           <div class="col-5">
             <div class="container">
-              <div style={{ height: "600px" }}>
+              <div className="user">
+                <div className="pic-description">
+                  <img src={pic} className="userPic" />
+                  <p className="hello-user">@{user.username}</p>
+                </div>
+              </div>
+              <div style={{ height: "100%"}} className="container-list">
                 <div className="scrollable-list">
                   <ProfileOverview user={user} />
                   <div className="user-buttons">
@@ -234,6 +235,7 @@ const Profile = () => {
                       </ModalBody>
                     </Modal>
                   </div>
+                  <p></p>
                 </div>
               </div>
             </div>

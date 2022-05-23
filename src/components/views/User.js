@@ -18,7 +18,7 @@ const ProfileOverview = (props) => {
                 <p className="hello-user">@{user.username}</p>
             </div>
             <p></p>
-            <div style={{height: "500px"}}>
+            <div style={{height: "100%"}} className="container-list">
                 <div className="scrollable-list">
                     <p className="user-title">Username:</p>
                     <p className="user-description">{user.username}</p>
@@ -71,7 +71,7 @@ const EventUserList = ({ eventUsers }) => {
 
 
     return (
-        <div style={{height: "500px"}}>
+        <div style={{height: "100%"}} className="container-list">
             <div className="scrollable-list">
                 <div className="eventUser-list">
                     <ul className="list-group">
