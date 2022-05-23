@@ -31,10 +31,15 @@ const EventEdit = (props) => {
   let latitude;
   let longitude;
   const [eventDate, setDate] = useState(null);
+  const [gameMode, setGameMode] = useState(null);
   const prevLocation = useRef();
   useEffect(() => {
     prevLocation.current = props.event.locationName;
   }, []);
+
+  const changeGameMode = (event) => {
+    setGameMode(event.target.value);
+  };
 
   /*
   function handleUpload(){
@@ -69,6 +74,7 @@ const EventEdit = (props) => {
         eventDate,
         longitude,
         latitude,
+        gameMode
       });
       const response = await apiLoggedIn().put(
         `/events/${eventId}`,
@@ -104,6 +110,7 @@ const EventEdit = (props) => {
         longitude,
         latitude,
         status,
+        gameMode
       });
       const response = await apiLoggedIn().put(
         `/events/${eventId}`,
@@ -142,6 +149,25 @@ const EventEdit = (props) => {
           label={"Date"}
           onChange={(date) => setDate(date)}
         />
+        <div onChange={changeGameMode} className="event-type">
+          <p className="event-type__label">Type</p>
+          <input
+              type="radio"
+              value="ON"
+              name="type"
+              defaultChecked ={props.event.gameMode === "ON"}
+              className="event-type__value"
+          />
+          <p className="event-type__name">Stealing mode</p>
+          <input
+              type="radio"
+              value="OFF"
+              name="type"
+              defaultChecked ={props.event.gameMode === "OFF"}
+              className="event-type__value"
+          />
+          <p className="event-type__name">Normal mode</p>
+        </div>
 
         {/*<div className="image-field">
           <div>Add Image:</div>

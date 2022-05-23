@@ -1,0 +1,41 @@
+name: Deploy test branch
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # uncomment both tokens for assignment 2-4
+
+      HEROKU_KEY: ${{ secrets.HEROKU_API_KEY }}
+      HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+      HEROKU_APP_NAME_TEST: ${{ secrets.HEROKU_APP_NAME_TEST }}
+
+    steps:
+      # checkout repository code
+      - uses: actions/checkout@v1
+
+      # create .netrc file for heroku authentication
+      # https://devcenter.heroku.com/articles/authentication
+      - run: |+
+          cat >~/.netrc <<EOF
+          machine api.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_KEY
+          machine git.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_KEY
+          EOF
+
+      # login with .netrc file
+      - run: heroku login
+
+      # deploy code
+      - run: heroku git:remote -a $HEROKU_APP_NAME_TEST
+      - run: git push heroku HEAD:refs/heads/master
+
+
