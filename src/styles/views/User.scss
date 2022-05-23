@@ -130,13 +130,13 @@
 }
 
 
-.container-list {
+.user-container-list {
   position: fixed;
   height: 100%;
   display: flex;
   margin-top: 0px!important;
 
-  .scrollable-list {
+  .user-scrollable-list {
     padding-right: 15px;
     height: 100%;
     overflow-y: scroll;

@@ -96,8 +96,8 @@ const EventUserList = (props) => {
   let eventIds = props.eventIds;
 
   return (
-    <div style={{ height: "100%" }} className="container-list">
-      <div className="scrollable-list">
+    <div style={{ height: "60%" }} className="user-container-list">
+      <div className="user-scrollable-list">
         <div className="eventUser-list">
           <ul className="list-group">
             {events.map((event) => (
@@ -219,8 +219,8 @@ const Profile = () => {
                   <p className="hello-user">@{user.username}</p>
                 </div>
               </div>
-              <div style={{ height: "100%"}} className="container-list">
-                <div className="scrollable-list">
+              <div style={{ height: "60%"}} className="user-container-list">
+                <div className="user-scrollable-list">
                   <ProfileOverview user={user} />
                   <div className="user-buttons">
                     <button

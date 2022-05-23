@@ -32,7 +32,7 @@ const Header = (props) => {
             <div>
                 <div className={"hover"}>
                     <div>
-                        <button className={"lg"} onClick={() => navigate("/user")}>Profile<img className={"nav-icons"} src={settings}/></button>
+                        <button className={"lg"} onClick={() => navigate("/profile")}>Profile<img className={"nav-icons"} src={settings}/></button>
                     </div>
                     <div>
                         <button className={"lg"} onClick={() => logout()}>Logout<img className={"nav-icons"} src={out}/></button>
