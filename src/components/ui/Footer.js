@@ -58,12 +58,6 @@ const Footer = (props) => {
     <button
       type="button"
       className="role-button"
-      disabled={
-        tasks.length === 0 ||
-        collaborators === null ||
-        collaborators === [] ||
-        collaborators.length === 0
-      }
       onClick={() => navigate(`/taskSession/${eventId}`)}
     >
       Start Session

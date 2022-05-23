@@ -130,3 +130,18 @@
   }
 }
 
+
+.container-list {
+  position: fixed;
+  height: 100%;
+  min-width: 600px;
+
+  .scrollable-list {
+    padding-right: 15px;
+    height: 100%;
+    overflow-y: scroll;
+    padding-bottom: 20px;
+  }
+}
+
+

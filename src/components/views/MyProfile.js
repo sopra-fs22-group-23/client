@@ -51,14 +51,7 @@ const EventItem = (props) => {
     const taskList = props.taskList;
     const eventIds = props.eventIds;
 
-    //let tasks = taskList[eventIds.indexOf(event.id)];
-    //const [tasks, setTasks] = useState([]);
     const tasks = taskList[eventIds.indexOf(event.id)] || [];
-    //setTasks(taskList[eventIds.indexOf(event.id)] || []);
-    //const listId = eventIds.indexOf(event.id);
-    //setTasks(taskList[listId]);
-    //let tasks = ["adsfahsdfasdfasd faasdfsdfasdfasdfasdfa",2,3];
-
 
     const routeChange = () => {
         let path = `/event/${event.id}`;
@@ -106,6 +99,7 @@ const EventUserList = (props) => {
     let taskList = props.taskList;
     let eventIds = props.eventIds;
 
+
     return (
         <div className="eventUser-list">
             <ul className="list-group">
@@ -127,10 +121,12 @@ const EventUserOverview = (props) => {
     let taskList = props.taskList;
     let eventIds = props.eventIds;
 
+    console.log(eventIds);
+
     return (
         <div className="user">
             <div className="eventUser-overview">
-                <p className="hello-user">Event Overview</p>
+                <p className="hello-user">{props.user.username}'s events</p>
                 <EventUserList
                     eventUsers={eventUsers}
                     taskList={taskList}
@@ -215,7 +211,9 @@ const Profile = () => {
         //setTaskList(await loadTasks());
 
 
-    }, []);
+    }, [user]);
+
+
 
     let content = "";
 
@@ -247,6 +245,7 @@ const Profile = () => {
                         eventUsers={eventUsers}
                         taskList={taskList}
                         eventIds={eventIds}
+                        user={user}
                         />
                     </div>
                 </div>

@@ -18,20 +18,24 @@ const ProfileOverview = (props) => {
                 <p className="hello-user">@{user.username}</p>
             </div>
             <p></p>
-            <p className="user-title">Username:</p>
-            <p className="user-description">{user.username}</p>
-            <p className="user-title">Name:</p>
-            <p className="user-description">{user.name}</p>
-            <p className="user-title">Status:</p>
-            <p className="user-description">{user.status}</p>
-            <p className="user-title">Email:</p>
-            <p className="user-description">{user.email}</p>
-            <p className="user-title">Password:</p>
-            <p className="user-description">*****</p>
-            <p className="user-title">Birthday:</p>
-            <p className="user-description">{user.birthday}</p>
-            <p className="user-title">Biography:</p>
-            <p className="user-description">{user.biography}</p>
+            <div style={{height: "500px"}}>
+                <div className="scrollable-list">
+                    <p className="user-title">Username:</p>
+                    <p className="user-description">{user.username}</p>
+                    <p className="user-title">Name:</p>
+                    <p className="user-description">{user.name}</p>
+                    <p className="user-title">Status:</p>
+                    <p className="user-description">{user.status}</p>
+                    <p className="user-title">Email:</p>
+                    <p className="user-description">{user.email}</p>
+                    <p className="user-title">Password:</p>
+                    <p className="user-description">*****</p>
+                    <p className="user-title">Birthday:</p>
+                    <p className="user-description">{user.birthday}</p>
+                    <p className="user-title">Biography:</p>
+                    <p className="user-description">{user.biography}</p>
+                </div>
+            </div>
         </div>
     );
 };
