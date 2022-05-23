@@ -39,19 +39,59 @@ const Footer = (props) => {
       modalOpenMail();
       return;
     }
+    if (props.myStatus !== "CANCELLED") {
+      try {
+        const requestBody = JSON.stringify({
+          id: localStorage.getItem("userId"),
+          eventUserRole: "GUEST",
+        });
+        const response = await apiLoggedIn().post(
+          `/events/${eventId}/users`,
+          requestBody
+        );
+        window.location.reload();
+      } catch (error) {
+        alert(
+          `Something went wrong during inviting myself to this public event: \n${handleError(
+            error
+          )}`
+        );
+      }
+    } else {
+      try {
+        const requestBody = JSON.stringify({
+          id: localStorage.getItem("userId"),
+          eventUserStatus: "CONFIRMED",
+        });
+        const response = await apiLoggedIn().put(
+          `/events/${eventId}/users`,
+          requestBody
+        );
+        window.location.reload();
+      } catch (error) {
+        alert(
+          `Something went wrong during rejoining myself to this public event: \n${handleError(
+            error
+          )}`
+        );
+      }
+    }
+  };
+
+  const unInviteMyself = async () => {
     try {
       const requestBody = JSON.stringify({
         id: localStorage.getItem("userId"),
-        eventUserRole: "GUEST",
+        eventUserStatus: "CANCELLED",
       });
-      const response = await apiLoggedIn().post(
+      const response = await apiLoggedIn().put(
         `/events/${eventId}/users`,
         requestBody
       );
       window.location.reload();
     } catch (error) {
       alert(
-        `Something went wrong during inviting myself to this public event: \n${handleError(
+        `Something went wrong during cancelling myself from this public event: \n${handleError(
           error
         )}`
       );
@@ -93,6 +133,12 @@ const Footer = (props) => {
   const joinPublicEventButton = (
     <button className="role-button" onClick={() => inviteMyself()}>
       Join Event!
+    </button>
+  );
+
+  const unJoinPublicEventButton = (
+    <button className="role-button" onClick={() => unInviteMyself()}>
+      Unjoin Event!
     </button>
   );
 
@@ -154,14 +200,17 @@ const Footer = (props) => {
     if (props.myRole === "COLLABORATOR") {
       return sessionButton;
     }
-    if (props.myRole === "GUEST" && props.event.type === "PUBLIC") {
-      return (
-        <p className="news-participating">
-          You are partecipating to this event!
-        </p>
-      );
+    if (
+      props.myRole === "GUEST" &&
+      props.event.type === "PUBLIC" &&
+      props.myStatus !== "CANCELLED"
+    ) {
+      return unJoinPublicEventButton;
     }
-    if (props.event.type === "PUBLIC" && props.myRole === null) {
+    if (
+      (props.event.type === "PUBLIC" && props.myRole === null) ||
+      (props.event.type === "PUBLIC" && props.myStatus === "CANCELLED")
+    ) {
       return joinPublicEventButton;
     }
   };
