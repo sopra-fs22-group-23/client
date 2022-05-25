@@ -116,8 +116,9 @@ const User = () => {
                 );
                 setEventUsers(allEventUsers.data);
             } catch (error) {
-                if(error.status === 401 || error.status === 404){//if the user is not authorized for the event, get the user back to homescreen
-                    navigate("/")
+                if(error.response.status === 401 || error.response.status === 404){//if the user is not authorized for the event, get the user back to homescreen
+                    navigate("/home")
+
                 }
                 else {
                     console.error(
