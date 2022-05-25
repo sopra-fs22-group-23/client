@@ -116,15 +116,21 @@ const User = () => {
                 );
                 setEventUsers(allEventUsers.data);
             } catch (error) {
-                console.error(
-                    `Something went wrong while loading the user: \n${handleError(
-                        error
-                    )}`
-                );
-                console.error("Details:", error);
-                alert(
-                    "Something went wrong while loading the user! See the console for details."
-                );
+                if(error.status === 401 || error.status === 404){//if the user is not authorized for the event, get the user back to homescreen
+                    let navigate = useNavigate();
+                    navigate("/")
+                }
+                else {
+                    console.error(
+                        `Something went wrong while loading the user: \n${handleError(
+                            error
+                        )}`
+                    );
+                    console.error("Details:", error);
+                    alert(
+                        "Something went wrong while loading the user! See the console for details."
+                    );
+                }
             }
         }
         loadUser();
