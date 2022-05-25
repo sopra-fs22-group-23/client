@@ -104,7 +104,7 @@ const User = () => {
     const [user, setUser] = useState(null);
     let { userId } = useParams();
     const [eventUsers, setEventUsers] = useState([]);
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function loadUser() {
@@ -117,7 +117,6 @@ const User = () => {
                 setEventUsers(allEventUsers.data);
             } catch (error) {
                 if(error.status === 401 || error.status === 404){//if the user is not authorized for the event, get the user back to homescreen
-                    let navigate = useNavigate();
                     navigate("/")
                 }
                 else {

@@ -13,7 +13,7 @@ import Header from "../../ui/StandardComponents/Header";
 
 const TaskSession = () => {
   const { eventID } = useParams();
-
+  const navigate = useNavigate();
   //const get
   const [users, setUsers] = useState([
       // { id: 0, name: "Unknown" },
@@ -90,7 +90,6 @@ const TaskSession = () => {
         setIsStealingModeOn(response.data.gameMode === "ON");
       } catch (error) {
         if(error.status === 401 || error.status === 404){//if the user is not authorized for the event, get the user back to homescreen
-          let navigate = useNavigate();
           navigate("/")
         }
         console.error(`Something went wrong while fetching the users}`);

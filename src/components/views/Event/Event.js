@@ -193,7 +193,7 @@ const Event = () => {
       </Modal>
     </div>
   );
-
+  const navigate = useNavigate();
   useEffect(() => {
     async function loadEvent() {
       try {
@@ -210,7 +210,6 @@ const Event = () => {
         setCollaborators(collaborators);
       } catch (error) {
         if(error.status === 401 || error.status === 404){//if the user is not authorized for the event, get the user back to homescreen
-          let navigate = useNavigate();
           navigate("/")
 
         }
