@@ -67,7 +67,9 @@ class EventList extends Component {
           </div>
         </div>
         <div class="container-list">
-          <div class="scrollable-list">{this.decideList()}</div>
+          <div class="scrollable-list" style={{ width: "fit-content" }}>
+            {this.decideList()}
+          </div>
         </div>
       </div>
     );

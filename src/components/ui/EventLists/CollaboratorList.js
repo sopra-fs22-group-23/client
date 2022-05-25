@@ -62,11 +62,11 @@ const CollaboratorList = () => {
 
   if (events && token) {
     content = (
-      <ul class="list-group">
+      <div class="list-group">
         {events.map((event) => (
           <EventItem event={event} key={event.id} />
         ))}
-      </ul>
+      </div>
     );
   }
 

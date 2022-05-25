@@ -6,7 +6,6 @@ import "../../../styles/views/Event.scss";
 import { useParams } from "react-router-dom";
 import { apiLoggedIn, handleError } from "../../../helpers/api";
 import pic from "../../pictures/pic.png";
-import { useNavigate } from "react-router";
 import { Modal, ModalBody } from "react-bootstrap";
 import AddGuests from "../../ui/AddInvitees/AddGuests";
 import TasksOverview from "../../ui/PopUps/TasksOverview";
@@ -15,6 +14,29 @@ import AddCollaborators from "../../ui/AddInvitees/AddCollaborators";
 
 const SmallProfileOverview = (props) => {
   let content = "";
+
+  const [bio, setBio] = useState("");
+  const myId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    async function loadBio() {
+      try {
+        const response = await apiLoggedIn().get(`/users/${myId}`);
+        const myProfile = response.data;
+        setBio(myProfile.biography);
+      } catch (error) {
+        console.error(
+          `Something went wrong while loading the bio: \n${handleError(error)}`
+        );
+        console.error("Details:", error);
+        alert(
+          "Something went wrong while loading the bio! See the console for details."
+        );
+      }
+    }
+    loadBio();
+  }, []);
+
   if (props.admin) {
     content = (
       <div className="profile-container">
@@ -22,10 +44,7 @@ const SmallProfileOverview = (props) => {
           <img src={pic} className="profile-pic" />
           <p className="profile-name">{props.admin.username} </p>
         </div>
-        <div className="profile-description">
-          My name is {props.admin.username} and I’m a student at UZH. I love
-          organizing lasagne parties and coding. Let’s meet!
-        </div>
+        <div className="profile-description">{props.admin.biography}</div>
       </div>
     );
   }

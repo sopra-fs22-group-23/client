@@ -3,27 +3,26 @@
   flex-direction: row;
   justify-content: space-around;
 
-  height: 47em;/*to be able to scroll on all tasks*/
+  height: 52em; /*to be able to scroll on all tasks*/
   overflow-y: scroll;
-
 
   .column {
     height: max-content;
     min-height: 100px;
     width: 200px;
     margin: 20px;
+    //margin-bottom: 300px;
     border-radius: 10px;
-    box-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 
-    .columnTitle{
+    .columnTitle {
       padding-top: 10px;
       min-width: 35px;
       text-align: center;
     }
-
   }
 
   .first-column {
@@ -43,7 +42,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 3px rgba(0,0,0,0.5);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
   }
 }
-
