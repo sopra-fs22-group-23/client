@@ -104,7 +104,7 @@ const MovableItem = (props) => {
   );
 };
 
-const Column = ({ children, title, id, disabled }) => {
+const Column = ({ children, title, id, disabled, myCol }) => {
   const [, drop] = useDrop({
     accept: disabled ? "" : "Card",
     drop: () => ({ id: id }),
@@ -115,7 +115,7 @@ const Column = ({ children, title, id, disabled }) => {
   });
 
   return (
-    <div className={`column ${disabled ? "disabled" : ""}`} ref={drop}>
+    <div className={`column ${disabled ? "disabled" : ""} ${myCol? "myCol" : ""} `} ref={drop}>
       <div>
         <h6 className={"columnTitle"}>{title}</h6>
       </div>
@@ -135,6 +135,7 @@ const Column = ({ children, title, id, disabled }) => {
             "scroll-padding": "110px !important",
           }}
         >
+          <div style={{width: "170px"}}/>
           {children}
         </div>
       </div>

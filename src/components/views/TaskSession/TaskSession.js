@@ -191,7 +191,7 @@ const TaskSession = () => {
   if (users) {
     content = "";
     content = users.map((user) => (
-      <Column title={user.name} id={user.id} key={user.id} disabled={shouldBeDisabledFor(user.id)}>
+      <Column title={user.name} id={user.id} key={user.id} disabled={shouldBeDisabledFor(user.id)} myCol={user.id === parseInt(localStorage.getItem("userId"))}>
         {MovableItemsForColumn(user.id)}
       </Column>
     ));
