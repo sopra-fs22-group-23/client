@@ -52,6 +52,26 @@ const CreateEvent = (props) => {
     }
   };
 
+    const [file, setFile] = useState(null);
+
+    function handleChange(e) {
+        setFile(e.target.files[0]);
+        console.log(e.target.files[0]);
+    }
+    function handleUpload() {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('test', "message");
+        for (var pair of formData.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }
+        const response = apiLoggedIn().post(`/events/${eventId}/image`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+    }
+
   const onChangeType = (event) => {
     setType(event.target.value);
   };
@@ -120,9 +140,13 @@ const CreateEvent = (props) => {
   //Phase 3: picture
   //TODO: add component
   const picture = (
-    <div>
-      <p>Picture!</p>
-      <MyButton onClick={() => navigate(`/event/${eventId}`)}>Save! </MyButton>
+    <div className="image-field">
+        <p>Picture!</p>
+          <div>Add Image:</div>
+          <input type="file" onChange={handleChange}/>
+          <img className={"img"} src={file}/>
+
+      <MyButton onClick={() => [handleUpload(), navigate(`/event/${eventId}`)]}>Save! </MyButton>
     </div>
   );
 
