@@ -15,7 +15,8 @@ const EventItem = ({ event }) => {
 
   return (
     <button className="event-item" onClick={routeChange}>
-      <img src={pic} className="img" />
+      <img src={"/events/" + event.id + "/image"} className={"img"}/>
+      {/*<img src={pic} className="img" />*/}
       <div className="info">
         <p className="event-name">{event.title}</p>
         <p className="event-information location-field">
