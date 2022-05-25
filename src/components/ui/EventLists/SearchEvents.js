@@ -3,11 +3,12 @@ import "../../../styles/ui/EventItem.scss";
 import "../../../styles/views/EventList.scss";
 import "../../../styles/ui/SearchBar.scss";
 import {useNavigate} from "react-router";
-import pic from "../../pictures/pizza.jpeg";
+import pic from "../../pictures/badic.png";
 import moment from "moment";
 import PropTypes from "prop-types";
 import {Button} from "react-bootstrap";
 import {api} from "../../../helpers/api";
+import {getDomain} from "../../../helpers/getDomain";
 
 const EventItem = ({ event }) => {
     let navigate = useNavigate();
@@ -18,7 +19,11 @@ const EventItem = ({ event }) => {
 
     return (
         <button className="event-item" onClick={routeChange}>
-            <img src={pic} className="img" />
+            <img src={getDomain() + "/events/" + event.id + "/image"} className={"img"}
+                 onError={({ currentTarget }) => {
+                     currentTarget.onerror = null; // prevents looping
+                     currentTarget.src=pic;
+                 }}/>
             <div className="info">
                 <p className="event-name">{event.title}</p>
                 <p className="event-information location-field">
