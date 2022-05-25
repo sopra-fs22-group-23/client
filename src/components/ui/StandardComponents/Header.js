@@ -16,15 +16,15 @@ const Header = (props) => {
     const logout = async () => {
         try {
             await apiLoggedIn().put(`/logout/${userId}`);
-            // Remove the token from the local storage.
-            localStorage.removeItem("token");
-            localStorage.removeItem("userId");
-            localStorage.removeItem("username");
-            localStorage.removeItem("name");
-            navigate("/");
         } catch (error) {
-            alert(`Something went wrong during logout: \n${handleError(error)}`);
+            alert(`You are logged on another computer, but we still log you out.`);
         }
+        // Clear localstorage, no matter what happens
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("username");
+        localStorage.removeItem("name");
+        navigate("/");
     };
 
     function toggleContent() {
