@@ -104,7 +104,7 @@ const User = () => {
     const [user, setUser] = useState(null);
     let { userId } = useParams();
     const [eventUsers, setEventUsers] = useState([]);
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function loadUser() {
@@ -116,15 +116,21 @@ const User = () => {
                 );
                 setEventUsers(allEventUsers.data);
             } catch (error) {
-                console.error(
-                    `Something went wrong while loading the user: \n${handleError(
-                        error
-                    )}`
-                );
-                console.error("Details:", error);
-                alert(
-                    "Something went wrong while loading the user! See the console for details."
-                );
+                if(error.response.status === 401 || error.response.status === 404){//if the user is not authorized for the event, get the user back to homescreen
+                    navigate("/home")
+
+                }
+                else {
+                    console.error(
+                        `Something went wrong while loading the user: \n${handleError(
+                            error
+                        )}`
+                    );
+                    console.error("Details:", error);
+                    alert(
+                        "Something went wrong while loading the user! See the console for details."
+                    );
+                }
             }
         }
         loadUser();
