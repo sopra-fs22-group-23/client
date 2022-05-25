@@ -141,9 +141,8 @@ const CreateEvent = (props) => {
   //TODO: add component
   const picture = (
     <div className="image-field">
-        <p>Picture!</p>
-          <div>Add Image:</div>
-          <input type="file" onChange={handleChange}/>
+        <p className={"image-label"}>Add image:</p>
+          <input type="file" className={"image-input"} onChange={handleChange}/>
           <img className={"img"} src={file}/>
 
       <MyButton onClick={() => [handleUpload(), navigate(`/event/${eventId}`)]}>Save! </MyButton>
