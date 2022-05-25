@@ -8,6 +8,8 @@ import logo from "../../pictures/Logo.png";
 import out from "../../pictures/logout.png";
 import login from "../../pictures/previous.png";
 import settings from "../../pictures/settings.png";
+import {getDomain} from "../../../helpers/getDomain";
+import pic from "../../pictures/badic.png";
 
 const Header = (props) => {
     const navigate = useNavigate();
@@ -64,7 +66,11 @@ const Header = (props) => {
                 <button
                     className={"button-scroll-login"}
                     onClick={() => navigate("/")}
-                >Login  <img className={"login-icon"} src={login}/>
+                >Login  <img src={getDomain() + "/users/" + localStorage.getItem("userId") + "/image"} className={"login-icon"}
+                             onError={({ currentTarget }) => {
+                                 currentTarget.onerror = null; // prevents looping
+                                 currentTarget.src=login;
+                             }}/>
                 </button>
             );
         }
