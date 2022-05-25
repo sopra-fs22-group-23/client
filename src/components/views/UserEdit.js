@@ -68,7 +68,7 @@ const UserEdit = (props) => {
       window.location.reload();
     } catch (error) {
         if(error.response.status === 500 ){
-            alert("Hey, your username or email in not unique. If you want to be someone else, sadly for you, the other person was faster:/")
+            alert("Hey, your username or email in not unique. You may want to be someone else, but sadly for you, the other person was faster:/")
         }
         else if(error.response.status === 400  && birthday !== user.birthday){
             alert("Oh, are you from the future? Nice to know it. Do you know, whether we were invited to sopra apero?")

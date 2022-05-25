@@ -100,12 +100,11 @@ const Login = () => {
           if (error.response.status === 409) {
               alert(`Your username is not unique`);
           } else if (error.response.status === 500) {
-              alert(`Your your email is not unique, seem like you have schizophrenia, please provide unique email!`);
+              alert(`Your your email is not unique, it seems like you have schizophrenia and your alter-ego already registered for you, please provide unique email!`);
           }
           else{
-              alert(`Something went wrong during the login: \n${handleError(error)}`);
+              alert(`Something went wrong during the register: \n${handleError(error)}`);
           }
-          alert(`Something went wrong during registering: \n${handleError(error)}`);
       }
   }
 
