@@ -5,7 +5,6 @@ import User from "../../views/User";
 import Event from "../../views/Event/Event";
 import ProtectedRoute from "../protectors/ProtectedRoute";
 import CreateEvent from "../../views/Event/CreateEvent";
-import EventEdit from "../../views/Event/EventEdit";
 import TaskSession from "../../views/TaskSession/TaskSession";
 import React from "react";
 import Landing from "../../views/Landing";
@@ -35,7 +34,6 @@ const MainRouter = () => {
           <Route path="/profile/edit" element={<UserEdit edit />} />
           <Route path="/taskSession/:eventID" element={<TaskSession/>} />
           <Route path="/event/create" element={<CreateEvent create />} />
-          <Route path="/event/:eventId/edit" element={<EventEdit edit />} />
           <Route path="/browse" element={<Landing />} />
         </Route>
         <Route path="/event/:eventId" element={<Event event />} />
