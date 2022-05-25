@@ -79,11 +79,11 @@ const GuestList = () => {
 
   if (events) {
     content = (
-      <ul class="list-group">
+      <div class="list-group">
         {events.map((event) => (
           <EventItem event={event} key={event.username} />
         ))}
-      </ul>
+      </div>
     );
   }
 

@@ -6,7 +6,6 @@ import "../../../styles/views/Event.scss";
 import { useParams } from "react-router-dom";
 import { apiLoggedIn, handleError } from "../../../helpers/api";
 import pic from "../../pictures/pic.png";
-import { useNavigate } from "react-router";
 import { Modal, ModalBody } from "react-bootstrap";
 import AddGuests from "../../ui/AddInvitees/AddGuests";
 import TasksOverview from "../../ui/PopUps/TasksOverview";
@@ -17,6 +16,29 @@ import {getDomain} from "../../../helpers/getDomain";
 const SmallProfileOverview = (props) => {
   let content = "";
   let navigate = useNavigate();
+  const [bio, setBio] = useState("");
+  const myId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    async function loadBio() {
+      try {
+        const response = await apiLoggedIn().get(`/users/${myId}`);
+        const myProfile = response.data;
+        setBio(myProfile.biography);
+      } catch (error) {
+        console.error(
+          `Something went wrong while loading the bio: \n${handleError(error)}`
+        );
+        console.error("Details:", error);
+        alert(
+          "Something went wrong while loading the bio! See the console for details."
+        );
+      }
+    }
+    loadBio();
+  }, []);
+
+  
 
   function profileLink() {
     if (props.admin.id === localStorage.getItem("userId")) {
@@ -25,6 +47,7 @@ const SmallProfileOverview = (props) => {
       return `/user/${props.admin.id}`;
     }
   }
+
 
   if (props.admin) {
     content = (
