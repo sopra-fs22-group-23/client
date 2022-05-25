@@ -12,6 +12,7 @@ import AddGuests from "../../ui/AddInvitees/AddGuests";
 import TasksOverview from "../../ui/PopUps/TasksOverview";
 import EventEdit from "./EventEdit";
 import AddCollaborators from "../../ui/AddInvitees/AddCollaborators";
+import {getDomain} from "../../../helpers/getDomain";
 
 const SmallProfileOverview = (props) => {
   let content = "";
@@ -19,7 +20,11 @@ const SmallProfileOverview = (props) => {
     content = (
       <div className="profile-container">
         <div className="profile-info">
-          <img src={pic} className="profile-pic" />
+          <img src={getDomain() + "/users/" + localStorage.getItem("userId") + "/image"} className={"profile-pic"}
+               onError={({ currentTarget }) => {
+                 currentTarget.onerror = null; // prevents looping
+                 currentTarget.src = pic;
+               }}/>
           <p className="profile-name">{props.admin.username} </p>
         </div>
         <div className="profile-description">
@@ -193,7 +198,7 @@ const Event = () => {
       </Modal>
     </div>
   );
-
+  const navigate = useNavigate();
   useEffect(() => {
     async function loadEvent() {
       try {
@@ -209,15 +214,21 @@ const Event = () => {
         );
         setCollaborators(collaborators);
       } catch (error) {
-        console.error(
-          `Something went wrong while loading the event: \n${handleError(
-            error
-          )}`
-        );
-        console.error("Details:", error);
-        alert(
-          "Something went wrong while loading the event! See the console for details."
-        );
+        if(error.response.status === 401 || error.response.status === 404){//if the user is not authorized for the event, get the user back to homescreen
+          navigate("/home")
+
+        }
+        else {
+          console.error(
+              `Something went wrong while loading the event: \n${handleError(
+                  error
+              )}`
+          );
+          console.error("Details:", error);
+          alert(
+              "Something went wrong while loading the event! See the console for details."
+          );
+        }
       }
     }
     loadEvent();

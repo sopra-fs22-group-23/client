@@ -29,7 +29,12 @@ const Login = () => {
             localStorage.setItem("name", response.data.name);
             navigate("/home");
         } catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
+            if(error.response.status === 400){
+                alert(`Your username or password is wrong`)
+            }
+            else{
+                alert(`Something went wrong during the login: \n${handleError(error)}`);
+            }
         }
     };
 
@@ -45,7 +50,12 @@ const Login = () => {
             localStorage.setItem("name", response.data.name);
             navigate("/home");
         } catch (error) {
-            alert(`Something went wrong during registering: \n${handleError(error)}`);
+            if(error.response.status === 400){
+                alert(`Please fill all inputs and make sure your email is in format email@domain.xx`)
+            }
+            else{
+                alert(`Something went wrong during the login: \n${handleError(error)}`);
+            }
         }
     };
 

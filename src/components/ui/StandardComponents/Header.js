@@ -8,6 +8,8 @@ import logo from "../../pictures/Logo.png";
 import out from "../../pictures/logout.png";
 import login from "../../pictures/previous.png";
 import settings from "../../pictures/settings.png";
+import {getDomain} from "../../../helpers/getDomain";
+import pic from "../../pictures/badic.png";
 
 const Header = (props) => {
     const navigate = useNavigate();
@@ -16,15 +18,15 @@ const Header = (props) => {
     const logout = async () => {
         try {
             await apiLoggedIn().put(`/logout/${userId}`);
-            // Remove the token from the local storage.
-            localStorage.removeItem("token");
-            localStorage.removeItem("userId");
-            localStorage.removeItem("username");
-            localStorage.removeItem("name");
-            navigate("/");
         } catch (error) {
-            alert(`Something went wrong during logout: \n${handleError(error)}`);
+            alert(`You are logged on another computer, but we still log you out.`);
         }
+        // Clear localstorage, no matter what happens
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("username");
+        localStorage.removeItem("name");
+        navigate("/");
     };
 
     function toggleContent() {
@@ -64,7 +66,11 @@ const Header = (props) => {
                 <button
                     className={"button-scroll-login"}
                     onClick={() => navigate("/")}
-                >Login  <img className={"login-icon"} src={login}/>
+                >Login  <img src={getDomain() + "/users/" + localStorage.getItem("userId") + "/image"} className={"login-icon"}
+                             onError={({ currentTarget }) => {
+                                 currentTarget.onerror = null; // prevents looping
+                                 currentTarget.src=login;
+                             }}/>
                 </button>
             );
         }
