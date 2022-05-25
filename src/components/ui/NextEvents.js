@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import pic from "../pictures/badic.png";
 import moment from "moment";
 import { useNavigate } from "react-router";
+import {getDomain} from "../../helpers/getDomain";
 
 const EventItemSquare = ({ event }) => {
   let navigate = useNavigate();
@@ -16,7 +17,11 @@ const EventItemSquare = ({ event }) => {
 
   return (
     <button className="event-square" onClick={routeChange}>
-      <img src={pic} className="upper" />
+      <img src={getDomain() + "/events/" + event.id + "/image"} className={"upper"}
+           onError={({ currentTarget }) => {
+             currentTarget.onerror = null; // prevents looping
+             currentTarget.src=pic;
+           }}/>
       <div className="lower">
         <div className="time-box">
           <p className="month"> {moment(event.eventDate).format("MMM")} </p>

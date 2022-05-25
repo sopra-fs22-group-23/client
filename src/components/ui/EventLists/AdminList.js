@@ -21,7 +21,6 @@ const EventItem = ({ event }) => {
              currentTarget.onerror = null; // prevents looping
              currentTarget.src=pic;
            }}/>
-      {/*<img src={pic} className="img" />*/}
       <div className="info">
         <p className="event-name">{event.title}</p>
         <p className="event-information location-field">
