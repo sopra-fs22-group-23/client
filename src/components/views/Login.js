@@ -80,26 +80,34 @@ const Login = () => {
   };
 
   const doRegister = async () => {
-    try {
-      const requestBody = JSON.stringify({
-        name,
-        username,
-        email,
-        password,
-        biography,
-      });
-      const response = await apiLoggedIn().post("/users", requestBody);
+      try {
+          const requestBody = JSON.stringify({
+              name,
+              username,
+              email,
+              password,
+              biography,
+          });
+          const response = await apiLoggedIn().post("/users", requestBody);
 
-      // Store the token into the local storage.
-      localStorage.setItem("token", response.headers.token);
-      localStorage.setItem("userId", response.data.id);
-      localStorage.setItem("username", response.data.username);
-      localStorage.setItem("name", response.data.name);
-      navigate("/home");
-    } catch (error) {
-      alert(`Something went wrong during registering: \n${handleError(error)}`);
-    }
-  };
+          // Store the token into the local storage.
+          localStorage.setItem("token", response.headers.token);
+          localStorage.setItem("userId", response.data.id);
+          localStorage.setItem("username", response.data.username);
+          localStorage.setItem("name", response.data.name);
+          navigate("/home");
+      } catch (error) {
+          if (error.response.status === 409) {
+              alert(`Your username is not unique`);
+          } else if (error.response.status === 500) {
+              alert(`Your your email is not unique, seem like you have schizophrenia, please provide unique email!`);
+          }
+          else{
+              alert(`Something went wrong during the login: \n${handleError(error)}`);
+          }
+          alert(`Something went wrong during registering: \n${handleError(error)}`);
+      }
+  }
 
   function registerPhase() {
     return (
