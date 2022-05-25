@@ -3,7 +3,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import "../../../styles/taskSession/taskSession.scss";
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router";
+import {useNavigate, useParams} from "react-router";
 import { apiLoggedIn } from "../../../helpers/api";
 import { getDomainWS } from "../../../helpers/getDomain";
 import Stomp from "webstomp-client";
@@ -13,8 +13,8 @@ import Header from "../../ui/StandardComponents/Header";
 
 const TaskSession = () => {
   const { eventID } = useParams();
+  const navigate = useNavigate();
 
-  //const get
   const [users, setUsers] = useState([
       // { id: 0, name: "Unknown" },
       // { id: 1, name: "seocnd user" },
@@ -89,6 +89,9 @@ const TaskSession = () => {
         setEvent(response.data)
         setIsStealingModeOn(response.data.gameMode === "ON");
       } catch (error) {
+        if(error.response.status === 401 || error.response.status === 404){//if the user is not authorized for the event, get the user back to homescreen
+          navigate("/home")
+        }
         console.error(`Something went wrong while fetching the users}`);
         console.error("Details:", error);
         // alert("Something went wrong while fetching the users! See the console for details.");

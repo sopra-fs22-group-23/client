@@ -11,10 +11,11 @@ import AddGuests from "../../ui/AddInvitees/AddGuests";
 import TasksOverview from "../../ui/PopUps/TasksOverview";
 import EventEdit from "./EventEdit";
 import AddCollaborators from "../../ui/AddInvitees/AddCollaborators";
+import {getDomain} from "../../../helpers/getDomain";
 
 const SmallProfileOverview = (props) => {
   let content = "";
-
+  let navigate = useNavigate();
   const [bio, setBio] = useState("");
   const myId = localStorage.getItem("userId");
 
@@ -37,11 +38,26 @@ const SmallProfileOverview = (props) => {
     loadBio();
   }, []);
 
+  
+
+  function profileLink() {
+    if (props.admin.id === localStorage.getItem("userId")) {
+      return `/profile`;
+    } else {
+      return `/user/${props.admin.id}`;
+    }
+  }
+
+
   if (props.admin) {
     content = (
-      <div className="profile-container">
+      <div className="profile-container" onClick={() => navigate(profileLink())}>
         <div className="profile-info">
-          <img src={pic} className="profile-pic" />
+          <img src={getDomain() + "/users/" + props.admin.id + "/image"} className={"profile-pic"}
+               onError={({ currentTarget }) => {
+                 currentTarget.onerror = null; // prevents looping
+                 currentTarget.src = pic;
+               }}/>
           <p className="profile-name">{props.admin.username} </p>
         </div>
         <div className="profile-description">{props.admin.biography}</div>
@@ -212,7 +228,7 @@ const Event = () => {
       </Modal>
     </div>
   );
-
+  const navigate = useNavigate();
   useEffect(() => {
     async function loadEvent() {
       try {
@@ -228,15 +244,21 @@ const Event = () => {
         );
         setCollaborators(collaborators);
       } catch (error) {
-        console.error(
-          `Something went wrong while loading the event: \n${handleError(
-            error
-          )}`
-        );
-        console.error("Details:", error);
-        alert(
-          "Something went wrong while loading the event! See the console for details."
-        );
+        if(error.response.status === 401 || error.response.status === 404){//if the user is not authorized for the event, get the user back to homescreen
+          navigate("/home")
+
+        }
+        else {
+          console.error(
+              `Something went wrong while loading the event: \n${handleError(
+                  error
+              )}`
+          );
+          console.error("Details:", error);
+          alert(
+              "Something went wrong while loading the event! See the console for details."
+          );
+        }
       }
     }
     loadEvent();

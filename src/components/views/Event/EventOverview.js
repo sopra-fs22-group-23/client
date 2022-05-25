@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import moment from "moment";
 import {Modal, ModalBody} from "react-bootstrap";
 import LocationMap from "../../ui/PopUps/LocationMap";
+import {getDomain} from "../../../helpers/getDomain";
 
 const GuestList = ({user}) => <div>{user.username},&nbsp; </div>;
 
@@ -53,7 +54,11 @@ const EventOverview = (props) => {
                 <div className="event-title">{props.event.title}</div>
                 <div className="event-description">{props.event.description}</div>
                 <div className="event-organizer">
-                    <img src={pic} className="small-profile-pic"/>
+                    <img src={getDomain() + "/users/" + localStorage.getItem("userId") + "/image"} className={"small-profile-pic"}
+                         onError={({ currentTarget }) => {
+                             currentTarget.onerror = null; // prevents looping
+                             currentTarget.src = pic;
+                         }}/>
                     <div className="organizer-name">
                         {translateEventType()} event by {props.admin.username}
                     </div>
@@ -66,9 +71,7 @@ const EventOverview = (props) => {
                     <div className="row">
                         <div className="col event-information-element">
                             💪🏼 &nbsp;Collaborators:&nbsp;
-                            {props.collaborators.map((user) => (
-                                <GuestList user={user} key={user.id}/>
-                            ))}
+                            <div>{props.collaborators.map(function(user){return user.username}).join(' ,')}</div>
                         </div>
                         <div className="col event-information-element">
                             &nbsp;📍 &nbsp;&nbsp;

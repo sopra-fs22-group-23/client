@@ -18,8 +18,8 @@ const ProfileOverview = (props) => {
                 <p className="hello-user">@{user.username}</p>
             </div>
             <p></p>
-            <div style={{height: "500px"}}>
-                <div className="scrollable-list">
+            <div style={{height: "60%"}} className="user-container-list">
+                <div className="user-scrollable-list">
                     <p className="user-title">Username:</p>
                     <p className="user-description">{user.username}</p>
                     <p className="user-title">Name:</p>
@@ -71,8 +71,8 @@ const EventUserList = ({ eventUsers }) => {
 
 
     return (
-        <div style={{height: "500px"}}>
-            <div className="scrollable-list">
+        <div style={{height: "60%"}} className="user-container-list">
+            <div className="user-scrollable-list">
                 <div className="eventUser-list">
                     <ul className="list-group">
                         {eventUsers.map((event) => (
@@ -104,7 +104,7 @@ const User = () => {
     const [user, setUser] = useState(null);
     let { userId } = useParams();
     const [eventUsers, setEventUsers] = useState([]);
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function loadUser() {
@@ -116,15 +116,21 @@ const User = () => {
                 );
                 setEventUsers(allEventUsers.data);
             } catch (error) {
-                console.error(
-                    `Something went wrong while loading the user: \n${handleError(
-                        error
-                    )}`
-                );
-                console.error("Details:", error);
-                alert(
-                    "Something went wrong while loading the user! See the console for details."
-                );
+                if(error.response.status === 401 || error.response.status === 404){//if the user is not authorized for the event, get the user back to homescreen
+                    navigate("/home")
+
+                }
+                else {
+                    console.error(
+                        `Something went wrong while loading the user: \n${handleError(
+                            error
+                        )}`
+                    );
+                    console.error("Details:", error);
+                    alert(
+                        "Something went wrong while loading the user! See the console for details."
+                    );
+                }
             }
         }
         loadUser();

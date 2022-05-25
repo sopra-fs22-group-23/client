@@ -9,6 +9,8 @@ import pic from "../pictures/pic.png";
 import "../../styles/ui/DashboardButtons.scss";
 import { useState, useEffect } from "react";
 import { apiLoggedIn, handleError } from "../../helpers/api";
+import {getDomain} from "../../helpers/getDomain";
+
 
 const ProfileOverview = (props) => {
   const currentUsername = localStorage.getItem("username");
@@ -40,8 +42,14 @@ const ProfileOverview = (props) => {
     <div className="profile">
       <p className="hello">Hi {currentName}!</p>
       <div className="pic-description">
-        <img src={pic} className="profilePic" />
+
+          <img src={getDomain() + "/users/" + localStorage.getItem("userId") + "/image"} className={"profilePic"}
+               onError={({ currentTarget }) => {
+                   currentTarget.onerror = null; // prevents looping
+                   currentTarget.src = pic;
+               }}/>
         <p className="profile-description">{bio}</p>
+
       </div>
     </div>
   );
