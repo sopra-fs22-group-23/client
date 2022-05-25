@@ -53,6 +53,9 @@ const Login = () => {
             if(error.response.status === 400){
                 alert(`Please fill all inputs and make sure your email is in format email@domain.xx`)
             }
+            else if(error.response.status === 409){
+                alert(`This username is already taken, please choose a different one`)
+            }
             else{
                 alert(`Something went wrong during the login: \n${handleError(error)}`);
             }
