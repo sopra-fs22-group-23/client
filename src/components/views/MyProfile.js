@@ -202,7 +202,7 @@ const Profile = () => {
     loadTasks();
     setEventIds(loadEventIds());
     //setTaskList(await loadTasks());
-  }, [user]);
+  }, []);
 
   let content = "";
 
