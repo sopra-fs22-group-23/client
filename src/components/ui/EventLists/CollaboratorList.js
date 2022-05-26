@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { apiLoggedIn, handleError } from "../../../helpers/api";
 import PropTypes from "prop-types";
 import "../../../styles/ui/EventItem.scss";
-import pic from "../../pictures/pizza.jpeg";
+import pic from "../../pictures/badic.png";
 import { useNavigate } from "react-router";
 import moment from "moment";
+import {getDomain} from "../../../helpers/getDomain";
 
 const EventItem = ({ event }) => {
   let navigate = useNavigate();
@@ -15,7 +16,11 @@ const EventItem = ({ event }) => {
 
   return (
     <button className="event-item" onClick={routeChange}>
-      <img src={pic} className="img" />
+      <img src={getDomain() + "/events/" + event.id + "/image"} className={"img"}
+           onError={({ currentTarget }) => {
+             currentTarget.onerror = null; // prevents looping
+             currentTarget.src=pic;
+           }}/>
       <div className="info">
         <p className="event-name">{event.title}</p>
         <p className="event-information location-field">
@@ -62,11 +67,11 @@ const CollaboratorList = () => {
 
   if (events && token) {
     content = (
-      <ul class="list-group">
+      <div class="list-group">
         {events.map((event) => (
           <EventItem event={event} key={event.id} />
         ))}
-      </ul>
+      </div>
     );
   }
 

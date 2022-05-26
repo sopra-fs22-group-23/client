@@ -8,8 +8,7 @@ import Login from "./Login";
 const TitleScreen = () => {
     return (
         <div className={"title-screen"}>
-            <div className={"op-container"}></div>
-            <div className={"border-container"}></div>
+
             <div className={"login-container"}>
                 <Login/>
             </div>

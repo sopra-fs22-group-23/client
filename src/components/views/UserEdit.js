@@ -1,15 +1,10 @@
-import Header from "../ui/StandardComponents/Header";
 import React, { useEffect, useRef, useState } from "react";
 import { FormField } from "../ui/StandardComponents/FormField";
 import { apiLoggedIn, handleError } from "../../helpers/api";
 import { MyButton } from "../ui/StandardComponents/MyButton";
 import { useNavigate } from "react-router";
-import { useParams } from "react-router-dom";
 import "../../styles/views/EditEvent.scss";
 import "../../styles/views/NewEvent.scss";
-import InvitePopup from "../ui/PopUps/InvitePopup";
-import TaskPopup from "../ui/PopUps/TaskPopup";
-import PlacesInput from "./PlacesInput";
 
 const UserEdit = (props) => {
   const userId = localStorage.getItem("userId");
@@ -32,8 +27,6 @@ const UserEdit = (props) => {
   const [birthday, setBirthday] = useState(user.birthday);
   const [biography, setBiography] = useState(user.biography);
 
-
-  /*
   function handleUpload(){
     const formData = new FormData();
     formData.append('file', file);
@@ -41,12 +34,12 @@ const UserEdit = (props) => {
     for (var pair of formData.entries()) {
       console.log(pair[0]+ ', ' + pair[1]);
     }
-    const response = apiLoggedIn().post(`/events/${eventId}/image`, formData, {
+    const response = apiLoggedIn().post(`/users/${userId}/image`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     });
-  }*/
+  }
 
   const updateEvent = async () => {
     try {
@@ -63,18 +56,26 @@ const UserEdit = (props) => {
         `/users/${userId}`,
         requestBody
       );
-      //handleUpload();
-
+      handleUpload();
       window.location.reload();
     } catch (error) {
-      alert(
-        `Something went wrong during user update: \n${handleError(error)}`
-      );
+        if(error.response.status === 500 ){
+            alert("Hey, your username or email in not unique. You may want to be someone else, but sadly for you, the other person was faster:/")
+        }
+        else if(error.response.status === 400  && birthday !== user.birthday){
+            alert("Oh, are you from the future? Nice to know it. Do you know, whether we were invited to sopra apero?")
+        }
+        else if(error.response.status === 400  ){
+            alert("Hmm, can you receive messages on that email?")
+        }
+        else{
+            alert(
+                `Something went wrong during user update: \n${handleError(error)}`
+            );
+        }
     }
   };
 
-
-  if (phase === "edit") {
     return (
       <div className="edit-container">
         <p className="edit-title">Edit your profile:</p>
@@ -93,7 +94,7 @@ const UserEdit = (props) => {
 
         <FormField
           type={"date"}
-          label={"Date"}
+          label={"Birthday"}
           onChange={(date) => setBirthday(date)}
         />
 
@@ -109,12 +110,13 @@ const UserEdit = (props) => {
             onChange={(dis) => setBiography(dis)}
         />
 
-        {/*<div className="image-field">
-          <div>Add Image:</div>
+        <div className="image-field">
+          <div className={""}>Add Image:</div>
           <input type="file" onChange={handleChange}/>
           <img className={"img"} src={file}/>
-        </div>*/}
-        <div style={{ float: "right" }}>
+        </div>
+
+        <div>
           <MyButton
             onClick={() => updateEvent()}
             className={"SaveEvent"}
@@ -125,6 +127,5 @@ const UserEdit = (props) => {
         </div>
       </div>
     );
-  }
 };
 export default UserEdit;

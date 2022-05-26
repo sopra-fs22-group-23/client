@@ -29,13 +29,7 @@
   font-size: 22px;
   color: rgb(41, 99, 124);
   font-weight: 800;
-}
-
-.task-title {
-  align-content: start;
-  font-size: 22px;
-  color: rgb(41, 99, 124);
-  font-weight: 800;
+  margin-top: 20px;
 }
 
 .invite-btn {
@@ -53,11 +47,12 @@
 }
 
 .task-input {
-  border-radius: 8px;
-  vertical-align: middle;
-  align-items: center;
-  padding: 15px 4px;
-  border: 1px solid #e2f0f6;
-  background-color: black;
-  font-size: 12pt;
+  box-sizing: border-box;
+  height: 39px;
+  padding-left: 15px;
+  padding-right: 10px;
+  margin-bottom: 5px;
+  min-width: 300px;
+  border: 0.3px solid rgb(41, 99, 124);
+  border-radius: 12px;
 }

@@ -52,7 +52,7 @@
 
 .SaveEvent {
   margin-top: 15px;
-  //float: inline-start;
+  margin-left: 40%;
   justify-content: center;
 }
 
@@ -136,4 +136,15 @@ input[type="radio"]:checked:after {
   //object-fit: cover;
   max-width: 66.3vw;
   height: 330px;
+}
+
+.image-label {
+  font-size: 22px;
+  color: rgb(41, 99, 124);
+  font-weight: 800;
+  margin-bottom: 5%;
+}
+
+.image-input {
+  margin-bottom: 5%;
 }
