@@ -34,11 +34,16 @@ const UserEdit = (props) => {
     for (var pair of formData.entries()) {
       console.log(pair[0]+ ', ' + pair[1]);
     }
-    const response = apiLoggedIn().post(`/users/${userId}/image`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
+      try{
+          const response = apiLoggedIn().post(`/users/${userId}/image`, formData, {
+              headers: {
+                  'Content-Type': 'multipart/form-data'
+              }
+          });
       }
-    });
+      catch (error){
+          alert("We apologize, but the image is not compatible with profile image, please try to re-upload the image or choose  different image");
+      }
   }
 
   const updateEvent = async () => {
