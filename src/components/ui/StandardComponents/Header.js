@@ -69,7 +69,7 @@ const Header = (props) => {
                 >Login  <img src={getDomain() + "/users/" + localStorage.getItem("userId") + "/image"} className={"login-icon"}
                              onError={({ currentTarget }) => {
                                  currentTarget.onerror = null; // prevents looping
-                                 currentTarget.src=login;
+                                 currentTarget.src = pic;
                              }}/>
                 </button>
             );
