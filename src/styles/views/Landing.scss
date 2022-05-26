@@ -90,9 +90,8 @@ div::-webkit-scrollbar-thumb {
 }
 
 .logo-container {
-  //display: flex;
-  //justify-content: center;
-  //align-items: center;
+  z-index: 100 !important;
+  opacity: 0.99;
   margin-left: 30%;
   padding-top: 3%;
   padding-right: 40px;
@@ -111,7 +110,7 @@ div::-webkit-scrollbar-thumb {
 }
 
 .circle-three {
-  z-index: 0;
+  z-index: 10;
   width: 200px;
   height: 200px;
   background-color: lightsteelblue;
@@ -127,9 +126,6 @@ div::-webkit-scrollbar-thumb {
 }
 
 .circle-one {
-  //display: flex;
-  //display: table-cell;
-  //vertical-align: middle;
   z-index: 50;
   width: 180px;
   height: 180px;
@@ -147,44 +143,21 @@ div::-webkit-scrollbar-thumb {
   margin-right: auto;
 }
 
-.op-container {
+.login-container {
+  z-index: 0;
   position: absolute;
-  z-index: -25;
-  background-color: whitesmoke;
-  opacity: 1;
   min-width: 30vw;
-  min-height: 35vw;
-  margin-right: 10%;
-  margin-left: 34%;
-  margin-top: 7%;
-  border-radius: 10px;
-}
-
-.border-container {
-  position: absolute;
-  z-index: -20;
-  min-width: 30vw;
-  min-height: 35vw;
   margin-right: 10%;
   margin-left: 34%;
   margin-top: 7%;
   border: lightsteelblue 10px solid;
   border-radius: 10px;
-}
-
-.login-container {
-  position: absolute;
-  z-index: 200;
-  min-width: 30vw;
-  min-height: 35vw;
-  margin-right: 10%;
-  margin-left: 34%;
-  margin-top: 7%;
+  background-color: whitesmoke;
 }
 
 .scroll-btn {
   position: center;
-  z-index: 10000;
+  z-index: 10;
 }
 
 .scroll-img {

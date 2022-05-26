@@ -16,9 +16,19 @@ import {getDomain} from "../../../helpers/getDomain";
 
 const SmallProfileOverview = (props) => {
   let content = "";
+  let navigate = useNavigate();
+
+  function profileLink() {
+    if (props.admin.id === localStorage.getItem("userId")) {
+      return `/profile`;
+    } else {
+      return `/user/${props.admin.id}`;
+    }
+  }
+
   if (props.admin) {
     content = (
-      <div className="profile-container">
+      <div className="profile-container" onClick={() => navigate(profileLink())}>
         <div className="profile-info">
           <img src={getDomain() + "/users/" + localStorage.getItem("userId") + "/image"} className={"profile-pic"}
                onError={({ currentTarget }) => {
@@ -27,10 +37,7 @@ const SmallProfileOverview = (props) => {
                }}/>
           <p className="profile-name">{props.admin.username} </p>
         </div>
-        <div className="profile-description">
-          My name is {props.admin.username} and I’m a student at UZH. I love
-          organizing lasagne parties and coding. Let’s meet!
-        </div>
+        <div className="profile-description">{props.admin.biography}</div>
       </div>
     );
   }
