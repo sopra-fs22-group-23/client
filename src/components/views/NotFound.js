@@ -36,7 +36,7 @@ const NotFound = () => {
                                look at our.</p>
                        </div>
                        <div className={`${styles.errorNav} ${styles.eNav}`}>
-                           <a href="/home" target="_blank" className={`${styles.eNav__link}`}>&nbsp;</a>
+                           <a href="/home" className={`${styles.eNav__link}`}>&nbsp;</a>
                        </div>
                    </div>
 

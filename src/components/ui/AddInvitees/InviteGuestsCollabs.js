@@ -414,9 +414,8 @@ const InviteGuestsCollabs = (props) => {
             <div
               className="scrollable-list"
               style={{
-                "padding-top": "0px",
-                "scroll-padding-top": "0px",
                 "padding-top": "0px !important",
+                "scroll-padding-top": "0px",
               }}
             >
               {allInvitees}

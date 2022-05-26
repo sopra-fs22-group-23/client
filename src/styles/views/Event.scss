@@ -39,6 +39,7 @@
     display: flex;
     padding-left: 27px;
     padding-top: 25px;
+    cursor: pointer;
     .profile-pic {
       height: 88px;
       width: 88px;
@@ -58,6 +59,7 @@
     line-height: auto;
     padding-bottom: 25px;
     margin-left: 30px;
+    margin-right: 30px;
     margin-top: 20px;
   }
 }

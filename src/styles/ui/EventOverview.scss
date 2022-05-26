@@ -64,6 +64,10 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+
+  img {
+    filter: invert(28%) sepia(85%) saturate(365%) hue-rotate(154deg) brightness(97%) contrast(88%);
+  }
 }
 
 .location-spec-map {
