@@ -126,3 +126,14 @@ input[type="radio"]:checked:after {
   padding-right: 30px;
   min-width: 300px;
 }
+
+.background {
+  position: absolute;
+  z-index: -100;
+  margin-left: 72%;
+  margin-top: 5%;
+  size: 120%;
+  //object-fit: cover;
+  max-width: 66.3vw;
+  height: 330px;
+}
