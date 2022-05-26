@@ -74,7 +74,7 @@ const EventEdit = (props) => {
         eventDate,
         longitude,
         latitude,
-        gameMode
+        gameMode,
       });
       const response = await apiLoggedIn().put(
         `/events/${eventId}`,
@@ -110,7 +110,7 @@ const EventEdit = (props) => {
         longitude,
         latitude,
         status,
-        gameMode
+        gameMode,
       });
       const response = await apiLoggedIn().put(
         `/events/${eventId}`,
@@ -152,19 +152,19 @@ const EventEdit = (props) => {
         <div onChange={changeGameMode} className="event-type">
           <p className="event-type__label">Type</p>
           <input
-              type="radio"
-              value="ON"
-              name="type"
-              defaultChecked ={props.event.gameMode === "ON"}
-              className="event-type__value"
+            type="radio"
+            value="ON"
+            name="type"
+            defaultChecked={props.event.gameMode === "ON"}
+            className="event-type__value"
           />
           <p className="event-type__name">Stealing mode</p>
           <input
-              type="radio"
-              value="OFF"
-              name="type"
-              defaultChecked ={props.event.gameMode === "OFF"}
-              className="event-type__value"
+            type="radio"
+            value="OFF"
+            name="type"
+            defaultChecked={props.event.gameMode === "OFF"}
+            className="event-type__value"
           />
           <p className="event-type__name">Normal mode</p>
         </div>
@@ -177,7 +177,7 @@ const EventEdit = (props) => {
         <div style={{ float: "right" }}>
           <MyButton
             onClick={() => setPhase("cancel")}
-            className={"SaveEvent"}
+            className="SaveEvent2"
             style={{
               "background-color": "DarkRed",
               width: "145px",
@@ -188,7 +188,7 @@ const EventEdit = (props) => {
           </MyButton>
           <MyButton
             onClick={() => updateEvent()}
-            className={"SaveEvent"}
+            className={"SaveEvent2"}
             style={{ width: "145px" }}
           >
             Save
@@ -209,14 +209,14 @@ const EventEdit = (props) => {
         <div style={{ display: "flex" }}>
           <MyButton
             onClick={() => setPhase("edit")}
-            className={"SaveEvent"}
+            className={"SaveEvent3"}
             style={{ "margin-right": "10px" }}
           >
             Back
           </MyButton>
           <MyButton
             onClick={() => [cancelEvent(), window.location.reload()]}
-            className={"SaveEvent"}
+            className={"SaveEvent3"}
             style={{ "background-color": "DarkRed" }}
           >
             Cancel
