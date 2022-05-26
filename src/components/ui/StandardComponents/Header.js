@@ -129,7 +129,11 @@ class Toggler extends React.Component {
         return (
             <div>
                 <button onClick={() => this.ToggleButton()}>
-                    <img src={user} className={"profile-image"}/>
+                    <img src={getDomain() + "/users/" + localStorage.getItem("userId") + "/image"} className={"profile-image"}
+                         onError={({ currentTarget }) => {
+                             currentTarget.onerror = null; // prevents looping
+                             currentTarget.src = user;
+                         }}/>
                 </button>
                 {!this.state.textflag && this.props.text}
             </div>
