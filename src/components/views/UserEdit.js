@@ -34,7 +34,7 @@ const UserEdit = (props) => {
     for (var pair of formData.entries()) {
       console.log(pair[0]+ ', ' + pair[1]);
     }
-    const response = apiLoggedIn().post(`/events/${userId}/image`, formData, {
+    const response = apiLoggedIn().post(`/users/${userId}/image`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
