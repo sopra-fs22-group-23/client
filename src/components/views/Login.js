@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import "../../styles/views/Login.scss";
 import "../../styles/ui/MyButton.scss";
 import { useNavigate } from "react-router";
@@ -13,10 +13,17 @@ const Login = () => {
   const [biography, setBiography] = useState(
     "Hi all! I am new user on WeVent. Let's connect :)"
   );
+    const [phase, setPhase] = useState("login");
+    let content;
+    const navigate = useNavigate();
 
-  const [phase, setPhase] = useState("login");
-  let content;
-  const navigate = useNavigate();
+  useEffect(() => {
+      if(localStorage.getItem('userId')){
+          navigate("/browse")
+      }
+  }, [])
+
+
 
   const doLogin = async () => {
     try {
@@ -101,6 +108,9 @@ const Login = () => {
               alert(`Your username is not unique`);
           } else if (error.response.status === 500) {
               alert(`Your your email is not unique, it seems like you have schizophrenia and your alter-ego already registered for you, please provide unique email!`);
+          }
+          else if (error.response.status === 400) {
+              alert(`Please provide valid email with format "user@domain.xx"`);
           }
           else{
               alert(`Something went wrong during the register: \n${handleError(error)}`);
