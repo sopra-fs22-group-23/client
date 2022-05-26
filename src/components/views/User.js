@@ -97,11 +97,13 @@ const EventItem = ({ event }) => {
 
     return (
         <button className="eventUser-item" onClick={routeChange}>
-            <img src={getDomain() + "/events/" + localStorage.getItem("userId") + "/image"} className={"eventUser-img"}
-                 onError={({ currentTarget }) => {
-                     currentTarget.onerror = null; // prevents looping
-                     currentTarget.src = badic;
-                 }}/>
+            <div className={"fixed-img-container"}>
+                <img src={getDomain() + "/events/" + event.id + "/image"} className={"eventUser-img"}
+                     onError={({ currentTarget }) => {
+                         currentTarget.onerror = null; // prevents looping
+                         currentTarget.src = badic;
+                     }}/>
+            </div>
             <div className="eventUser-info">
                 <p className="eventUser-name">{event.title}</p>
                 <p className="eventUser-information">

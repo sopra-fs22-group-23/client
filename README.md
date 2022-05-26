@@ -7,7 +7,18 @@
 The technologies that we used were npm and react. Thereby, we implemented the code in the languages JavaScript, CSS, and HTML. Additionally, we implemented the google maps API.
 
 ### High-level Components
-**_TODO_: needs to be added**
+<b>Dashboard: </b><br>
+This component acts as the main interface for registered users.
+Here users are reminded of upcoming events they joined and are given the option to create their own events.<br><br>
+<b>Browse: </b><br>
+The brose page lets users discover and join public events created by other users.
+Public events can be filtered. Events in a user's area can be found on the Google Map.<br><br>
+<b>Event Overview: </b><br>
+On an event's overview page a user is given different options according to his role in the planning process of said event.
+Admins can change and cancel events, collaborators can check tasks and join planning sessions and guests can simply join or unjoin an event.<br><br>
+<b>Task Session: </b><br>
+When joining a session via an event's overview page collaborators and admins can assign tasks to other collaborators... in real time!
+A user is then able to check the tasks assigned to him/her on his/her profile page.<br>
 
 ### Launch and Deployment
 
@@ -37,8 +48,8 @@ See the section about [running tests](https://create-react-app.dev/docs/running-
 Builds the app for production to the build folder. It's now ready to be deployed. See the section about [deployment](https://create-react-app.dev/docs/deployment/) for more information.
 
 ### Illustration (_Maybe add some images_)
-Lets see how the Application works. Thereby a walk through will be conducted for the main functionalities. The following main steps have to be performed:
-1. Login or Register through the Correspondin page. Additionally, this `landing page` includes an integrated google map where all public events are displayed.
+Let's see how the Application works. Thereby a walk through will be conducted for the main functionalities. The following main steps have to be performed:
+1. Login or Register through the Corresponding page. Additionally, this `landing page` includes an integrated google map where all public events are displayed.
 2. After one has Logged in or registered, one comes to their personal overview page. This page includes all public events and all private events for this specific user.
 3. One can create an event by clicking on the create Event button.
 4. After adding the event details the user navigates through the invitation pages for the guests and collaborators.
