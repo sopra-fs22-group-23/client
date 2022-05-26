@@ -54,7 +54,7 @@ const EventOverview = (props) => {
                 <div className="event-title">{props.event.title}</div>
                 <div className="event-description">{props.event.description}</div>
                 <div className="event-organizer">
-                    <img src={getDomain() + "/users/" + localStorage.getItem("userId") + "/image"} className={"small-profile-pic"}
+                    <img src={getDomain() + "/users/" + props.admin.id + "/image"} className={"small-profile-pic"}
                          onError={({ currentTarget }) => {
                              currentTarget.onerror = null; // prevents looping
                              currentTarget.src = pic;

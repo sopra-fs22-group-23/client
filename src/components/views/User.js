@@ -7,6 +7,7 @@ import pic from "../pictures/pic.png";
 import badic from "../pictures/badic.png";
 import { useNavigate } from "react-router";
 import moment from "moment";
+import {getDomain} from "../../helpers/getDomain";
 
 const ProfileOverview = (props) => {
     let user = props.user;
@@ -14,26 +15,72 @@ const ProfileOverview = (props) => {
     return (
         <div className="user">
             <div className="pic-description">
-                <img src={pic} className="userPic" />
-                <p className="hello-user">@{user.username}</p>
+                <img src={getDomain() + "/users/" + user.id + "/image"} className={"userPic"}
+                     onError={({ currentTarget }) => {
+                         currentTarget.onerror = null; // prevents looping
+                         currentTarget.src = pic;
+                     }}/>
+                <p className="hello-user">  @{user.username}</p>
             </div>
             <p></p>
             <div style={{height: "60%"}} className="user-container-list">
-                <div className="user-scrollable-list">
-                    <p className="user-title">Username:</p>
-                    <p className="user-description">{user.username}</p>
-                    <p className="user-title">Name:</p>
-                    <p className="user-description">{user.name}</p>
-                    <p className="user-title">Status:</p>
-                    <p className="user-description">{user.status}</p>
-                    <p className="user-title">Email:</p>
-                    <p className="user-description">{user.email}</p>
-                    <p className="user-title">Password:</p>
-                    <p className="user-description">*****</p>
-                    <p className="user-title">Birthday:</p>
-                    <p className="user-description">{user.birthday}</p>
-                    <p className="user-title">Biography:</p>
-                    <p className="user-description">{user.biography}</p>
+                <div className="container">
+                    <div className={"row"}>
+                        <div className={"col-4"}>
+                            <p className="user-title">Username:</p>
+                        </div>
+                        <div className={"col-7"}>
+                            <p className="user-description">{user.username}</p>
+                        </div>
+                    </div>
+                    <div className={"row"}>
+                        <div className={"col-4"}>
+                            <p className="user-title">Name:</p>
+                        </div>
+                        <div className={"col-7"}>
+                            <p className="user-description">{user.name}</p>
+                        </div>
+                    </div>
+                    <div className={"row"}>
+                        <div className={"col-4"}>
+                            <p className="user-title">Email:</p>
+                        </div>
+                        <div className={"col-7"}>
+                            <p className="user-description">{user.email}</p>
+                        </div>
+                    </div>
+                    <div className={"row"}>
+                        <div className={"col-4"}>
+                            <p className="user-title">Password:</p>
+                        </div>
+                        <div className={"col-7"}>
+                            <p className="user-description">*****</p>
+                        </div>
+                    </div>
+                    <div className={"row"}>
+                        <div className={"col-4"}>
+                            <p className="user-title">Status:</p>
+                        </div>
+                        <div className={"col-7"}>
+                            <p className="user-description">{user.status}</p>
+                        </div>
+                    </div>
+                    <div className={"row"}>
+                        <div className={"col-4"}>
+                            <p className="user-title">Birthday:</p>
+                        </div>
+                        <div className={"col-7"}>
+                            <p className="user-description">{user.birthday}</p>
+                        </div>
+                    </div>
+                    <div className={"row"}>
+                        <div className={"col-4"}>
+                            <p className="user-title">Biography:</p>
+                        </div>
+                        <div className={"col-7"}>
+                            <p className="user-description user-bio">{user.biography}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,7 +97,11 @@ const EventItem = ({ event }) => {
 
     return (
         <button className="eventUser-item" onClick={routeChange}>
-            <img src={badic} className="eventUser-img" />
+            <img src={getDomain() + "/events/" + localStorage.getItem("userId") + "/image"} className={"eventUser-img"}
+                 onError={({ currentTarget }) => {
+                     currentTarget.onerror = null; // prevents looping
+                     currentTarget.src = badic;
+                 }}/>
             <div className="eventUser-info">
                 <p className="eventUser-name">{event.title}</p>
                 <p className="eventUser-information">
@@ -71,7 +122,7 @@ const EventUserList = ({ eventUsers }) => {
 
 
     return (
-        <div style={{height: "60%"}} className="user-container-list">
+        <div style={{height: "60%"}} className="user-container-list cl">
             <div className="user-scrollable-list">
                 <div className="eventUser-list">
                     <ul className="list-group">

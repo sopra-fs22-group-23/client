@@ -1,12 +1,16 @@
 .user {
   width: 100%;
   margin-top: 40px;
+  margin-left: 3em;
 
   .userPic {
     height: 100px;
     margin-left: 5px;
+    margin-right: 25px;
     margin-top: 5px;
+    margin-bottom: 1em;
     width: 100px;
+    border-radius: 100%;
   }
 
   .hello-user {
@@ -20,18 +24,18 @@
 
   .user-description {
     font-size: 15px;
-    height: 8px;
+    //height: 8px;
     color: #000000;
-    margin-left: 50px;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    //margin-left: 50px;
+    //margin-bottom: 20px;
+    //margin-top: 20px;
   }
 
   .user-title {
     font-size: 18px;
-    height: 10px;
+    //height: 10px;
     color: #1c4a5f;
-    margin-left: 28px;
+    //margin-left: 28px;
     font-weight: bold;
   }
 
@@ -95,17 +99,20 @@
   display: flex;
 
   .event-tasks {
+    font-size: 12pt;
+    color: #00388c;
+    margin-bottom: -2px;
+    font-weight: 400;
     display: flex;
     flex-direction: row;
-    font-size: 20px;
     text-align: left;
   }
 }
 
 .user-buttons {
-  display: flex;
-  flex-direction: row;
-  margin: 35px 0 0 30px;
+  //display: flex;
+  //flex-direction: row;
+  //margin: 35px 0 0 30px;
 
   .user-button {
     border-radius: 13px;
@@ -117,9 +124,8 @@
     border-radius: 13px;
     height: 60px;
     width: 220px;
-    margin-right: 26px;
+    margin-top: 1em;
     background-color: #29627c;
-    margin-right: 26px;
   }
   .user-label {
     vertical-align: top;
@@ -128,13 +134,18 @@
     color: #ffffff;
   }
 }
-
-
+.lc {
+  margin-top: -20px;
+}
+.cl {
+  width: 80% !important;
+}
 .user-container-list {
   position: fixed;
   height: 100%;
   display: flex;
-  margin-top: 0px!important;
+  margin-top: unset !important;
+  width: 40%;
 
   .user-scrollable-list {
     padding-right: 15px;
@@ -142,6 +153,17 @@
     overflow-y: scroll;
     min-width: 500px;
     padding-bottom: 20px;
+  }
+
+  .task-list-scroll {
+    height: 120px;
+    overflow-y: scroll;
+  }
+
+  .task-field {
+    padding-top: 20px;
+    padding-bottom: 1em;
+    width: 260px;
   }
 }
 

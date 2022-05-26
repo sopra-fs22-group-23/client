@@ -54,14 +54,11 @@ const SmallProfileOverview = (props) => {
         onClick={() => navigate(profileLink())}
       >
         <div className="profile-info">
-          <img
-            src={getDomain() + "/users/" + props.admin.id + "/image"}
-            className={"profile-pic"}
-            onError={({ currentTarget }) => {
-              currentTarget.onerror = null; // prevents looping
-              currentTarget.src = pic;
-            }}
-          />
+          <img src={getDomain() + "/users/" + props.admin.id + "/image"} className={"profile-pic"}
+               onError={({ currentTarget }) => {
+                 currentTarget.onerror = null; // prevents looping
+                 currentTarget.src = pic;
+               }}/>
           <p className="profile-name">{props.admin.username} </p>
         </div>
         <div className="profile-description">{props.admin.biography}</div>
