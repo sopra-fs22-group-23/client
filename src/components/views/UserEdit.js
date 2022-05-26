@@ -42,9 +42,7 @@ const UserEdit = (props) => {
           });
       }
       catch (error){
-          if(error.response.status === 500){
-              alert("We apologize, but the image is not compatible with profile image, please try to re-upload the image or choose  different image");
-          }
+          alert("We apologize, but the image is not compatible with profile image, please try to re-upload the image or choose  different image");
       }
   }
 
@@ -64,7 +62,7 @@ const UserEdit = (props) => {
         requestBody
       );
       handleUpload();
-      // window.location.reload();
+      window.location.reload();
     } catch (error) {
         if(error.response.status === 500 ){
             alert("Hey, your username or email in not unique. You may want to be someone else, but sadly for you, the other person was faster:/")
