@@ -191,6 +191,7 @@ const InviteGuestsCollabs = (props) => {
   //changes phase (from selecting guests to selecting collaborators)
   const changePopUp = () => {
     setPhase("collaborators");
+    props.setBar3();
     setGuests([...invitees]);
   };
 

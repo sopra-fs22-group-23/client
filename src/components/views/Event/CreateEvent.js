@@ -8,11 +8,16 @@ import "../../../styles/views/EditEvent.scss";
 import moment from "moment";
 import InviteGuestsCollabs from "../../ui/AddInvitees/InviteGuestsCollabs";
 import PlacesInput from "../PlacesInput";
+import Bar1 from "../../pictures/Bar1.svg";
+import Bar2 from "../../pictures/Bar2.svg";
+import Bar3 from "../../pictures/Bar3.svg";
+import Bar4 from "../../pictures/Bar4.svg";
 
 const CreateEvent = (props) => {
   const navigate = useNavigate();
 
   const [phase, setPhase] = useState("infos");
+  const [progressBar, setProgressBar] = useState(Bar1);
 
   let content;
   const [eventId, setEventId] = useState(null);
@@ -45,6 +50,7 @@ const CreateEvent = (props) => {
       const response = await apiLoggedIn().post(`/events`, requestBody);
       setEventId(response.data.id);
       setPhase("guests-collaborators");
+      setProgressBar(Bar2);
     } catch (error) {
       alert(
         `Something went wrong during event creation: \n${handleError(error)}`
@@ -151,6 +157,11 @@ const CreateEvent = (props) => {
 
   const setPhase3 = () => {
     setPhase("picture");
+    setProgressBar(Bar4);
+  };
+
+  const setBar3 = () => {
+    setProgressBar(Bar3);
   };
 
   const chooseContent = () => {
@@ -161,6 +172,7 @@ const CreateEvent = (props) => {
       content = (
         <InviteGuestsCollabs
           setPhase3={setPhase3.bind(this)}
+          setBar3={setBar3.bind(this)}
           eventId={eventId}
         />
       );
@@ -174,6 +186,8 @@ const CreateEvent = (props) => {
   return (
     <div>
       <Header />
+
+      <img src={progressBar} className="background" />
       <div className="create-container">{chooseContent()}</div>
     </div>
   );
