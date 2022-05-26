@@ -30,7 +30,7 @@ const SmallProfileOverview = (props) => {
     content = (
       <div className="profile-container" onClick={() => navigate(profileLink())}>
         <div className="profile-info">
-          <img src={getDomain() + "/users/" + localStorage.getItem("userId") + "/image"} className={"profile-pic"}
+          <img src={getDomain() + "/users/" + props.admin.id + "/image"} className={"profile-pic"}
                onError={({ currentTarget }) => {
                  currentTarget.onerror = null; // prevents looping
                  currentTarget.src = pic;
