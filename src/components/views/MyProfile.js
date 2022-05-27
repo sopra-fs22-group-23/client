@@ -90,11 +90,13 @@ const EventItem = (props) => {
 
   return (
     <button className="eventUser-item" onClick={routeChange}>
-      <img src={getDomain() + "/events/" + event.id + "/image"} className={"eventUser-img"}
-           onError={({ currentTarget }) => {
-             currentTarget.onerror = null; // prevents looping
-             currentTarget.src = badic;
-           }}/>
+      <div className={"my-fixed-img-container"}>
+        <img src={getDomain() + "/events/" + event.id + "/image"} className={"eventUser-img"}
+             onError={({ currentTarget }) => {
+               currentTarget.onerror = null; // prevents looping
+               currentTarget.src = badic;
+             }}/>
+      </div>
       <div className="event-overview">
         <div className="col-6">
           <div className="container">

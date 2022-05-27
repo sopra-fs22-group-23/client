@@ -71,7 +71,7 @@ const EventOverview = (props) => {
                     <div className="row">
                         <div className="col event-information-element">
                             💪🏼 &nbsp;Collaborators:&nbsp;
-                            <div>{props.collaborators.map(function(user){return user.username}).join(' ,')}</div>
+                            <div>{props.collaborators.map(function(user){return user.username}).join(', ')}</div>
                         </div>
                         <div className="col event-information-element">
                             &nbsp;📍 &nbsp;&nbsp;

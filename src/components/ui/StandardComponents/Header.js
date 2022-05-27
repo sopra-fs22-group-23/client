@@ -66,10 +66,10 @@ const Header = (props) => {
                 <button
                     className={"button-scroll-login"}
                     onClick={() => navigate("/")}
-                >Login  <img src={getDomain() + "/users/" + localStorage.getItem("userId") + "/image"} className={"login-icon"}
+                >Login  <img  src={getDomain() + "/users/" + localStorage.getItem("userId") + "/image"} className={"login-icon"}
                              onError={({ currentTarget }) => {
                                  currentTarget.onerror = null; // prevents looping
-                                 currentTarget.src = pic;
+                                 currentTarget.src = login;
                              }}/>
                 </button>
             );
