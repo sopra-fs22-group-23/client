@@ -17,27 +17,7 @@ import { useNavigate } from "react-router";
 const SmallProfileOverview = (props) => {
   let content = "";
   let navigate = useNavigate();
-  const [bio, setBio] = useState("");
   const myId = localStorage.getItem("userId");
-
-  useEffect(() => {
-    async function loadBio() {
-      try {
-        const response = await apiLoggedIn().get(`/users/${myId}`);
-        const myProfile = response.data;
-        setBio(myProfile.biography);
-      } catch (error) {
-        console.error(
-          `Something went wrong while loading the bio: \n${handleError(error)}`
-        );
-        console.error("Details:", error);
-        alert(
-          "Something went wrong while loading the bio! See the console for details."
-        );
-      }
-    }
-    loadBio();
-  }, []);
 
   function profileLink() {
     if (props.admin.id === localStorage.getItem("userId")) {
@@ -54,11 +34,14 @@ const SmallProfileOverview = (props) => {
         onClick={() => navigate(profileLink())}
       >
         <div className="profile-info">
-          <img src={getDomain() + "/users/" + props.admin.id + "/image"} className={"profile-pic"}
-               onError={({ currentTarget }) => {
-                 currentTarget.onerror = null; // prevents looping
-                 currentTarget.src = pic;
-               }}/>
+          <img
+            src={getDomain() + "/users/" + props.admin.id + "/image"}
+            className={"profile-pic"}
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null; // prevents looping
+              currentTarget.src = pic;
+            }}
+          />
           <p className="profile-name">{props.admin.username} </p>
         </div>
         <div className="profile-description">{props.admin.biography}</div>
