@@ -144,12 +144,12 @@ const CreateEvent = (props) => {
   );
 
   //Phase 3: picture
-  //TODO: add component
   const picture = (
     <div className="image-field">
         <p className={"image-label"}>Add image:</p>
-          <input type="file" className={"image-input"} onChange={handleChange}/>
+          <input type="file" onChange={handleChange}/>
           <img className={"img"} src={file}/>
+        <p className={"image-limit"}>(Max size 1.5MB)</p>
 
       <MyButton onClick={() => [handleUpload(), navigate(`/event/${eventId}`)]}>Save! </MyButton>
     </div>

@@ -89,38 +89,34 @@ const UserEdit = (props) => {
           placeholder={"..."}
           onChange={(ti) => setUsername(ti)}
         />
-
         <FormField
           label={"Name"}
           placeholder={"..."}
           onChange={(dis) => setName(dis)}
         />
-
-
         <FormField
           type={"date"}
           label={"Birthday"}
           onChange={(date) => setBirthday(date)}
         />
-
         <FormField
             label={"Email"}
             placeholder={"..."}
             onChange={(dis) => setEmail(dis)}
         />
-
         <FormField
             label={"Biography"}
             placeholder={"..."}
             onChange={(dis) => setBiography(dis)}
         />
-
-        <div className="image-field">
-          <div className={""}>Add Image:</div>
-          <input type="file" onChange={handleChange}/>
-          <img className={"img"} src={file}/>
+        <div className="image-field mt-2 row">
+          <div className={"add-img col-4"}>Add Image:</div>
+            <div className={"col-8"}>
+                <input type="file" className={"profile-img-input"} onChange={handleChange}/>
+                <img className={"img profile-img-input"} src={file}/>
+            </div>
+            <p className={"add-img-limit"}>(Max size 1.5MB)</p>
         </div>
-
         <div>
           <MyButton
             onClick={() => updateEvent()}
