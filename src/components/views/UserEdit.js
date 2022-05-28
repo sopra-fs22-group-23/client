@@ -1,16 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { FormField } from "../ui/StandardComponents/FormField";
 import { apiLoggedIn, handleError } from "../../helpers/api";
 import { MyButton } from "../ui/StandardComponents/MyButton";
-import { useNavigate } from "react-router";
 import "../../styles/views/EditEvent.scss";
 import "../../styles/views/NewEvent.scss";
 
 const UserEdit = (props) => {
   const userId = localStorage.getItem("userId");
   const user = props.user;
-  const navigate = useNavigate();
-  let [phase, setPhase] = useState("edit");
 
   console.log(userId);
   const [file, setFile] = useState(null);
@@ -23,7 +20,6 @@ const UserEdit = (props) => {
   const [username, setUsername] = useState(user.username);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
-  const [password, setPassword] = useState(null);
   const [birthday, setBirthday] = useState(user.birthday);
   const [biography, setBiography] = useState(user.biography);
 
@@ -52,12 +48,11 @@ const UserEdit = (props) => {
       const requestBody = JSON.stringify({
         username,
         name,
-        password,
         birthday,
         biography,
         email,
       });
-      const response = await apiLoggedIn().put(
+      await apiLoggedIn().put(
         `/users/${userId}`,
         requestBody
       );

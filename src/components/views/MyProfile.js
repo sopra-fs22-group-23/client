@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../ui/StandardComponents/Header";
 import "../../styles/views/User.scss";
-import { apiLoggedIn, handleError } from "../../helpers/api";
+import { apiLoggedIn } from "../../helpers/api";
 import pic from "../pictures/pic.png";
 import badic from "../pictures/badic.png";
 import { useNavigate } from "react-router";
