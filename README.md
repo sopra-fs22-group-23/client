@@ -51,18 +51,25 @@ Builds the app for production to the build folder. It's now ready to be deployed
 Let's see how the Application works. Thereby a walk through will be conducted for the main functionalities. The following main steps have to be performed:
 1. Login or Register through the Corresponding page. Additionally, this `landing page` includes an integrated google map where all public events are displayed.
 <img src="src/components/pictures/readMe/5_Browse.JPG">
+
 2. After one has Logged in or registered, one comes to their `personal overview` page. This page includes all public events and all private events for this specific user.
 <img src="src/components/pictures/readMe/1_Dashboard.JPG">
-3. One can create an event by clicking on the create event button.
+
+3. One can create an event by clicking on the create event button. 
+
 4. After adding the event details the user navigates through the invitation pages for the guests and collaborators.
 <img src="src/components/pictures/readMe/EventCreation.JPG">
 <img src="src/components/pictures/readMe/EventCreationGuests.JPG">
+
 5. After the event is created the `event overview` page is shown.
 <img src="src/components/pictures/readMe/2_EventOverview.JPG">
+
 6. Before the interactive `session` can be started, the user has to add tasks that relate to the event.
 <img src="src/components/pictures/readMe/TaskCreation.JPG">
+
 7. Then the `session` can be started, and every invited collaborator can take part. During this session the tasks can be assigned.
 <img src="src/components/pictures/readMe/3_Session.JPG">
+
 8. After this walk through of how to create and plan an event, a further functionality is the user profile page. This page includes all the user detail and the events with their corresponding  tasks the specific user has.
 <img src="src/components/pictures/readMe/4_ProfilePage.JPG">
 
