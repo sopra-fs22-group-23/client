@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback, useRef} from "react";
 import {Navbar} from "react-bootstrap";
 import "../../../styles/views/Header.scss";
 import {useNavigate} from "react-router";
@@ -10,6 +10,17 @@ import login from "../../pictures/previous.png";
 import settings from "../../pictures/settings.png";
 import {getDomain} from "../../../helpers/getDomain";
 import pic from "../../pictures/badic.png";
+import ReactCanvasConfetti from "react-canvas-confetti";
+
+const canvasStyles = {
+    position: "fixed",
+    pointerEvents: "none",
+    width: "100%",
+    height: "100%",
+    top: 0,
+    left: 0,
+    zIndex: 10000
+};
 
 const Header = (props) => {
     const navigate = useNavigate();
@@ -91,12 +102,57 @@ const Header = (props) => {
         }
     }
 
+    const refAnimationInstance = useRef(null);
+
+    const getInstance = useCallback((instance) => {
+        refAnimationInstance.current = instance;
+    }, []);
+
+    const makeShot = useCallback((particleRatio, opts) => {
+        refAnimationInstance.current &&
+        refAnimationInstance.current({
+            ...opts,
+            origin: { y: 0.7 },
+            particleCount: Math.floor(200 * particleRatio)
+        });
+    }, []);
+
+    const fire = useCallback(() => {
+        makeShot(0.25, {
+            spread: 26,
+            startVelocity: 55
+        });
+
+        makeShot(0.2, {
+            spread: 60
+        });
+
+        makeShot(0.35, {
+            spread: 100,
+            decay: 0.91,
+            scalar: 0.8
+        });
+
+        makeShot(0.1, {
+            spread: 120,
+            startVelocity: 25,
+            decay: 0.92,
+            scalar: 1.2
+        });
+
+        makeShot(0.1, {
+            spread: 120,
+            startVelocity: 45
+        });
+    }, [makeShot]);
+
     return (
+        <>
         <Navbar className="color-nav">
             <div class="container-fluid">
                 <button
                     className={"navbar-brand"}
-                    onClick={() => nav()}>
+                    onClick={() => {nav(); fire()}}>
                     <img src={logo} width={"230"} className={"mt-2"}></img>
                 </button>
                 <div className={"nav-container"}>
@@ -110,7 +166,12 @@ const Header = (props) => {
                 </div>
             </div>
         </Navbar>
+            <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
+        </>
+
     );
+
+
 };
 
 class Toggler extends React.Component {
